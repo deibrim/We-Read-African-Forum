@@ -1,0 +1,126 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+.sign-in-page {
+  text-align: left;
+  margin-top: -160px;
+  @include tablet() {
+    margin-top: -130px;
+  }
+  @include smartphone() {
+    margin-top: -90px;
+  }
+  .back {
+    position: absolute;
+    left: 40px;
+    display: flex;
+    align-items: center;
+    margin-top: 18px;
+    img {
+      margin-right: 7px;
+      width: 22px;
+      height: 22px;
+    }
+    @include smartphone() {
+      display: none;
+    }
+  }
+  .left-right {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 0 8%;
+    height: 90vh;
+    @include smartphone() {
+      padding: 0;
+    }
+    .left,
+    .right {
+      max-width: 50%;
+      width: 100%;
+      height: 90vh;
+    }
+    .left {
+      display: flex;
+      flex-direction: column;
+      // align-items: center;
+      justify-content: center;
+      text-align: left;
+      @include tablet() {
+        display: none;
+        visibility: hidden;
+      }
+      .logo {
+        width: 250px;
+        height: 170px;
+      }
+      .join-tribe {
+        p {
+          margin: 30px 0;
+        }
+      }
+      .social {
+        margin-top: 20px;
+        .icon {
+          cursor: pointer;
+          width: 24px;
+          height: 24px;
+          display: inline-flex;
+          margin-right: 10px;
+
+          img {
+            margin: auto;
+            width: 100%;
+          }
+        }
+      }
+    }
+    .right {
+      position: relative;
+      height: 90vh;
+      @include tablet() {
+        max-width: 100%;
+      }
+      .vertical,
+      .horizontal {
+        position: fixed;
+        width: 280px;
+        height: 93vh;
+        left: 877px;
+        top: 0px;
+        clip-path: inset(0 11% 0 10%);
+        background-color: $primaryColor;
+        z-index: -1;
+      }
+      .horizontal {
+        right: 0;
+        height: 730px;
+        transform: rotate(-90deg);
+      }
+    }
+  }
+  .pattern {
+    position: relative;
+    img {
+      position: fixed;
+      bottom: 0;
+      z-index: -2;
+    }
+  }
+}

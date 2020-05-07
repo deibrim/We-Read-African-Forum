@@ -1,0 +1,104 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+.custom-button {
+  min-width: 200px;
+  width: auto;
+  height: 40px;
+  letter-spacing: 0.5px;
+  line-height: 40px;
+  padding: 0px 20px;
+  font-size: 15px;
+  background-color: $primaryColor;
+  color: white;
+  text-transform: capitalize;
+  font-family: 'Open Sans Condensed';
+  font-weight: bolder;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    margin-right: 10px;
+  }
+  &:hover {
+    background-color: white;
+    color: #a3a3a3;
+    border: 1px solid #a3a3a3;
+  }
+
+  &.google-sign-in {
+    background-color: $secondaryColor;
+    border: 1px solid #a3a3a3;
+    color: #a3a3a3;
+    margin-right: 20px;
+
+    @include tablet() {
+      margin: 0;
+    }
+
+    &:hover {
+      background-color: #a3a3a3;
+      color: $secondaryColor;
+      border: none;
+    }
+  }
+
+  &.facebook-sign-in {
+    background-color: #3b5998;
+    color: white;
+    margin-left: 20px;
+
+    @include tablet() {
+      margin: 0;
+    }
+
+    &:hover {
+      background-color: #a3a3a3;
+      border: none;
+    }
+  }
+
+  &.acen {
+    background-color: #028289;
+    color: white;
+    margin-left: 20px;
+    width: 109px;
+    height: 30px;
+    line-height: 30px;
+
+    &:hover {
+      background-color: #a3a3a3;
+      border: none;
+    }
+  }
+
+  &.inverted {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+
+    &:hover {
+      background-color: black;
+      color: white;
+      border-color: white;
+    }
+  }
+}

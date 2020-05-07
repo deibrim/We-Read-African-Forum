@@ -1,0 +1,84 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+
+.sign-in {
+  // max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  box-shadow: 0px 4px 20px rgba(64, 27, 32, 0.15);
+  background-color: $secondaryColor;
+  .title {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 29px;
+    color: $primaryColor;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+
+    img {
+      margin-left: 10px;
+      width: 20px;
+      height: 20px;
+    }
+
+    button {
+      margin-bottom: 10px;
+    }
+
+    @include tablet() {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .or-sign-in-with {
+    font-size: 12px;
+    line-height: 14px;
+    margin: 20px 0;
+    color: #c4c4c4;
+  }
+
+  p {
+    margin: 30px 0;
+    span {
+      //   text-decoration: underline;
+      color: $primaryColor;
+      cursor: pointer;
+    }
+  }
+
+  .error {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: lighten($color: $primaryColor, $amount: 20);
+    color: $primaryColor;
+    padding: 3px 10px;
+    // border-radius: 10px;
+    font-weight: 600;
+    z-index: 99;
+  }
+}

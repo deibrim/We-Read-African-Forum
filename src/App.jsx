@@ -4,20 +4,36 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import {
   auth,
-  firestore,
-  createUserProfileDocument,
-  convertFavSnapshotToMap
+  // firestore,
+  createUserProfileDocument
 } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
+import Header from './components/header/header';
+import Footer from './components/footer/footer';
+import Loader from './components/loader/loader';
+/*==============================*/
+/*PAGES*/
+/*==============================*/
+import UserProfilePage from './pages/user-profile-page/user-profile-page';
+import SignInPage from './pages/sign-in/sign-in-page';
+import SignUpPage from './pages/sign-up/sign-up-page';
+import NotFound from './pages/notfoundpage/NotFoundPage';
+import MobileHeader from './components/mobile-header/mobile-header';
+
 import './App.scss';
 
 class App extends React.Component {
   state = {
-    isLoading: true,
-    isShowSearch: false
+    isLoading: false,
+    isShowSearch: false,
+    hasError: false
   };
   unSubscribeFromAuth = null;
+  componentDidCatch(error, info) {
+    this.setState({ hasError: true });
+    console.log(info);
+  }
   componentDidMount() {
     this.unSubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
@@ -32,13 +48,66 @@ class App extends React.Component {
       setCurrentUser(userAuth);
     });
   }
+
   componentWillUnmount() {
     this.unSubscribeFromAuth();
   }
   render() {
+    const { currentUser, history } = this.props;
     return (
-      <div className="App">
-        <h1>WE READ AFRICAN FORUM</h1>
+      <div
+        className="App"
+        style={
+          currentUser
+            ? { paddingTop: '110px' }
+            : history.location.pathname === '/notfound'
+            ? { paddingTop: 0 }
+            : { paddingTop: '160px' }
+        }
+      >
+        {history.location.pathname === '/signin' ? null : history.location
+            .pathname === '/notfound' ? null : history.location.pathname ===
+          '/signup' ? null : (
+          <div className="showing">
+            <div className="desktop">
+              <Header showSearch={this.handleSearchShow} />
+            </div>
+            <div className="mobile">
+              <MobileHeader showSearch={this.handleSearchShow} />
+            </div>
+          </div>
+        )}
+
+        <div className="wrapper">
+          {this.state.isLoading ? (
+            <Loader />
+          ) : (
+            <Switch>
+              <Route
+                exact
+                path="/signin"
+                render={() =>
+                  currentUser ? <Redirect to="/" /> : <SignInPage />
+                }
+              />
+              <Route
+                exact
+                path="/signup"
+                render={() =>
+                  currentUser ? <Redirect to="/" /> : <SignUpPage />
+                }
+              />
+              <Route exact path="/user-profile" component={UserProfilePage} />
+              <Route component={NotFound} />
+            </Switch>
+          )}
+        </div>
+        {history.location.pathname === '/signin' ? null : history.location
+            .pathname === '/signup' ? null : history.location.pathname ===
+          '/notfound' ? null : history.location.pathname ===
+          '/user-profile' ? null : (
+          <Footer />
+        )}
       </div>
     );
   }

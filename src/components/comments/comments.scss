@@ -1,0 +1,72 @@
+$tablet: 850px;
+$smartphone: 600px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+
+.comments {
+  // max-width: 500px;
+  margin-top: 20px;
+  // color: #ffffff;
+
+  .head {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // height: 40px;
+    border: 1px solid $secondaryColor;
+    padding: 10px;
+    margin-top: 15px;
+    border-bottom: 1px solid #eab88c;
+    @include smartphone() {
+      justify-content: center;
+    }
+
+    h5 {
+      @include smartphone() {
+        font-size: 14px;
+      }
+    }
+    .post-comment {
+      cursor: pointer;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0px 45px;
+      border: 1px solid #77323b;
+      border-radius: 30px;
+      font-size: 14px;
+      color: #77323b;
+      &:hover {
+        transform: translateY(-2px);
+      }
+      @include smartphone() {
+        display: none;
+      }
+    }
+  }
+  .reply {
+    text-align: left;
+    span {
+      font-size: 11px;
+    }
+    .reply-count {
+      margin-left: 20px;
+    }
+  }
+}
