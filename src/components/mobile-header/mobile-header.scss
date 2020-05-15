@@ -1,0 +1,70 @@
+$tablet: 850px;
+$smartphone: 500px;
+$smartphoneSmallScreen: 400px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+@mixin smartphoneSmallScreen {
+  @media (max-width: #{$smartphoneSmallScreen}) {
+    @content;
+  }
+}
+.mobile-header {
+  position: fixed;
+  top: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  right: 0;
+  left: 0;
+  padding: 0 5%;
+  margin-top: -100px;
+  background-color: $secondaryColor;
+  z-index: 10;
+  .menu {
+    img {
+      cursor: pointer;
+      height: 50px;
+      width: 30px;
+    }
+  }
+  .brand {
+    // max-width: 50%;
+    // width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin: auto;
+    img {
+      width: 140px;
+      // height: 50px;
+      @include smartphoneSmallScreen() {
+        width: 110px;
+      }
+    }
+  }
+  .search {
+    // display: inline-flex;
+
+    img {
+      cursor: pointer;
+      height: 26px;
+      width: 26px;
+      margin: auto;
+      // width: 100%;
+    }
+  }
+}

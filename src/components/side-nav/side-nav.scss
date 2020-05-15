@@ -1,0 +1,86 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+.side-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 70px;
+  background-color: $secondaryColor;
+  border-top: 2px solid $primaryColor;
+  height: calc(100vh - 70px);
+  z-index: 9;
+  text-align: left;
+  padding: 7%;
+  .close {
+    width: 100%;
+    text-align: right;
+    margin-bottom: 20px;
+    img {
+      cursor: pointer;
+      height: 20px;
+      width: 20px;
+      // float: right;
+    }
+  }
+  .user {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    text-align: left;
+    .user-icon {
+      height: 50px !important;
+      width: 50px !important;
+      border-radius: 50%;
+      margin-right: 20px;
+
+      @include smartphone() {
+        height: 15px;
+      }
+    }
+  }
+  nav {
+    text-align: left;
+    .nav-links {
+      // display: flex;
+      margin: auto;
+      // text-align: center;
+      .nav-link {
+        margin: 20px 0;
+        // padding: 6px 0px;
+        a {
+          font-weight: normal;
+          font-size: 16px;
+          line-height: 19px;
+          color: #303030;
+        }
+      }
+    }
+  }
+  .pattern {
+    position: relative;
+    img {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: -2;
+    }
+  }
+}

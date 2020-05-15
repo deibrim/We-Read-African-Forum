@@ -1,0 +1,145 @@
+$tablet: 850px;
+$smartphone: 600px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+
+.footer {
+  color: $blackColor;
+  position: relative;
+  // background: #eab88c;
+  overflow: hidden;
+  width: 100%;
+  @include smartphone() {
+    background-color: $secondaryColor;
+    text-align: center;
+  }
+  // .footer-pattern {
+  //   position: absolute;
+  //   width: 100%;
+  //   height: 100%;
+  //   // height: 500px;
+  //   left: 0;
+  //   top: -15.19%;
+  //   z-index: -1;
+  // }
+  .footer-content {
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    // display: grid;
+    background: #eab88c;
+    // grid-gap: auto;
+    // grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    padding: 20px 7%;
+    padding: 40px 7% 50px 7%;
+    @include smartphone() {
+      padding: 0;
+      padding-bottom: 20px;
+      text-align: center;
+      flex-direction: column;
+    }
+    // .group-flex {
+    //   width: 100%;
+    //   display: flex;
+    //   // justify-content: space-evenly;
+    // }
+
+    p {
+      color: darken($color: $secondaryColor, $amount: 20);
+    }
+    .smart-form-section {
+      display: none;
+      @include smartphone() {
+        display: block;
+      }
+    }
+    .custom-form-section {
+      @include smartphone() {
+        display: none;
+      }
+    }
+    .socials {
+      height: 30px;
+      display: flex;
+      justify-content: flex-start;
+      @include smartphone() {
+        justify-content: center;
+      }
+    }
+
+    .heading {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 10px;
+
+      @include tablet() {
+        margin-top: 30px;
+        font-size: 20px;
+      }
+    }
+
+    .menu {
+      text-align: left;
+      @include smartphone() {
+        text-align: center;
+      }
+      .menu-links {
+        .menu-link {
+          font-size: 15px;
+          display: block;
+          padding: 6px 0;
+          color: $blackColor;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  h4 {
+    display: inline-block;
+    background: $primaryColor;
+  }
+
+  img {
+    width: 70px;
+    // margin-bottom: 10px;
+  }
+
+  .icon {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    margin-right: 20px;
+    @include smartphone() {
+      margin: 0 10px;
+    }
+
+    img {
+      margin: auto;
+      width: 100%;
+    }
+  }
+  .cright {
+    height: 60px;
+    display: flex;
+    .copyright {
+      margin: auto;
+    }
+  }
+}

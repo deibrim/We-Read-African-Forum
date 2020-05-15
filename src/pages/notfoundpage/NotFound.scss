@@ -1,0 +1,91 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$secondaryColor: #ffffff;
+$lightColor: #d6a478;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+
+.NotFound {
+  // margin-top: 15vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 100vh;
+  background-color: $secondaryColor;
+  z-index: 99;
+  padding: 30px;
+  & .notfoundHeading {
+    & p {
+      color: $primaryColor;
+      font-size: 1.2em;
+      margin-bottom: 2em;
+    }
+    & h2 {
+      color: $lightColor;
+    }
+    & h5 {
+      font-weight: lighter;
+      font-size: 1.2em;
+      margin-top: 1em;
+      color: $primaryColor;
+    }
+    & #notfoundIllustration {
+      height: 50vh;
+      width: 30%;
+      background: url('../../assets/wereadafricanotfoundpage.svg');
+      margin: 0 auto;
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+  }
+  & .redirectSection {
+    & p {
+      color: $primaryColor;
+      font-size: 1em;
+      margin-bottom: 2em;
+    }
+    & .redirectSectionButtons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 50%;
+      margin: 0 auto;
+      & a {
+        width: 70%;
+        margin: 0 auto;
+      }
+      & a:nth-child(1) {
+        font-size: 1em;
+        padding: 0.5em 2.5em;
+        border-radius: 200px;
+        border: none;
+        color: white;
+        background-color: $primaryColor;
+        cursor: pointer;
+      }
+      & a:nth-child(2) {
+        font-size: 1em;
+        padding: 0.5em 2.5em;
+        border-radius: 200px;
+        border: 1.3px solid $primaryColor;
+        color: $primaryColor;
+        background-color: white;
+        cursor: pointer;
+      }
+    }
+  }
+}

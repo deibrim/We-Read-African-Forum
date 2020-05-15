@@ -1,0 +1,39 @@
+.success {
+  position: fixed;
+  top: 70px;
+  right: 0;
+  left: 0;
+  background-color: #affdaf;
+  color: green;
+  padding: 3px 10px;
+  border-radius: 3px;
+  font-weight: 600;
+  animation: toggleShow 7s linear forwards;
+  z-index: 99;
+
+  span {
+    float: right;
+  }
+}
+
+@keyframes toggleShow {
+  0% {
+    display: block;
+    opacity: 1;
+  }
+
+  25% {
+    display: block;
+    opacity: 1;
+  }
+
+  50% {
+    display: block;
+    opacity: .5;
+  }
+
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}

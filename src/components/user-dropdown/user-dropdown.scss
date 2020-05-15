@@ -1,0 +1,49 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+.user-dropdown {
+  position: fixed;
+  top: 60px;
+  right: 60px;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #eab88c;
+  color: #ffffff;
+  box-shadow: 0px 4px 20px rgba(64, 27, 32, 0.15);
+  .user-profile,
+  .sign-out {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 10px;
+    width: 100%;
+  }
+  .user-profile {
+    border-bottom: 1px solid $secondaryColor;
+  }
+  .sign-out {
+    color: lighten($color: $primaryColor, $amount: 30);
+  }
+}

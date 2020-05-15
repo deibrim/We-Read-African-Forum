@@ -1,0 +1,167 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+.user-profile-page {
+  margin-top: 0px;
+  border-top: 1px solid $primaryColor;
+  .body {
+    display: flex;
+    @include smartphone() {
+      flex-direction: column;
+    }
+    .left {
+      padding: 30px;
+      width: 20vw;
+      background-color: #eab88c;
+      height: calc(100vh - 81px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      .logo {
+        @include smartphone() {
+          display: none;
+        }
+        img {
+          width: 100px;
+        }
+      }
+      @include smartphone() {
+        width: 100vw;
+        height: 100px;
+        flex-direction: row;
+      }
+    }
+    .right {
+      width: 80vw;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 30px;
+      @include smartphone() {
+        flex-direction: column;
+        // align-items: center;
+        justify-content: space-evenly;
+        padding: 20px 0;
+        width: 100vw;
+        height: calc(90vh - 100px);
+      }
+
+      .heading {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        white-space: nowrap;
+        height: 60px;
+        border-right: 1px solid #eab88c;
+        border-left: 1px solid #eab88c;
+        @include smartphone() {
+          border: none;
+          height: 40px;
+          justify-content: flex-start;
+          text-align: left;
+          border-bottom: 1px solid #eab88c;
+        }
+      }
+      .current-reading {
+        width: 100%;
+        padding: 0 10px;
+        // height: 40%;
+        .reading {
+          font-size: 20px;
+          // font-weight: 100 !important;
+          @include smartphone() {
+            font-size: 15px;
+          }
+        }
+      }
+      .favorite {
+        width: 100%;
+        padding: 0 10px;
+        // height: 40%;
+        .history-lists {
+          display: flex;
+          overflow-x: hidden;
+          &:hover {
+            overflow-x: scroll;
+          }
+          @include smartphone() {
+            overflow-x: scroll;
+          }
+          a {
+            margin: 10px;
+            span {
+              font-size: 15px;
+              font-weight: 100 !important;
+              @include smartphone() {
+                font-size: 10px;
+              }
+            }
+          }
+        }
+      }
+      .pattern {
+        position: relative;
+        img {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          z-index: -2;
+        }
+      }
+    }
+    .user {
+      justify-content: center;
+      align-items: center;
+      .user-photo {
+        img {
+          height: 60px;
+          width: 60px;
+          border-radius: 50%;
+          margin-right: 10px;
+          @include smartphone() {
+            height: 40px;
+            width: 40px;
+          }
+        }
+      }
+      h3 {
+        @include smartphone() {
+          font-size: 16px;
+          white-space: nowrap;
+        }
+      }
+      @include smartphone() {
+        flex-direction: column;
+      }
+    }
+    .sign-out {
+      cursor: pointer;
+      span {
+        @include smartphone() {
+          display: none;
+        }
+      }
+      img {
+        height: 16px;
+        margin-left: 10px;
+      }
+    }
+  }
+}

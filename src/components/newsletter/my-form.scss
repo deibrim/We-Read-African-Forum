@@ -1,0 +1,93 @@
+$tablet: 850px;
+$smartphone: 600px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+
+.newsletter {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  color: $blackColor;
+  p {
+    color: lighten($color: $blackColor, $amount: 30) !important;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    // justify-content: center;
+    // align-items: center;
+    text-align: left;
+
+    @include smartphone() {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .group-input {
+      margin: 10px 0;
+      .form-input {
+        background: none;
+        // background-color: white;
+        color: $blackColor;
+        font-size: 18px;
+        padding: 0px 10px 10px 0px;
+        display: block;
+        width: 90%;
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid $blackColor;
+        // margin: 20px 0;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    .btn {
+      min-width: 20px;
+      width: 60%;
+      height: 40px;
+      letter-spacing: 0.5px;
+      line-height: 40px;
+      padding: 0px 20px;
+      font-size: 15px;
+      background-color: $primaryColor;
+      color: white;
+      text-transform: capitalize;
+      font-family: 'Open Sans Condensed';
+      font-weight: bolder;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+
+      img {
+        margin-right: 10px;
+      }
+      &:hover {
+        background-color: white;
+        color: #a3a3a3;
+        border: 1px solid #a3a3a3;
+      }
+    }
+  }
+}
