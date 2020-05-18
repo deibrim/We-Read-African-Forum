@@ -11,8 +11,8 @@ import twitter from '../../assets/socials/twitter.svg';
 import facebook from '../../assets/socials/facebook.svg';
 import search from '../../assets/search.svg';
 import logo from '../../assets/logo.svg';
-import arrowDown from '../../assets/arrowDown.svg';
 import './header.scss';
+import ForumSubNav from '../forum-sub-nav/forum-sub-nav';
 const Header = ({ currentUser, showSearch, history }) => {
   const [isShow, setisShow] = useState(false);
   const handleToggleUserDropdown = () => {
@@ -71,7 +71,7 @@ const Header = ({ currentUser, showSearch, history }) => {
               to="/"
               className="nav-link"
               style={
-                history.location.pathname === '/'
+                history.location.pathname === '/home'
                   ? { borderBottom: '3px solid #77323b' }
                   : { border: 'none' }
               }
@@ -102,7 +102,7 @@ const Header = ({ currentUser, showSearch, history }) => {
                   : { border: 'none' }
               }
             >
-              Blog <img src={arrowDown} alt="Down Arrow Icon" />
+              Blog
             </Link>
           </li>
           <li>
@@ -110,12 +110,12 @@ const Header = ({ currentUser, showSearch, history }) => {
               to="/forum"
               className="nav-link"
               style={
-                history.location.pathname === '/forum'
+                history.location.pathname.includes('/')
                   ? { borderBottom: '3px solid #77323b' }
                   : { border: 'none' }
               }
             >
-              Forum <img src={arrowDown} alt="Down Arrow Icon" />
+              Forum
             </Link>
           </li>
           <li>
@@ -146,12 +146,13 @@ const Header = ({ currentUser, showSearch, history }) => {
           </li>
         </ul>
       </nav>
+      <ForumSubNav />
     </header>
   );
 };
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
 });
 
 export default withRouter(connect(mapStateToProps)(Header));

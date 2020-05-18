@@ -10,10 +10,12 @@ const firebaseConfig = {
   storageBucket: 'blog-test-cf27d.appspot.com',
   messagingSenderId: '712716765117',
   appId: '1:712716765117:web:757aed783e2814d70eb4d4',
-  measurementId: 'G-3E2DRSVVNM'
+  measurementId: 'G-3E2DRSVVNM',
 };
 
 firebase.initializeApp(firebaseConfig);
+export const auth = firebase.auth();
+export const firestore = firebase.firestore();
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
@@ -32,7 +34,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         createdAt,
         photoURL,
         emailVerified,
-        ...additionalData
+        ...additionalData,
       });
     } catch (error) {
       console.log('error creating user', error.message);
@@ -41,16 +43,78 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
   return userRef;
 };
-export const auth = firebase.auth();
-export const firestore = firebase.firestore();
+
+export const userPresence = async (userAuth) => {
+  const uid = auth.currentUser.uid;
+  const userStatusDatabaseRef = firebase.database().ref('/users/' + uid);
+  const isOfflineForDatabase = {
+    state: 'offline',
+    last_changed: firebase.database.ServerValue.TIMESTAMP,
+  };
+
+  const isOnlineForDatabase = {
+    state: 'online',
+    last_changed: firebase.database.ServerValue.TIMESTAMP,
+  };
+
+  firebase
+    .database()
+    .ref('.info/connected')
+    .on('value', function (snapshot) {
+      if (snapshot.val() === false) {
+        return;
+      }
+      userStatusDatabaseRef
+        .onDisconnect()
+        .set(isOfflineForDatabase)
+        .then(function () {
+          userStatusDatabaseRef.set(isOnlineForDatabase);
+        });
+    });
+  const userStatusFirestoreRef = firebase.firestore().doc('/users/' + uid);
+  const isOfflineForFirestore = {
+    state: 'offline',
+    last_changed: firebase.firestore.FieldValue.serverTimestamp(),
+  };
+
+  const isOnlineForFirestore = {
+    state: 'online',
+    last_changed: firebase.firestore.FieldValue.serverTimestamp(),
+  };
+
+  firebase
+    .database()
+    .ref('.info/connected')
+    .on('value', (snapshot) => {
+      if (snapshot.val() === false) {
+        userStatusFirestoreRef.update(isOfflineForFirestore);
+        return;
+      }
+      userStatusDatabaseRef
+        .onDisconnect()
+        .update(isOfflineForDatabase)
+        .then(() => {
+          userStatusDatabaseRef.update(isOnlineForDatabase);
+          userStatusFirestoreRef.update(isOnlineForFirestore);
+        });
+    });
+  userStatusFirestoreRef.onSnapshot(function (doc) {
+    const isOnline = doc.data().state ? doc.data().state === 'online' : null;
+    // ... use isOnline
+    if (!isOnline) {
+      userStatusDatabaseRef.update(isOfflineForDatabase);
+    }
+    // console.log(isOnline);
+  });
+};
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 googleProvider.setCustomParameters({
-  prompt: 'select_account'
+  prompt: 'select_account',
 });
 const facebookProvider = new firebase.auth.FacebookAuthProvider();
 facebookProvider.setCustomParameters({
-  display: 'popup'
+  display: 'popup',
 });
 
 export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
