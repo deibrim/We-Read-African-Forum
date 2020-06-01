@@ -5,7 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import {
   auth,
   // firestore,
-  createUserProfileDocument
+  createUserProfileDocument,
 } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
@@ -20,14 +20,16 @@ import SignInPage from './pages/sign-in/sign-in-page';
 import SignUpPage from './pages/sign-up/sign-up-page';
 import NotFound from './pages/notfoundpage/NotFoundPage';
 import MobileHeader from './components/mobile-header/mobile-header';
+import Editprofile from './pages/editprofile/editprofile';
 
 import './App.scss';
+import Forum from './pages/forum/forum';
 
 class App extends React.Component {
   state = {
     isLoading: false,
     isShowSearch: false,
-    hasError: false
+    hasError: false,
   };
   unSubscribeFromAuth = null;
   componentDidCatch(error, info) {
@@ -35,17 +37,17 @@ class App extends React.Component {
     console.log(info);
   }
   componentDidMount() {
-    this.unSubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+    this.unSubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
-        userRef.onSnapshot(snapShot => {
-          setCurrentUser({
+        userRef.onSnapshot((snapShot) => {
+          this.props.setCurrentUser({
             id: snapShot.id,
-            ...snapShot.data()
+            ...snapShot.data(),
           });
         });
       }
-      setCurrentUser(userAuth);
+      this.props.setCurrentUser(userAuth);
     });
   }
 
@@ -97,7 +99,24 @@ class App extends React.Component {
                   currentUser ? <Redirect to="/" /> : <SignUpPage />
                 }
               />
-              <Route exact path="/user-profile" component={UserProfilePage} />
+
+              {/* <Route
+                exact
+                path="/user-profile"
+                render={() =>
+                  currentUser ? <UserProfilePage /> : <Redirect to="/signin" />
+                }
+              /> */}
+              <Route exact path="/" component={Forum} />
+              <Route exact path="/my-profile" component={UserProfilePage} />
+              {/* <Route
+                exact
+                path="/edit-profile"
+                render={() =>
+                  currentUser ? <Editprofile /> : <Redirect to="/signin" />
+                }
+              /> */}
+              <Route exact path="/edit-profile" component={Editprofile} />
               <Route component={NotFound} />
             </Switch>
           )}
@@ -114,15 +133,10 @@ class App extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
 });
-const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(App)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
