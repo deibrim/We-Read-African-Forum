@@ -1,0 +1,90 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+$shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+.profile-edit-page {
+  text-align: left;
+  margin-top: 0px;
+  padding: 0 20px;
+  .profile-edit-page-header {
+    span {
+      font-size: 1.1em;
+    }
+    .edit-control {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: $primaryColor;
+      padding: 10px 20px;
+      .cancel_title {
+        display: flex;
+        align-items: center;
+        span {
+          margin-left: 40px;
+          color: $secondaryColor;
+        }
+      }
+      .save {
+        font-size: 1em;
+        padding: 0.4em 2.5em;
+        border-radius: 200px;
+        border: 1.3px solid $secondaryColor;
+        color: $secondaryColor;
+        background-color: transparent;
+        cursor: pointer;
+        margin-right: 20px;
+      }
+    }
+    .profile-page-header-image {
+      height: 200px;
+      width: 100%;
+      background-color: $blackColor;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $secondaryColor;
+      .ctrls {
+        display: flex;
+        align-items: center;
+        img {
+          margin: 10px 30px;
+        }
+      }
+    }
+    .profile-pic_buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+      .profile-pic {
+        margin-top: -80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        .pp {
+          width: 117px;
+          height: 148px;
+          //   margin-right: -50px;
+        }
+      }
+    }
+  }
+  form {
+    padding: 0px 15%;
+    margin-top: -30px;
+  }
+}
