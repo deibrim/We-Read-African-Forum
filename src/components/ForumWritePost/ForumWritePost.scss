@@ -1,0 +1,54 @@
+$tablet: 850px;
+$smartphone: 600px;
+$primaryColor: #77323b;
+$fadedPrimary: #fdf6f6;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+
+#form { 
+  padding: 1em 2em;
+  background-color: $fadedPrimary;
+    #formHeading { 
+      display: grid;
+      grid-template-columns: 10% 20%;
+      vertical-align: middle;
+      gap: 2px;
+        #userImg { 
+            img { 
+              width: 50px;
+              height: 50px;
+              border-radius: 2000px;
+            }
+        }
+        h2 { 
+          font-size: 1.1em;
+          padding-top: 10%;
+          text-transform: capitalize;
+          font-weight: lighter;
+          letter-spacing: 0.06em;
+        }
+    }
+
+    input { 
+      width: 80%;
+      margin: 0 auto;
+      text-transform: uppercase;
+      padding: 1em;
+      font-size: 0.8em;
+      border-radius: 200px;
+      border: 1px solid rgba(128, 128, 128, 0.664);
+    }
+}

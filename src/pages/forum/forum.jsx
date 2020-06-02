@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
+import './forum.scss'
 
+//Components Imports here
+import ForumMain from '../../components/ForumMainContent/ForumMain';
+import ForumSideBar from '../../components/ForumSideBar/ForumSideBar';
 class Forum extends Component {
   render() {
     return (
       <div className="forum">
-        <h1>Forum</h1>
+        <ForumMain />
+        <ForumSideBar />
       </div>
     );
   }
