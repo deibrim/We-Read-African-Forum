@@ -1,0 +1,23 @@
+$tablet: 850px;
+$smartphone: 600px;
+$primaryColor: #77323b;
+$fadedPrimary: #FDFAFA;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+
+#catgories { 
+  margin-top: 2em;
+}

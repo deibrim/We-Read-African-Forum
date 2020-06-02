@@ -1,0 +1,62 @@
+$tablet: 850px;
+$smartphone: 600px;
+$primaryColor: #77323b;
+$fadedPrimary: #FDFAFA;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+
+#category {
+  margin-bottom: 1em; 
+    .bar { 
+      background-color: $primaryColor;
+      text-align: left;
+      padding: 0.7em;
+      display: grid;
+      grid-template-columns: 95% 5%;
+      vertical-align: middle;
+        p { 
+          color: white;
+          font-size: 1.1em;
+        }
+        div { 
+          width: 20px;
+          height: 100%;
+          background: url('../../assets/arrowDownWhite.svg');
+          background-size: contain;
+          background-position: center;
+          background-repeat: no-repeat;
+          cursor: pointer;
+          transition: all 0.3s;
+        }
+    }
+
+    #categorList { 
+      transition: all 2s;
+        #subCategories:nth-child(even) { 
+          background: #99999921;
+          padding: 10px 10px;
+        }
+    }
+
+    [data-showsub = 'false'] { 
+      display: none;
+    }
+
+    [data-rotate = 'false'] { 
+      transform: rotate(180deg);
+    }
+    
+}
