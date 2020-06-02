@@ -1,6 +1,7 @@
 import ForumActionTypes from './forum.types';
 const INITIAL_STATE = {
-  forums: null
+  forums: null,
+  isEditing: false
 };
 
 const ForumReducer = (state = INITIAL_STATE, action) => {
@@ -9,6 +10,11 @@ const ForumReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         forums: action.payload
+      };
+    case ForumActionTypes.TOGGLE_EDITOR:
+      return {
+        ...state,
+        isEditing: !state.isEditing
       };
     default:
       return state;

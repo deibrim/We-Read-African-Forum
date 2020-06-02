@@ -5,3 +5,7 @@ export const selectAllForumTopics = createSelector(
   [selectForum],
   forum => forum.forums
 );
+export const selectToggleEdit = createSelector(
+  [selectForum],
+  forum => forum.isEditing
+);

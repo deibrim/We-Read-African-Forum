@@ -1,0 +1,268 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+$shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+.pagination {
+  padding: 30px 0;
+}
+
+.pagination ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.pagination a {
+  cursor: pointer;
+  display: inline-block;
+  padding: 10px;
+  // color: #222;
+  &:first-child{
+
+  }
+}
+
+/* ONE */
+
+.p1 a {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0;
+  text-align: center;
+}
+
+.p1 a.is-active {
+  background-color: $primaryColor;
+  border-radius: 100%;
+  color: $secondaryColor;
+}
+
+/* TWO */
+
+.bottom-border .is-active li {
+  font-weight: bold;
+  border-bottom: 3px solid $primaryColor;
+}
+
+/* THREE */
+
+.p3 .is-active {
+  background-color: $primaryColor;
+  color: $secondaryColor;
+}
+
+/* FOUR */
+
+.p4 a {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 100%;
+  padding: 0;
+  text-align: center;
+  position: relative;
+  border: 3px solid $primaryColor;
+}
+
+.p4 .is-active:before {
+  content: "";
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  background-color: $primaryColor;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+/* FIVE */
+
+.p5 a {
+  width: 30px;
+  height: 5px;
+  padding: 0;
+  margin: auto 5px;
+  background-color: rgba(46, 204, 113, 0.4);
+}
+
+.p5 .is-active {
+  background-color: $primaryColor;
+}
+
+/* SIX */
+
+.p6 a {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  padding: 0;
+  margin: auto 5px;
+  text-align: center;
+  position: relative;
+  background-color: rgba(46, 204, 113, 0.4);
+}
+
+.p6 .is-active {
+  background-color: $primaryColor;
+}
+
+/* SEVEN */
+
+.square-i a {
+  border: 3px solid $primaryColor;
+  margin: auto 5px;
+  color: $primaryColor;
+  font-weight: bold;
+}
+
+.square-i .is-active {
+  background-color: $primaryColor;
+  color: $secondaryColor;
+}
+
+/* EIGHT */
+
+/* default */
+
+.default a {
+  color: black;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  border: 1px solid #ddd;
+  margin: auto 5px;
+}
+
+.default .is-active {
+  background-color: #4caf50;
+  color: white;
+  border: 1px solid #4caf50;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+/* default */
+
+.p8 a {
+  background-color: $primaryColor;
+  margin: auto 5px;
+  color: $secondaryColor;
+  font-weight: bold;
+  border: 3px solid $primaryColor;
+}
+
+.p8 .is-active {
+  background-color: $secondaryColor;
+  color: $primaryColor;
+}
+
+/* NINE */
+
+.circle a {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0;
+  text-align: center;
+  margin: auto 5px;
+}
+
+.circle a.is-active {
+  border: 3px solid $primaryColor;
+  border-radius: 100%;
+}
+
+/* TEN */
+
+.square a {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0;
+  text-align: center;
+  margin: auto 5px;
+}
+
+.square a.is-active {
+  border: 3px solid $primaryColor;
+}
+
+/* ELEVEN */
+
+.p11 a {
+  background-color: $primaryColor;
+  margin: auto 5px;
+  color: $secondaryColor;
+  border: 3px solid $primaryColor;
+  position: relative;
+}
+
+.p11 a:first-of-type:before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: -25px;
+  border-top: 22px solid transparent;
+  border-bottom: 22px solid transparent;
+  border-right: 22px solid $primaryColor;
+}
+
+.p11 a:last-of-type:after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  right: -25px;
+  border-top: 22px solid transparent;
+  border-bottom: 22px solid transparent;
+  border-left: 22px solid $primaryColor;
+}
+
+.p11 .is-active {
+  font-weight: bold;
+}
+
+/* TWELVE */
+
+.square-fill a:first-of-type,
+.square-fill a:last-of-type,
+.square-fill .is-active {
+  background-color: $primaryColor;
+  color: #303030;
+  font-weight: bold;
+}
+.square-fill a:first-of-type,
+.square-fill a:last-of-type{
+  background-color: transparent;
+  &:hover{
+    background-color: transparent;
+  }
+
+}
+.control-arrow{
+  display: flex;
+  align-items: center;
+  svg{
+    margin: 5px;
+  }
+  span{
+  font-size: 14px;
+  }
+}
