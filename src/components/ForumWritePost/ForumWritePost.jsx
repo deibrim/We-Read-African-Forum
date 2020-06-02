@@ -11,6 +11,9 @@ const ForumWritePost = ({ userName, toggleEditor, toggleEdit }) => {
   const handleShowEditor = () => {
     toggleEditor(true)
   }
+  toggleEdit
+    ? (document.documentElement.style.overflowY = 'hidden')
+    : (document.documentElement.style.overflowY = 'scroll');
   return (
     <form id='form'>
       <div id='formHeading'>

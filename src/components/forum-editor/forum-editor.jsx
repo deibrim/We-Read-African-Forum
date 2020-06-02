@@ -47,7 +47,7 @@ class Editor extends React.Component {
       <div className="bg">
         <div className="forum-editor">
           <h4>Post a Topic</h4>
-          <div className="group-input">
+          <div className="group-inputg">
             <label>
               Select Forum <span className="required">required</span>
             </label>
@@ -58,7 +58,7 @@ class Editor extends React.Component {
               options={[]}
             />
           </div>
-          <div className="group-input">
+          <div className="group-inputg">
             <label>
               Select Sub-Forum <span className="required">required</span>
             </label>
@@ -69,7 +69,7 @@ class Editor extends React.Component {
               options={[]}
             />
           </div>
-          <div className="group-input">
+          <div className="group-inputg">
             <label>
               Title <span className="required">required</span>
             </label>
@@ -78,7 +78,7 @@ class Editor extends React.Component {
               name="title"
               required
               value={title}
-              className="form-input"
+              className="form-inputg"
               onChange={this.handleChangeInput}
             />
           </div>

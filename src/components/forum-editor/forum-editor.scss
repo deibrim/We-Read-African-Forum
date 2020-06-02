@@ -57,23 +57,23 @@ $secondaryColor: #ffffff;
       font-size: 15px;
     }
   }
-  .group-input {
+  .group-inputg {
     margin: 20px 0;
     @include smartphone() {
       margin: 10px 0;
     }
-    .form-input {
+    .form-inputg {
       background: none;
       // background-color: white;
       color: $blackColor;
       font-size: 18px;
       padding: 10px;
       display: block;
-      width: 100%;
+      width: 100% !important;
       border: none;
       border-radius: 10px !important;
       border: 1px solid darken($color: $secondaryColor, $amount: 15);
-      // margin: 20px 0;
+      margin: 0 !important;
       @include smartphone() {
         font-size: 15px;
       }
