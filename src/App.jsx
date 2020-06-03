@@ -24,6 +24,7 @@ import Editprofile from './pages/editprofile/editprofile';
 
 import './App.scss';
 import Forum from './pages/forum/forum';
+import Members from './pages/members/members';
 
 class App extends React.Component {
   state = {
@@ -99,6 +100,7 @@ class App extends React.Component {
                   currentUser ? <Redirect to="/" /> : <SignUpPage />
                 }
               />
+              <Route exact path="/members" component={Members} />
 
               {/* <Route
                 exact
@@ -109,14 +111,14 @@ class App extends React.Component {
               /> */}
               <Route exact path="/" component={Forum} />
               <Route exact path="/my-profile" component={UserProfilePage} />
-              {/* <Route
+              <Route
                 exact
                 path="/edit-profile"
                 render={() =>
-                  currentUser ? <Editprofile /> : <Redirect to="/signin" />
+                  currentUser ? <Editprofile /> : <Redirect to="/my-profile" />
                 }
-              /> */}
-              <Route exact path="/edit-profile" component={Editprofile} />
+              />
+              {/* <Route exact path="/edit-profile" component={Editprofile} /> */}
               <Route component={NotFound} />
             </Switch>
           )}

@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+import 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBZSP7CF1qWOUtI7710O6eT_SJPzm2ow1k',
@@ -25,14 +26,16 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   const snapShot = await userRef.get();
 
   if (!snapShot.exists) {
-    const { displayName, email, photoURL, emailVerified } = userAuth;
+    const { displayName, email, uid, emailVerified } = userAuth;
     const createdAt = new Date();
     try {
       await userRef.set({
+        id: uid,
         displayName,
         email,
         createdAt,
-        photoURL,
+        rating: 1,
+        posts: [],
         emailVerified,
         ...additionalData,
       });
@@ -106,6 +109,75 @@ export const userPresence = async (userAuth) => {
     }
     // console.log(isOnline);
   });
+};
+
+export const getMemberProfiles = async () => {
+  const membersRef = firestore.collection('users');
+  membersRef.onSnapshot(async (snapshot) => {
+    const membersArr = [];
+    snapshot.docs.forEach((doc) => {
+      console.log(doc);
+      membersArr.push(doc);
+    });
+
+    return membersArr;
+  });
+};
+
+export const updateProfile = async (userId, incomingData) => {
+  const { fullName,
+    bio,
+    website,
+    cover,
+    profile_pic,
+    location,
+    signature, } = incomingData;
+  const userRef = firestore.doc(`users/${userId}`);
+  const snapShot = await userRef.get();
+  if (snapShot.exists) {
+    try {
+      await userRef.update({
+        displayName: fullName,
+        bio,
+        website,
+        cover,
+        profile_pic,
+        location,
+        signature,
+      });
+      return userRef;
+    } catch (error) {
+      console.log('error updating profile', error.message);
+    }
+  }
+};
+
+const storageRef = firebase.storage().ref();
+
+export const uploadImage = async (file, loc) => {
+  storageRef
+    .child(`users/${auth.currentUser.uid}/${loc}/${file.name}`)
+    .put(file)
+    .then((snapshot) => {
+      return "success"
+    });
+};
+
+export const sendNewTopicToDatabase = async (topicData) => {
+  const newTopicRef = firestore.doc(`forum/${topicData.title}`);
+  const snapShot = await newTopicRef.get();
+  if (!snapShot.exists) {
+    try {
+      await newTopicRef.set({
+        ...topicData,
+      });
+      return newTopicRef;
+    } catch (error) {
+      console.log('error adding comment to database', error.message);
+    }
+  } else {
+    return 'This topic already exist';
+  }
 };
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();

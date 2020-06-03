@@ -15,9 +15,9 @@ ReactDOM.render(
       <div>
         <ScrollMemory />
         <PersistGate persistor={persistor}>
-          <React.StrictMode>
-            <App />
-          </React.StrictMode>
+          {/* <React.StrictMode> */}
+          <App />
+          {/* </React.StrictMode> */}
         </PersistGate>
       </div>
     </Router>

@@ -51,13 +51,27 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
       }
     }
     .profile-page-header-image {
+      position: relative;
       height: 200px;
       width: 100%;
-      background-color: $blackColor;
+      background-position: center;
+      background-size: cover;
+      //   background-color: $blackColor;
       display: flex;
       justify-content: center;
       align-items: center;
       color: $secondaryColor;
+      .cover-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        .cover-image {
+          width: 100%;
+          height: 100%;
+        }
+      }
       .ctrls {
         display: flex;
         align-items: center;
@@ -67,24 +81,69 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
       }
     }
     .profile-pic_buttons {
+      position: relative;
       display: flex;
       justify-content: space-between;
       margin-top: 15px;
+      padding-left: 30px;
       .profile-pic {
+        position: relative;
         margin-top: -80px;
+        // max-width: 190px;
+        // width: 100%;
+        max-height: 229.001px;
+        height: 100%;
+        background-position: 10px center;
+        background-size: contain;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
         .pp {
-          width: 117px;
-          height: 148px;
-          //   margin-right: -50px;
+          position: absolute;
+          top: 50px;
+          right: 30px;
+          z-index: 2;
+        }
+        .africamap {
+          // width: 117px;
+          height: 168px;
+          // margin-right: -50px;
         }
       }
     }
   }
+  .upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    input[type='file'] {
+      cursor: pointer;
+      font-size: 100px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+    }
+  }
+
+  //   .btn {
+  //     border: 2px solid gray;
+  //     color: gray;
+  //     background-color: white;
+  //     padding: 8px 20px;
+  //     border-radius: 8px;
+  //     font-size: 20px;
+  //     font-weight: bold;
+  //   }
+
+  //   .cover .pp {
+  //     position: relative;
+  //     input[type='file'] {
+  //       position: absolute;
+  //     }
+  //   }
   form {
     padding: 0px 15%;
-    margin-top: -30px;
+    margin-top: 0px;
   }
 }

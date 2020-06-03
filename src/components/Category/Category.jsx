@@ -3,22 +3,22 @@ import './Category.scss';
 
 import SubCategory from '../SubCategory/SubCategory';
 
-const Category = (props) => { 
+const Category = (props) => {
 
   const [showSub, setshowSub] = useState(true);
 
-  const handleShowSubToggle = (e) => { 
+  const handleShowSubToggle = (e) => {
     showSub ? setshowSub(false) : setshowSub(true);
   }
 
 
-  let forumPreviewData = [ 
-    { 
-      subsCategory: { 
+  let forumPreviewData = [
+    {
+      subsCategory: {
         subCatName: 'Forum Updates',
         subCatTilte: 'General updates on the future plans for our community.',
         subPostNum: 234,
-        lastesPostDetails: { 
+        lastesPostDetails: {
           title: `Do you like to like`,
           authorImg: 'https://avatars1.githubusercontent.com/u/30846348?s=460&u=2b42c8f066c074b3183772888aba9a58ac1d50de&v=4',
           date: `22, March`,
@@ -26,12 +26,12 @@ const Category = (props) => {
         }
       }
     },
-    { 
-      subsCategory: { 
+    {
+      subsCategory: {
         subCatName: 'Introductions',
         subCatTilte: 'Come and introduce yourself to other members.',
         subPostNum: 1934,
-        lastesPostDetails: { 
+        lastesPostDetails: {
           title: `Buy a book today`,
           authorImg: 'https://i.pinimg.com/originals/5a/3d/df/5a3ddf6991d1d7f3cd278ce9b8b9862a.jpg',
           date: `12, March`,
@@ -41,37 +41,37 @@ const Category = (props) => {
     },
   ]
 
-  return ( 
+  return (
     <div id='category'>
       <div className='bar'>
         <p>{props.categoryName}</p>
-        <div 
-        id="arrowDown" 
-        onClick={handleShowSubToggle}
-        data-rotate={showSub}
+        <div
+          id="arrowDown"
+          onClick={handleShowSubToggle}
+          data-rotate={showSub}
         >
-      </div>
+        </div>
       </div>
       {
-        forumPreviewData.map(item => { 
+        forumPreviewData.map((item, index) => {
           console.log(item)
           let subCatg = item.subsCategory;
-          return ( 
-            <div id="categorList" data-showsub={showSub}>
-              <SubCategory 
-                subCatName = {subCatg.subCatName}
-                subTitle = {subCatg.subCatTilte}
-                subPostNum = {subCatg.subPostNum}
-                lastPostTitle = {
+          return (
+            <div id="categorList" key={index} data-showsub={showSub}>
+              <SubCategory
+                subCatName={subCatg.subCatName}
+                subTitle={subCatg.subCatTilte}
+                subPostNum={subCatg.subPostNum}
+                lastPostTitle={
                   subCatg.lastesPostDetails.title
                 }
-                lastPostAuthor = {
+                lastPostAuthor={
                   subCatg.lastesPostDetails.author
                 }
-                lastPostDate = { 
+                lastPostDate={
                   subCatg.lastesPostDetails.date
                 }
-                lastPostAuthorImg = { 
+                lastPostAuthorImg={
                   subCatg.lastesPostDetails.authorImg
                 }
               />
