@@ -54,7 +54,6 @@ const Category = (props) => {
       </div>
       {
         forumPreviewData.map((item, index) => {
-          console.log(item)
           let subCatg = item.subsCategory;
           return (
             <div id="categorList" key={index} data-showsub={showSub}>
