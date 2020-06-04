@@ -178,6 +178,27 @@ export const sendNewTopicToDatabase = async (topicData) => {
     .collection('forums').doc(`${topicData.forum.split(' ').join('_')}`).collection('introductions')
   await forumSubRef.doc().set(topicData)
 
+  const forumPreviewRef = await firestore
+    .collection('forum_preview_data').doc(`${topicData.forum.split(' ').join('_')}`)
+  forumPreviewRef.get()
+    .then(async doc => {
+      const updatedArr = []
+      doc.data().data.forEach(item => {
+        if (item.id.split(' ').join('_').toLowerCase() === topicData.subForum.split(' ').join('_').toLowerCase()) {
+          item.latest_post = topicData
+          item.post_count = item.post_count + 1
+        }
+        updatedArr.push(item)
+      })
+
+      try {
+        await forumPreviewRef.update({ data: updatedArr });
+        return;
+      } catch (error) {
+        console.log('error updating profile', error.message);
+      }
+    })
+
   const userRef = await firestore.doc(`users/${topicData.user.id}`)
   const snapShot = await userRef.get();
   if (snapShot.exists) {
@@ -195,27 +216,6 @@ export const sendNewTopicToDatabase = async (topicData) => {
       console.log('error updating profile', error.message);
     }
   }
-
-  const forumPreviewRef = await firestore
-    .collection('forum_preview_data').doc(`${topicData.forum.split(' ').join('_')}`)
-  const updatedArr = []
-  forumPreviewRef.onSnapshot(async (snapshot) => {
-    await snapshot.data().data.forEach(item => {
-      if (item.id.toLowerCase() === topicData.subForum) {
-        item.latest_post = topicData
-        item.post_count = item.post_count + 1
-      }
-      updatedArr.push(item)
-    })
-    try {
-      await forumPreviewRef.update({ data: updatedArr });
-      console.log("Success");
-
-      return;
-    } catch (error) {
-      console.log('error updating profile', error.message);
-    }
-  });
 };
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
