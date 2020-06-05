@@ -13,16 +13,6 @@ const firebaseConfig = {
   appId: "1:841746569390:web:7309e1dcf690104c29353f",
   measurementId: "G-CQQ8G7CLFH"
 };
-// const firebaseConfig = {
-//   apiKey: 'AIzaSyBZSP7CF1qWOUtI7710O6eT_SJPzm2ow1k',
-//   authDomain: 'blog-test-cf27d.firebaseapp.com',
-//   databaseURL: 'https://blog-test-cf27d.firebaseio.com',
-//   projectId: 'blog-test-cf27d',
-//   storageBucket: 'blog-test-cf27d.appspot.com',
-//   messagingSenderId: '712716765117',
-//   appId: '1:712716765117:web:757aed783e2814d70eb4d4',
-//   measurementId: 'G-3E2DRSVVNM',
-// };
 
 firebase.initializeApp(firebaseConfig);
 export const auth = firebase.auth();
@@ -173,13 +163,13 @@ export const uploadImage = async (file, loc) => {
     });
 };
 export const getforumPreviewData = async () => {
-  const forumPriviewData = firestore.collection('forum_preview_data');
-  forumPriviewData.onSnapshot(async snapshot => {
-    const forums = []
-    snapshot.docs.forEach(doc => {
-      forums.push(doc.data());
-    });
-  });
+  // const forumPriviewData = firestore.collection('forum_preview_data');
+  // forumPriviewData.onSnapshot(async snapshot => {
+  //   const forums = []
+  //   snapshot.docs.forEach(doc => {
+  //     forums.push(doc.data());
+  //   });
+  // });
 }
 export const sendNewTopicToDatabase = async (topicData) => {
   const forumSubRef = await firestore

@@ -9,6 +9,7 @@ import { auth } from '../../firebase/firebase.utils';
 // import pattern from '../../assets/pattern.svg';
 import map from '../../assets/africa/map-primary.svg';
 import posts from '../../assets/activities/posts.svg';
+import star from '../../assets/activities/star.svg';
 import calender from '../../assets/info/calender.svg';
 import location from '../../assets/info/location.svg';
 import time from '../../assets/info/time.svg';
@@ -136,7 +137,10 @@ const UserProfilePage = ({ currentUser, history }) => {
         <h4>Member Activity</h4>
         <div className="boxes">
           <MemberActivityBox
-            data={{ img: posts, num: '2,222', text: 'Forum Posts' }}
+            data={{ img: posts, num: currentUser.posts ? currentUser.posts.length : 0, text: 'Forum Posts' }}
+          />
+          <MemberActivityBox
+            data={{ img: star, num: 1, text: 'Rating' }}
           />
         </div>
       </div>

@@ -6,6 +6,7 @@ import { selectMember } from '../../redux/user/user.selectors';
 import { auth } from '../../firebase/firebase.utils';
 import map from '../../assets/africa/map-primary.svg';
 import posts from '../../assets/activities/posts.svg';
+import star from '../../assets/activities/star.svg';
 import calender from '../../assets/info/calender.svg';
 import location from '../../assets/info/location.svg';
 import time from '../../assets/info/time.svg';
@@ -15,6 +16,7 @@ import StarRating from '../../components/rating/rating';
 import MemberActivityBox from '../../components/member-activity-box/member-activity-box';
 import './member-profile-page.scss';
 const MemberProfilePage = ({ currentUser, history, member }) => {
+
     const [state, setState] = useState({ cover: '', pp: '' });
     useEffect(() => {
 
@@ -24,7 +26,7 @@ const MemberProfilePage = ({ currentUser, history, member }) => {
         history.push(`/`);
     };
 
-    return currentUser ? (
+    return member[0] ? (
         <div className="member-profile-page">
             <Helmet>
                 <title>We Read African &mdash; Profile</title>
@@ -45,17 +47,17 @@ const MemberProfilePage = ({ currentUser, history, member }) => {
                 </div>
                 <div className="profile-pic_buttons">
                     <div className="group">
+                        {/* <div
+                            className="profile-pic"
+                        > */}
                         <div
                             className="profile-pic"
+                            style={{ backgroundImage: 'url(' + state.pp + ')' }}
                         >
-                            {/* <div
-              className="profile-pic"
-              style={{ backgroundImage: 'url(' + state.pp + ')' }}
-            > */}
-                            <img src={map} alt="profile picture" className="profile-p" />
+                            {/* <img src={map} alt="profile picture" className="profile-p" /> */}
                         </div>
                         <br />
-                        <span>{currentUser.displayName ? currentUser.displayName : ''}</span>
+                        <span>{member[0].displayName ? member[0].displayName : ''}</span>
                     </div>
                     <div className="buttons">
                         <Link to="/message">
@@ -73,44 +75,47 @@ const MemberProfilePage = ({ currentUser, history, member }) => {
                     <StarRating rating={2} />
                 </div>
                 <div className="desc">
-                    <span className="bio">{currentUser.bio ? currentUser.bio : ''}</span>
+                    <span className="bio">{member[0].bio ? member[0].bio : ''}</span>
                 </div>
                 <div className="info">
                     <span className="joined">
                         {' '}
-                        <img src={calender} alt="calender icon" /> Joined: {currentUser.createdAt ? new Date(currentUser.createdAt.seconds * 1000).toString().split(' ')
+                        <img src={calender} alt="calender icon" /> Joined: {member[0].createdAt ? new Date(member[0].createdAt.seconds * 1000).toString().split(' ')
                             .slice(1, 4)
                             .join(' ') : "January 2020"}
                     </span>
                     <span className="link">
                         {' '}
                         <img src={website} alt="link icon" />{' '}
-                        <a href={currentUser.website ? currentUser.website : ''}>
-                            {currentUser.website ? currentUser.website : ''}
+                        <a href={member[0].website ? member[0].website : ''}>
+                            {member[0].website ? member[0].website : ''}
                         </a>
                     </span>
                     <span className="location">
                         {' '}
                         <img src={location} alt="location icon" />
-                        {currentUser.location ? currentUser.location : ''}
+                        {member[0].location ? member[0].location : ''}
                     </span>
                     <span className="timezone">
                         {' '}
-                        <img src={time} alt="time icon" /> {currentUser.createdAt ? new Date(currentUser.createdAt.seconds * 1000).toString().split(' ')
+                        <img src={time} alt="time icon" /> {member[0].createdAt ? new Date(member[0].createdAt.seconds * 1000).toString().split(' ')
                             .slice(5, 6)
                             .join(' ') : "GMT +1"}
                     </span>
                 </div>
                 <br />
                 <span className="signature">
-                    {currentUser.signature ? currentUser.signature : ''}
+                    {member[0].signature ? member[0].signature : ''}
                 </span>
             </div>
             <div className="member-activity">
                 <h4>Member Activity</h4>
                 <div className="boxes">
                     <MemberActivityBox
-                        data={{ img: posts, num: '2,222', text: 'Forum Posts' }}
+                        data={{ img: posts, num: member[0].posts ? member[0].posts.length : 0, text: 'Forum Posts' }}
+                    />
+                    <MemberActivityBox
+                        data={{ img: star, num: 1, text: 'Rating' }}
                     />
                 </div>
             </div>

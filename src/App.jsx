@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import {
   auth,
-  // firestore,
+  firestore,
   getforumPreviewData,
   createUserProfileDocument,
 } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
+import { setForumPreviewData } from './redux/forum/forum.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
@@ -51,7 +52,16 @@ class App extends React.Component {
       }
       this.props.setCurrentUser(userAuth);
     });
-    getforumPreviewData()
+    // getforumPreviewData()
+    const forumPriviewData = firestore.collection('forum_preview_data');
+    forumPriviewData.onSnapshot(async snapshot => {
+      const forums = []
+      snapshot.docs.forEach(doc => {
+        forums.push(doc.data());
+      });
+      // console.log(forums);
+      this.props.setForumPreviewData(forums)
+    });
   }
 
   componentWillUnmount() {
@@ -132,6 +142,7 @@ const mapStateToProps = createStructuredSelector({
 });
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  setForumPreviewData: (forumPreviewData) => dispatch(setForumPreviewData(forumPreviewData))
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
