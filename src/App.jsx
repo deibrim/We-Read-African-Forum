@@ -5,6 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import {
   auth,
   // firestore,
+  getforumPreviewData,
   createUserProfileDocument,
 } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
@@ -50,6 +51,7 @@ class App extends React.Component {
       }
       this.props.setCurrentUser(userAuth);
     });
+    getforumPreviewData()
   }
 
   componentWillUnmount() {
@@ -64,71 +66,62 @@ class App extends React.Component {
           currentUser
             ? { paddingTop: '110px' }
             : history.location.pathname === '/notfound'
-            ? { paddingTop: 0 }
-            : { paddingTop: '160px' }
+              ? { paddingTop: 0 }
+              : { paddingTop: '160px' }
         }
       >
         {history.location.pathname === '/signin' ? null : history.location
-            .pathname === '/notfound' ? null : history.location.pathname ===
-          '/signup' ? null : (
-          <div className="showing">
-            <div className="desktop">
-              <Header showSearch={this.handleSearchShow} />
-            </div>
-            <div className="mobile">
-              <MobileHeader showSearch={this.handleSearchShow} />
-            </div>
-          </div>
-        )}
+          .pathname === '/notfound' ? null : history.location.pathname ===
+            '/signup' ? null : (
+              <div className="showing">
+                <div className="desktop">
+                  <Header showSearch={this.handleSearchShow} />
+                </div>
+                <div className="mobile">
+                  <MobileHeader showSearch={this.handleSearchShow} />
+                </div>
+              </div>
+            )}
 
         <div className="wrapper">
           {this.state.isLoading ? (
             <Loader />
           ) : (
-            <Switch>
-              <Route
-                exact
-                path="/signin"
-                render={() =>
-                  currentUser ? <Redirect to="/" /> : <SignInPage />
-                }
-              />
-              <Route
-                exact
-                path="/signup"
-                render={() =>
-                  currentUser ? <Redirect to="/" /> : <SignUpPage />
-                }
-              />
-              <Route exact path="/members" component={Members} />
-
-              {/* <Route
-                exact
-                path="/user-profile"
-                render={() =>
-                  currentUser ? <UserProfilePage /> : <Redirect to="/signin" />
-                }
-              /> */}
-              <Route exact path="/" component={Forum} />
-              <Route exact path="/my-profile" component={UserProfilePage} />
-              <Route
-                exact
-                path="/edit-profile"
-                render={() =>
-                  currentUser ? <Editprofile /> : <Redirect to="/my-profile" />
-                }
-              />
-              {/* <Route exact path="/edit-profile" component={Editprofile} /> */}
-              <Route component={NotFound} />
-            </Switch>
-          )}
+              <Switch>
+                <Route
+                  exact
+                  path="/signin"
+                  render={() =>
+                    currentUser ? <Redirect to="/" /> : <SignInPage />
+                  }
+                />
+                <Route
+                  exact
+                  path="/signup"
+                  render={() =>
+                    currentUser ? <Redirect to="/" /> : <SignUpPage />
+                  }
+                />
+                <Route path="/members" component={Members} />
+                <Route exact path="/" component={Forum} />
+                <Route exact path="/my-profile" component={UserProfilePage} />
+                <Route
+                  exact
+                  path="/edit-profile"
+                  render={() =>
+                    currentUser ? <Editprofile /> : <Redirect to="/my-profile" />
+                  }
+                />
+                <Route component={NotFound} />
+              </Switch>
+            )}
         </div>
         {history.location.pathname === '/signin' ? null : history.location
-            .pathname === '/signup' ? null : history.location.pathname ===
-          '/notfound' ? null : history.location.pathname ===
-          '/user-profile' ? null : (
-          <Footer />
-        )}
+          .pathname === '/signup' ? null : history.location.pathname ===
+            '/notfound' ? null : history.location.pathname ===
+              '/user-profile' ? null : (
+                <Footer />
+              )}
       </div>
     );
   }

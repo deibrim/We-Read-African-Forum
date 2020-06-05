@@ -77,7 +77,7 @@ const UserProfilePage = ({ currentUser, history }) => {
               className="profile-pic"
               style={{ backgroundImage: 'url(' + state.pp + ')' }}
             >
-              <img src={map} alt="profile picture" className="profile-p" />
+              {/* <img src={map} alt="profile picture" className="profile-p" /> */}
             </div>
             <br />
             <span>{currentUser.displayName}</span>

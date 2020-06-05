@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { Route } from 'react-router-dom'
 import { setMembers } from '../../redux/user/user.actions';
-import {
-  selectCurrentUser,
-  selectMembers,
-} from '../../redux/user/user.selectors';
 import { firestore } from '../../firebase/firebase.utils';
-import Loader from '../../components/loader/loader'
-import Pagination from "../../components/pagination/Pagination"
+import MembersView from '../../components/members/members'
+// import Loader from '../../components/loader/loader'
+import MemberProfilePage from '../member-profile-page/member-profile-page';
 import './members.scss';
-import MemberPreview from '../../components/member-preview/member-preview';
-const Members = ({ currentUser, members, setMembers }) => {
+const Members = ({ setMembers, match }) => {
   const [state, setState] = useState({ currentPage: 1 })
   useEffect(() => {
     const fetchData = async () => {
@@ -26,37 +22,19 @@ const Members = ({ currentUser, members, setMembers }) => {
     };
     fetchData();
   }, []);
-  const changeCurrentPage = numPage => {
-    setState({ currentPage: numPage });
-    //fetch a data
-    //or update a query to get data
-  };
 
   return (
     <div className="members">
-      <div className="head">
-        <span className="avatar">Avatar</span>
-        <span className="info">Member Info</span>
-        <span className="joined_at">Registered Date</span>
-      </div>
-      {members ? members.map((item, index) => (
-        <MemberPreview key={index} data={item} />
-      )) : <Loader />}
-      <Pagination
-        currentPage={state.currentPage}
-        totalPages={10}
-        changeCurrentPage={changeCurrentPage}
-        theme="square-fill"
-      />
+      <Route exact path={`${match.path}`} component={MembersView} />
+      <Route exact path={`/members/:memberId`} component={MemberProfilePage} />
     </div>
   );
 };
-const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
-  members: selectMembers,
-});
+// const mapDispatchToProps = (dispatch) => ({
+
+// });
 const mapDispatchToProps = (dispatch) => ({
-  setMembers: (members) => dispatch(setMembers(members)),
+  setMembers: (members) => dispatch(setMembers(members))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Members);
+export default connect(null, mapDispatchToProps)(Members);
