@@ -18,7 +18,7 @@ const Category = ({ categoryName, categoryData }) => {
           onClick={handleShowSubToggle}
           data-rotate={showSub}
         >
-        </div>
+      </div>
       </div>
       {
         categoryData.map((item, index) =>

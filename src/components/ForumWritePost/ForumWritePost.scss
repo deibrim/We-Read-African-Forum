@@ -23,7 +23,7 @@ $secondaryColor: #ffffff;
   background-color: $fadedPrimary;
     #formHeading { 
       display: grid;
-      grid-template-columns: 10% 20%;
+      grid-template-columns: 10% 30%;
       vertical-align: middle;
       gap: 2px;
         #userImg { 
@@ -35,7 +35,7 @@ $secondaryColor: #ffffff;
         }
         h2 { 
           font-size: 1.1em;
-          padding-top: 10%;
+          padding-top: 6%;
           text-transform: capitalize;
           font-weight: lighter;
           letter-spacing: 0.06em;

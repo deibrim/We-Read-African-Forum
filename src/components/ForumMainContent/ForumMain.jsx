@@ -12,7 +12,12 @@ const ForumMain = ({ forumPreviewData }) => {
   return (
     <div id='forumMain'>
       < ForumWritePost />
-      {forumPreviewData.map((item, index) => <Categories key={index} data={item} />)}
+      {
+      forumPreviewData.map((item, index) => 
+        <Categories 
+          key={index} 
+          data={item} />
+        )}
     </div>
   )
 }

@@ -12,7 +12,6 @@ const Categories = ({ data }) => {
         categoryData={data.data}
       />
     </div>
-
   )
 }
 
