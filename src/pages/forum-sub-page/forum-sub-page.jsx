@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 // import { selectForumFilteredTopic } from '../../redux/forum/forum.selector';
 import './forum-sub-page.scss';
 
-const ForumSubPage = () => {
-  console.log('Sub Page');
+const ForumSubPage = ({ match }) => {
+  console.log(match.params.forumSubCategoryId);
+  console.log(match.url);
 
   return (
     <div className="tag-page">

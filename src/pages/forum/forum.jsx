@@ -12,8 +12,7 @@ import ForumMain from '../../components/ForumMainContent/ForumMain';
 import ForumSideBar from '../../components/ForumSideBar/ForumSideBar';
 class Forum extends Component {
   render() {
-    console.log(this.props.subForumTopicRoutes.forEach(item => console.log(item)
-    ));
+    // console.log(this.props.subForumTopicRoutes.forEach(item => item.forEach(item2 => console.log(item2))));
     return (
       <div className="forum">
         <Route exact path={`${this.props.match.path}`} component={ForumMain} />
@@ -22,6 +21,11 @@ class Forum extends Component {
           path={`/${item}/:forumSubCategoryId`}
           component={ForumSubPage}
         />)}
+        {this.props.subForumTopicRoutes.forEach(item => item.map((item2, index) => <Route key={index}
+          exact
+          path={`/${item2}/:forumPostId`}
+          component={TopicPage}
+        />))}
         {/* {this.props.subForumTopicRoutes.subRoutes.map((item, index) => <Route key={index}
           exact
           path={`/${item}/:forumPostId`}
