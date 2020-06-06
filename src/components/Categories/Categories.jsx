@@ -2,14 +2,27 @@ import React, { useState } from 'react';
 import Category from '../Category/Category';
 import './Categories.scss';
 
-const Categories = (props) => { 
+let categoriesData = [ 
+  'The Library Shelves',
+  'The Lounge',
+  'Readeer’s Hub',
+  'Forum Statistics'
+]
+const Categories = (props) => {
+  
   return ( 
     <div id='catgories'>
-      <Category 
-        categoryName = 'The Lougue'
-      />
+      { 
+        categoriesData.map(item => { 
+          return (
+            <Category 
+              categoryName = 'The Lougue'
+            />
+            
+          )
+        })
+      }
     </div>
-
   )
 }
 

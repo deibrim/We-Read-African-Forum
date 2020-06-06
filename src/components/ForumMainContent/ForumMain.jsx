@@ -6,6 +6,7 @@ import './ForumMain.scss';
 import ForumWritePost from '../ForumWritePost/ForumWritePost';
 import Categories from '../Categories/Categories';
 
+
 const ForumMain = (props) => { 
   return ( 
     <div id='forumMain'> 
