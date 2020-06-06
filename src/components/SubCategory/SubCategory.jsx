@@ -27,7 +27,7 @@ const SubCategory = ({ data, categoryName,
     <div id='subCategories'>
       <div id='subCategoriesIcon'></div>
       <div id='titleDeatils'>
-        <Link to={`/${categoryName.split(' ').join('_').toLowerCase()}/${data.id.toLowerCase()}`} >
+        <Link to={`/${categoryName.split(' ').join('_').toLowerCase()}/${data.id.split('_').join(' ').split(',').join(' ').split(' ').join('_').split('/').join('').toLowerCase()}`} >
           <h1> {data.id.split('_').join(' ')} </h1>
         </Link>
         <p> {data.description} </p>
