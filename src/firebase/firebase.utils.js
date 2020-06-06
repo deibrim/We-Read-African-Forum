@@ -4,14 +4,14 @@ import 'firebase/auth';
 import 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBZSP7CF1qWOUtI7710O6eT_SJPzm2ow1k',
-  authDomain: 'blog-test-cf27d.firebaseapp.com',
-  databaseURL: 'https://blog-test-cf27d.firebaseio.com',
-  projectId: 'blog-test-cf27d',
-  storageBucket: 'blog-test-cf27d.appspot.com',
-  messagingSenderId: '712716765117',
-  appId: '1:712716765117:web:757aed783e2814d70eb4d4',
-  measurementId: 'G-3E2DRSVVNM',
+  apiKey: "AIzaSyBdn1cJs_5oYF8doE4vPO0CbirHoT-TER4",
+  authDomain: "we-read-african-forum.firebaseapp.com",
+  databaseURL: "https://we-read-african-forum.firebaseio.com",
+  projectId: "we-read-african-forum",
+  storageBucket: "we-read-african-forum.appspot.com",
+  messagingSenderId: "841746569390",
+  appId: "1:841746569390:web:7309e1dcf690104c29353f",
+  measurementId: "G-CQQ8G7CLFH"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -162,21 +162,48 @@ export const uploadImage = async (file, loc) => {
       return "success"
     });
 };
-
 export const sendNewTopicToDatabase = async (topicData) => {
-  const newTopicRef = firestore.doc(`forum/${topicData.title}`);
-  const snapShot = await newTopicRef.get();
-  if (!snapShot.exists) {
+  const forumSubRef = await firestore
+    .collection('forums').doc(`${topicData.forum.split(' ').join('_')}`).collection(`${topicData.subForum.split(' ').join('_')}`)
+  await forumSubRef.doc().set(topicData)
+
+  const forumPreviewRef = await firestore
+    .collection('forum_preview_data').doc(`${topicData.forum.split(' ').join('_')}`)
+  forumPreviewRef.get()
+    .then(async doc => {
+      const updatedArr = []
+      doc.data().data.forEach(item => {
+        if (item.id.split(' ').join('_').toLowerCase() === topicData.subForum.split(' ').join('_').toLowerCase()) {
+          item.latest_post = topicData
+          item.post_count = item.post_count + 1
+        }
+        updatedArr.push(item)
+      })
+
+      try {
+        await forumPreviewRef.update({ data: updatedArr });
+        return;
+      } catch (error) {
+        console.log('error updating profile', error.message);
+      }
+    })
+
+  const userRef = await firestore.doc(`users/${topicData.user.id}`)
+  const snapShot = await userRef.get();
+  if (snapShot.exists) {
+    let posts = [];
+    posts = snapShot.data().posts;
+    posts.push(topicData);
     try {
-      await newTopicRef.set({
-        ...topicData,
+      await userRef.update({
+        posts,
       });
-      return newTopicRef;
+      console.log("Success");
+
+      return;
     } catch (error) {
-      console.log('error adding comment to database', error.message);
+      console.log('error updating profile', error.message);
     }
-  } else {
-    return 'This topic already exist';
   }
 };
 

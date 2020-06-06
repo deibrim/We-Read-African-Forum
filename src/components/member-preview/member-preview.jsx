@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import './member-preview.scss';
 import StarRating from '../rating/rating';
 const MemberPreview = ({ data }) => {
-  const { displayName, rating, createdAt, posts } = data,
+  const { displayName, rating, createdAt, posts, id } = data,
     date = new Date(createdAt.seconds * 1000),
     months = [
       'January',
@@ -26,7 +27,9 @@ const MemberPreview = ({ data }) => {
         <h3>Image</h3>
       </div>
       <div className="member-info">
-        <h5>{displayName}</h5>
+        <Link to={`/members/${id}`}>
+          <h5>{displayName}</h5>
+        </Link>
         <div className="sub-member-info">
           <StarRating rating={rating} />
           <span className="seprator">|</span>

@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import {
   auth,
-  // firestore,
+  firestore,
   createUserProfileDocument,
 } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
+import { setForumPreviewData } from './redux/forum/forum.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
@@ -50,6 +51,14 @@ class App extends React.Component {
       }
       this.props.setCurrentUser(userAuth);
     });
+    const forumPriviewData = firestore.collection('forum_preview_data');
+    forumPriviewData.onSnapshot(async snapshot => {
+      const forums = []
+      snapshot.docs.forEach(doc => {
+        forums.push(doc.data());
+      });
+      this.props.setForumPreviewData(forums)
+    });
   }
 
   componentWillUnmount() {
@@ -64,71 +73,62 @@ class App extends React.Component {
           currentUser
             ? { paddingTop: '110px' }
             : history.location.pathname === '/notfound'
-            ? { paddingTop: 0 }
-            : { paddingTop: '160px' }
+              ? { paddingTop: 0 }
+              : { paddingTop: '160px' }
         }
       >
         {history.location.pathname === '/signin' ? null : history.location
-            .pathname === '/notfound' ? null : history.location.pathname ===
-          '/signup' ? null : (
-          <div className="showing">
-            <div className="desktop">
-              <Header showSearch={this.handleSearchShow} />
-            </div>
-            <div className="mobile">
-              <MobileHeader showSearch={this.handleSearchShow} />
-            </div>
-          </div>
-        )}
+          .pathname === '/notfound' ? null : history.location.pathname ===
+            '/signup' ? null : (
+              <div className="showing">
+                <div className="desktop">
+                  <Header showSearch={this.handleSearchShow} />
+                </div>
+                <div className="mobile">
+                  <MobileHeader showSearch={this.handleSearchShow} />
+                </div>
+              </div>
+            )}
 
         <div className="wrapper">
           {this.state.isLoading ? (
             <Loader />
           ) : (
-            <Switch>
-              <Route
-                exact
-                path="/signin"
-                render={() =>
-                  currentUser ? <Redirect to="/" /> : <SignInPage />
-                }
-              />
-              <Route
-                exact
-                path="/signup"
-                render={() =>
-                  currentUser ? <Redirect to="/" /> : <SignUpPage />
-                }
-              />
-              <Route exact path="/members" component={Members} />
-
-              {/* <Route
-                exact
-                path="/user-profile"
-                render={() =>
-                  currentUser ? <UserProfilePage /> : <Redirect to="/signin" />
-                }
-              /> */}
-              <Route exact path="/" component={Forum} />
-              <Route exact path="/my-profile" component={UserProfilePage} />
-              <Route
-                exact
-                path="/edit-profile"
-                render={() =>
-                  currentUser ? <Editprofile /> : <Redirect to="/my-profile" />
-                }
-              />
-              {/* <Route exact path="/edit-profile" component={Editprofile} /> */}
-              <Route component={NotFound} />
-            </Switch>
-          )}
+              <Switch>
+                <Route
+                  exact
+                  path="/signin"
+                  render={() =>
+                    currentUser ? <Redirect to="/" /> : <SignInPage />
+                  }
+                />
+                <Route
+                  exact
+                  path="/signup"
+                  render={() =>
+                    currentUser ? <Redirect to="/" /> : <SignUpPage />
+                  }
+                />
+                <Route path="/members" component={Members} />
+                <Route exact path="/" component={Forum} />
+                <Route exact path="/my-profile" component={UserProfilePage} />
+                <Route
+                  exact
+                  path="/edit-profile"
+                  render={() =>
+                    currentUser ? <Editprofile /> : <Redirect to="/my-profile" />
+                  }
+                />
+                <Route component={NotFound} />
+              </Switch>
+            )}
         </div>
         {history.location.pathname === '/signin' ? null : history.location
-            .pathname === '/signup' ? null : history.location.pathname ===
-          '/notfound' ? null : history.location.pathname ===
-          '/user-profile' ? null : (
-          <Footer />
-        )}
+          .pathname === '/signup' ? null : history.location.pathname ===
+            '/notfound' ? null : history.location.pathname ===
+              '/user-profile' ? null : (
+                <Footer />
+              )}
       </div>
     );
   }
@@ -139,6 +139,7 @@ const mapStateToProps = createStructuredSelector({
 });
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  setForumPreviewData: (forumPreviewData) => dispatch(setForumPreviewData(forumPreviewData))
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

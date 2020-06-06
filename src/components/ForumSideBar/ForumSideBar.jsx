@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './ForumSideBar.scss';
 
-const ForumSideBar = (props) => { 
-  
-  return ( 
+const ForumSideBar = () => {
+
+  return (
     <div id='forumsidebar'>
     </div>
   )

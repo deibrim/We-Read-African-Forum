@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Category from '../Category/Category';
 import './Categories.scss';
 
-const Categories = (props) => { 
-  return ( 
+const Categories = ({ data }) => {
+  // console.log(data);
+
+  return (
     <div id='catgories'>
-      <Category 
-        categoryName = 'The Lougue'
+      <Category
+        categoryName={data.id.split('_').join(' ').replace(/\b[a-z]/gi, char => char.toUpperCase())}
+        categoryData={data.data}
       />
     </div>
 
