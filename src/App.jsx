@@ -110,7 +110,7 @@ class App extends React.Component {
                   }
                 />
                 <Route path="/members" component={Members} />
-                <Route exact path="/" component={Forum} />
+                <Route path="/" component={Forum} />
                 <Route exact path="/my-profile" component={UserProfilePage} />
                 <Route
                   exact
