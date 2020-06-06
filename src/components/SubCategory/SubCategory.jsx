@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import userIcon from '../../assets/userIco.svg'
 import './SubCategory.scss';
 
-const SubCategory = ({ subCatName,
-  subTitle,
-  subPostNum,
-  latestPost }) => {
-  const date = new Date(latestPost.posted_at ? latestPost.posted_at * 1000 : 1591257725),
+const SubCategory = ({ data, categoryName,
+}) => {
+  const date = new Date(data.latest_post.posted_at ? data.latest_post.posted_at * 1000 : 1591257725),
     months = [
       'January',
       'Febuary',
@@ -27,20 +27,22 @@ const SubCategory = ({ subCatName,
     <div id='subCategories'>
       <div id='subCategoriesIcon'></div>
       <div id='titleDeatils'>
-        <h1> {subCatName.split('_').join(' ')} </h1>
-        <p> {subTitle} </p>
+        <Link to={`/${categoryName.split(' ').join('_').toLowerCase()}/${data.id.toLowerCase()}`} >
+          <h1> {data.id.split('_').join(' ')} </h1>
+        </Link>
+        <p> {data.description} </p>
       </div>
       <div id='subCategoriesNums'>
-        <h1>{subPostNum}</h1>
+        <h1>{data.post_count}</h1>
         <p>Posts</p>
       </div>
       <div id='subCategoriesLatest'>
         <div className="latestUserImg">
-          <img src={latestPost.user !== undefined ? latestPost.user.profile_pic : null} alt='' />
+          <img src={data.latest_post.user !== undefined ? data.latest_post.user.profile_pic : userIcon} alt='' />
         </div>
         <div id="latestUserDetails">
-          <p>{latestPost.title ? latestPost.title : ''}</p>
-          <p>{latestPost.user ? `By ${latestPost.user.displayName}` : ''}</p>
+          <p>{data.latest_post.title ? data.latest_post.title : ''}</p>
+          <p>{data.latest_post.user ? `By ${data.latest_post.user.displayName}` : ''}</p>
           <p>{`${currentMonth} ${day}`}</p>
         </div>
       </div>

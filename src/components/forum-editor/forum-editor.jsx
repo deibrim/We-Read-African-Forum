@@ -45,13 +45,13 @@ class Editor extends React.Component {
       title,
       body
     } = this.state
-    // if (forum === '' ||
-    //   subForum === '' ||
-    //   title === '' ||
-    //   body === '') {
-    //   this.setState({ errorMessage: "All fields is required" });
-    //   return
-    // }
+    if (forum === '' ||
+      subForum === '' ||
+      title === '' ||
+      body === '') {
+      this.setState({ errorMessage: "All fields is required" });
+      return
+    }
     this.setState({ isLoading: !this.state.isLoading });
     const newTopic = {
       forum,

@@ -27,6 +27,8 @@ const Category = ({ categoryName, categoryData }) => {
               subCatName={item.id}
               subTitle={item.description}
               subPostNum={item.post_count}
+              categoryName={categoryName}
+              data={item}
               latestPost={item.latest_post}
             />
           </div>)

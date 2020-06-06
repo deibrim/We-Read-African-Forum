@@ -173,7 +173,7 @@ export const getforumPreviewData = async () => {
 }
 export const sendNewTopicToDatabase = async (topicData) => {
   const forumSubRef = await firestore
-    .collection('forums').doc(`${topicData.forum.split(' ').join('_')}`).collection('introductions')
+    .collection('forums').doc(`${topicData.forum.split(' ').join('_')}`).collection(`${topicData.subForum.split(' ').join('_')}`)
   await forumSubRef.doc().set(topicData)
 
   const forumPreviewRef = await firestore
