@@ -1,0 +1,52 @@
+$tablet: 850px;
+$smartphone: 600px;
+$primaryColor: #77323b;
+$fadedPrimary: #fdf6f6;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+
+#forumSearch { 
+  background-color: white;
+  padding: 0 5% 3em 5%;
+    h3 { 
+      font-size: 1.2em;
+      font-weight: 100;
+      margin: 1.4em 0;
+    }
+    #inputs { 
+      display: grid;
+      grid-template-columns: 90% 20%;
+      position: relative;
+      border-bottom: 1px solid black;
+        input { 
+          width: 100%;
+          font-size: 1.1em;
+          border: none;
+          margin: 0 auto;
+          padding-bottom: 0.8em;
+        }
+        div { 
+          width: 25px;
+          height: 25px;
+          background: url('../../assets/search.svg');
+          background-size: contain;
+          background-position: center;
+          background-repeat: no-repeat;
+          transform: scale(0.8);
+          cursor: pointer;
+        }
+    }
+}

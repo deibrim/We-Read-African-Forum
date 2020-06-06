@@ -1,0 +1,133 @@
+$tablet: 850px;
+$smartphone: 600px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+.post-page {
+  min-height: 100%;
+  .full-blog {
+    text-align: left;
+    .title {
+      font-size: 25px;
+      line-height: 35px;
+      font-weight: 500;
+      margin: 20px 0;
+    }
+    .writer {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      .user-icon {
+        height: 35px;
+        width: 35px;
+        border-radius: 50%;
+        margin-right: 5px;
+      }
+      .report {
+        margin-left: auto;
+        color: #028289;
+        font-size: 13px;
+        font-weight: 500 !important;
+      }
+      .name-time {
+        h5 {
+          text-transform: capitalize;
+          font-size: 15px;
+          font-weight: 600;
+        }
+        span {
+          font-size: 13px;
+          color: darken($color: $secondaryColor, $amount: 60);
+        }
+      }
+    }
+    .full-blog-image {
+      width: 100%;
+      // height: 500px;
+      img {
+        width: 100%;
+        // height: 400px;
+        margin-bottom: 20px;
+      }
+    }
+    .blog-content {
+      margin-bottom: 50px;
+      p {
+        font-weight: 300;
+        margin: 15px 0;
+      }
+    }
+  }
+  .full-blog-footer {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 50px 0;
+    border-top: 1px solid #eab88c;
+    border-bottom: 1px solid #eab88c;
+    padding: 10px;
+    @include smartphone() {
+      justify-content: center;
+    }
+    span {
+      font-size: 14px;
+      margin: 0 5px;
+    }
+    .date-posted {
+      @include smartphone() {
+        display: none;
+      }
+    }
+    .share {
+      display: flex;
+      .social {
+        max-width: 12%;
+        width: 100%;
+        display: flex;
+        .icon {
+          cursor: pointer;
+          width: 22px;
+          height: 22px;
+          display: flex;
+          margin-right: 10px;
+
+          img {
+            margin: auto;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+.progress-container {
+  position: fixed;
+  top: 110px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: #ccc;
+  z-index: 10;
+}
+
+/* The progress bar (scroll indicator) */
+.progress-bar {
+  height: 4px;
+  background: $primaryColor;
+  width: 0%;
+}
