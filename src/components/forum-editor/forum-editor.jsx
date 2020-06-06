@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { firestore } from '../../firebase/firebase.utils'
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { toggleEditor } from '../../redux/forum/forum.actions';
@@ -14,26 +15,50 @@ import 'suneditor/dist/css/suneditor.min.css';
 import './forum-editor.scss';
 class Editor extends React.Component {
   state = {
+    forum_name_arr_obj: [],
+    forum_names: [],
+    sub_forum_names: [],
     forum: '',
     subForum: '',
     title: '',
     body: '',
     isLoading: false,
+    errorMessage: '',
   }
   handleChangeInput = (e) => {
     const { name, value } = e.target;
+    if (name === 'forum') {
+      const smt = this.state.forum_name_arr_obj.filter((item, index) => item.name.toLowerCase() === value)
+      this.setState({ sub_forum_names: smt[0].sub_forum })
+    }
     this.setState({ [name]: value }, () => { });
+
   };
   handleChange = (content) => {
     this.setState({ body: content });
   }
+
   handlePostTopic = async () => {
+    const {
+      forum,
+      subForum,
+      title,
+      body
+    } = this.state
+    if (forum === '' ||
+      subForum === '' ||
+      title === '' ||
+      body === '') {
+      this.setState({ errorMessage: "All fields is required" });
+      return
+    }
     this.setState({ isLoading: !this.state.isLoading });
     const newTopic = {
-      title: this.state.title,
-      body: this.state.body,
+      forum,
+      subForum,
+      title: title,
+      body,
       id: GenerateId(),
-      tag: 'blank',
       user: this.props.currentUser,
       posted_at: Date.now(),
     };
@@ -41,10 +66,26 @@ class Editor extends React.Component {
     this.setState({ isLoading: !this.setState.isLoading });
     this.props.toggleEditor();
   };
+  componentDidMount() {
+    const forumNamesRef = firestore
+      .collection('forum_names')
+    forumNamesRef.onSnapshot(async (snapshot) => {
+      const forumNameArrObj = [],
+        forumNames = [];
+      snapshot.docs.forEach((doc) => {
+        forumNameArrObj.push(doc.data());
+        forumNames.push(doc.data().name);
+      });
+      this.setState({ forum_name_arr_obj: forumNameArrObj, forum_names: forumNames })
+    });
+  }
   render() {
-    const { forum, subForum, title } = this.state
+    const { forum, subForum, title, errorMessage } = this.state
     return (
       <div className="bg">
+        {errorMessage !== '' ? (
+          <span className="error">{errorMessage}</span>
+        ) : null}
         <div className="forum-editor">
           <h4>Post a Topic</h4>
           <div className="group-inputg">
@@ -54,8 +95,9 @@ class Editor extends React.Component {
             <FormSelect
               name="forum"
               value={forum}
+              required
               handleChange={this.handleChangeInput}
-              options={[]}
+              options={this.state.forum_names.length !== 0 ? [...this.state.forum_names] : []}
             />
           </div>
           <div className="group-inputg">
@@ -65,8 +107,9 @@ class Editor extends React.Component {
             <FormSelect
               name="subForum"
               value={subForum}
+              required
               handleChange={this.handleChangeInput}
-              options={[]}
+              options={this.state.sub_forum_names.length !== 0 ? [...this.state.sub_forum_names] : []}
             />
           </div>
           <div className="group-inputg">
@@ -91,6 +134,7 @@ class Editor extends React.Component {
             enableToolbar={true}
             showToolbar={true}
             image={image}
+            placeholder="Add comment"
             show={true}
             enable={true}
             setOptions={{

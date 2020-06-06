@@ -1,27 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Category from '../Category/Category';
 import './Categories.scss';
 
-let categoriesData = [ 
-  'The Library Shelves',
-  'The Lounge',
-  'Readeer’s Hub',
-  'Forum Statistics'
-]
-const Categories = (props) => {
-  
-  return ( 
+const Categories = ({ data }) => {
+  // console.log(data);
+
+  return (
     <div id='catgories'>
-      { 
-        categoriesData.map(item => { 
-          return (
-            <Category 
-              categoryName = 'The Lougue'
-            />
-            
-          )
-        })
-      }
+      <Category
+        categoryName={data.id.split('_').join(' ').replace(/\b[a-z]/gi, char => char.toUpperCase())}
+        categoryData={data.data}
+      />
     </div>
   )
 }
