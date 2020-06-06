@@ -162,15 +162,6 @@ export const uploadImage = async (file, loc) => {
       return "success"
     });
 };
-export const getforumPreviewData = async () => {
-  // const forumPriviewData = firestore.collection('forum_preview_data');
-  // forumPriviewData.onSnapshot(async snapshot => {
-  //   const forums = []
-  //   snapshot.docs.forEach(doc => {
-  //     forums.push(doc.data());
-  //   });
-  // });
-}
 export const sendNewTopicToDatabase = async (topicData) => {
   const forumSubRef = await firestore
     .collection('forums').doc(`${topicData.forum.split(' ').join('_')}`).collection(`${topicData.subForum.split(' ').join('_')}`)

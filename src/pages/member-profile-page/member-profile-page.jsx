@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { selectMember } from '../../redux/user/user.selectors';
 import { auth } from '../../firebase/firebase.utils';
-import map from '../../assets/africa/map-primary.svg';
 import posts from '../../assets/activities/posts.svg';
 import star from '../../assets/activities/star.svg';
 import calender from '../../assets/info/calender.svg';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
@@ -8,10 +8,8 @@ import CustomButton from '../custom-button/custom-button'
 import './ForumWritePost.scss';
 import Editor from '../forum-editor/forum-editor';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
-import { setCurrentUser } from '../../redux/user/user.actions';
 
-const ForumWritePost = ({ currentUser, userName, toggleEditor, toggleEdit }) => {
-  // const [state, setState] = useState({})
+const ForumWritePost = ({ currentUser, toggleEditor, toggleEdit }) => {
   const handleShowEditor = () => {
     toggleEditor(true)
   }

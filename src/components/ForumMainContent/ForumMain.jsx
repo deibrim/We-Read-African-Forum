@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectForumPreviewData } from '../../redux/forum/forum.selector'
@@ -11,11 +11,8 @@ import Categories from '../Categories/Categories';
 const ForumMain = ({ forumPreviewData }) => {
   return (
     <div id='forumMain'>
-      < ForumWritePost
-        userName='james'
-      />
+      < ForumWritePost />
       {forumPreviewData.map((item, index) => <Categories key={index} data={item} />)}
-
     </div>
   )
 }

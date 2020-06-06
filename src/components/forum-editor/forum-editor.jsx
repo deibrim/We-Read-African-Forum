@@ -134,6 +134,7 @@ class Editor extends React.Component {
             enableToolbar={true}
             showToolbar={true}
             image={image}
+            placeholder="Add comment"
             show={true}
             enable={true}
             setOptions={{

@@ -56,7 +56,7 @@ class EditProfile extends React.Component {
       .ref()
       .child(`users/${this.props.currentUser.id}/${dest}`)
       .listAll();
-    let url
+    // let url
     imagePp.items.forEach(async (itemRef) => {
       const output = document.querySelector(`.${sta}`);
       // url = await itemRef.getDownloadURL();
@@ -173,7 +173,7 @@ class EditProfile extends React.Component {
                   />
                 </div>
               </div>
-              <img src={map} alt="profile picture" className="africamap" />
+              <img src={map} alt="profile pic" className="africamap" />
               <br />
             </div>
           </div>

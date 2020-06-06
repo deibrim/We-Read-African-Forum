@@ -25,6 +25,9 @@ $secondaryColor: #ffffff;
   display: grid;
   grid-template-columns: 1fr 5fr 3fr 4fr;
   vertical-align: middle;
+  &:nth-child(even){
+    background-color: #999999;
+  }
     #subCategoriesIcon { 
       width: 30px;
       height: 30px;

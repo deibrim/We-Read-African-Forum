@@ -6,8 +6,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { auth } from '../../firebase/firebase.utils';
-// import pattern from '../../assets/pattern.svg';
-import map from '../../assets/africa/map-primary.svg';
 import posts from '../../assets/activities/posts.svg';
 import star from '../../assets/activities/star.svg';
 import calender from '../../assets/info/calender.svg';

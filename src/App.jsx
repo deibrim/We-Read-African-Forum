@@ -5,7 +5,6 @@ import { createStructuredSelector } from 'reselect';
 import {
   auth,
   firestore,
-  getforumPreviewData,
   createUserProfileDocument,
 } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
@@ -52,14 +51,12 @@ class App extends React.Component {
       }
       this.props.setCurrentUser(userAuth);
     });
-    // getforumPreviewData()
     const forumPriviewData = firestore.collection('forum_preview_data');
     forumPriviewData.onSnapshot(async snapshot => {
       const forums = []
       snapshot.docs.forEach(doc => {
         forums.push(doc.data());
       });
-      // console.log(forums);
       this.props.setForumPreviewData(forums)
     });
   }

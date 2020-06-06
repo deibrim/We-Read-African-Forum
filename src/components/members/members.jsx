@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { setMembers } from '../../redux/user/user.actions';
@@ -8,11 +8,11 @@ import {
 } from '../../redux/user/user.selectors';
 import { firestore } from '../../firebase/firebase.utils';
 import Loader from '../../components/loader/loader'
-import Pagination from "../../components/pagination/Pagination"
+// import Pagination from "../../components/pagination/Pagination"
 import './members.scss';
 import MemberPreview from '../../components/member-preview/member-preview';
-const MembersView = ({ currentUser, members, setMembers }) => {
-    const [state, setState] = useState({ currentPage: 1 })
+const MembersView = ({ members, setMembers }) => {
+    // const [state, setState] = useState({ currentPage: 1 })
     useEffect(() => {
         const fetchData = async () => {
             const membersRef = firestore.collection('users');
@@ -26,11 +26,11 @@ const MembersView = ({ currentUser, members, setMembers }) => {
         };
         fetchData();
     }, []);
-    const changeCurrentPage = numPage => {
-        setState({ currentPage: numPage });
-        //fetch a data
-        //or update a query to get data
-    };
+    // const changeCurrentPage = numPage => {
+    //     setState({ currentPage: numPage });
+    //     //fetch a data
+    //     //or update a query to get data
+    // };
 
     return (
         <div className="members">
@@ -42,12 +42,12 @@ const MembersView = ({ currentUser, members, setMembers }) => {
             {members ? members.map((item, index) => (
                 <MemberPreview key={index} data={item} />
             )) : <Loader />}
-            <Pagination
+            {/* <Pagination
                 currentPage={state.currentPage}
                 totalPages={10}
                 changeCurrentPage={changeCurrentPage}
                 theme="square-fill"
-            />
+            /> */}
         </div>
     );
 };
