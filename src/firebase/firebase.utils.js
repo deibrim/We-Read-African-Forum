@@ -162,6 +162,7 @@ export const uploadImage = async (file, loc) => {
       return "success"
     });
 };
+
 export const sendNewTopicToDatabase = async (topicData) => {
   const forumSubRef = await firestore
     .collection('forums').doc(`${topicData.forum.split(' ').join('_')}`).collection(`${topicData.subForum.split(' ').join('_')}`)

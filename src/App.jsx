@@ -89,7 +89,6 @@ class App extends React.Component {
                 </div>
               </div>
             )}
-
         <div className="wrapper">
           {this.state.isLoading ? (
             <Loader />
@@ -109,8 +108,6 @@ class App extends React.Component {
                     currentUser ? <Redirect to="/" /> : <SignUpPage />
                   }
                 />
-                <Route path="/members" component={Members} />
-                <Route path="/" component={Forum} />
                 <Route exact path="/my-profile" component={UserProfilePage} />
                 <Route
                   exact
@@ -119,6 +116,8 @@ class App extends React.Component {
                     currentUser ? <Editprofile /> : <Redirect to="/my-profile" />
                   }
                 />
+                <Route path="/members" component={Members} />
+                <Route path="/" component={Forum} />
                 <Route component={NotFound} />
               </Switch>
             )}
