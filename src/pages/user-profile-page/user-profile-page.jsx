@@ -17,35 +17,7 @@ import StarRating from '../../components/rating/rating';
 import MemberActivityBox from '../../components/member-activity-box/member-activity-box';
 import './user-profile-page.scss';
 const UserProfilePage = ({ currentUser, history }) => {
-  const [state, setState] = useState({ cover: '', pp: '' });
-  useEffect(() => {
-    const fetchData = async () => {
-      if (currentUser) {
-        let coverUrl = '';
-        let ppUrl = '';
-        const imagePp = await firebase
-          .storage()
-          .ref()
-          .child(`users/${currentUser.id}/profile-pic`)
-          .listAll();
-        imagePp.items.forEach(async (itemRef) => {
-          const url = await itemRef.getDownloadURL();
-          ppUrl = url;
-        });
-        const imageCover = await firebase
-          .storage()
-          .ref()
-          .child(`users/${currentUser.id}/cover`)
-          .listAll();
-        imageCover.items.forEach(async (itemRef) => {
-          const url = await itemRef.getDownloadURL();
-          coverUrl = url;
-          setState({ cover: coverUrl, pp: ppUrl });
-        });
-      }
-    };
-    fetchData();
-  }, [currentUser]);
+
   const handleSignout = () => {
     auth.signOut();
     history.push(`/`);
@@ -67,16 +39,15 @@ const UserProfilePage = ({ currentUser, history }) => {
       <div className="profile-page-header">
         <div className="profile-page-header-image">
           <div className="cover-container">
-            <img className="cover-image" src={state.cover} alt="cover" />
+            {currentUser.cover !== '' ? <img className="cover-image" src={currentUser.cover} alt="cover" /> : null}
           </div>
         </div>
         <div className="profile-pic_buttons">
           <div className="group">
             <div
               className="profile-pic"
-              style={{ backgroundImage: 'url(' + state.pp + ')' }}
+              style={currentUser.profile_pic !== '' ? { backgroundImage: `url(${currentUser.profile_pic} )` } : {}}
             >
-              {/* <img src={map} alt="profile picture" className="profile-p" /> */}
             </div>
             <br />
             <span>{currentUser.displayName}</span>

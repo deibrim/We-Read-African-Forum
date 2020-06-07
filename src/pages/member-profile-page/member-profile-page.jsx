@@ -41,19 +41,15 @@ const MemberProfilePage = ({ currentUser, history, member }) => {
             <div className="profile-page-header">
                 <div className="profile-page-header-image">
                     <div className="cover-container">
-                        {/* <img className="cover-image" src={state.cover} alt="cover" /> */}
+                        {member[0].cover !== '' ? <img className="cover-image" src={member[0].cover} alt="cover" /> : null}
                     </div>
                 </div>
                 <div className="profile-pic_buttons">
                     <div className="group">
-                        {/* <div
-                            className="profile-pic"
-                        > */}
                         <div
                             className="profile-pic"
-                            style={{ backgroundImage: 'url(' + state.pp + ')' }}
+                            style={member[0].profile_pic !== '' ? { backgroundImage: `url(${member[0].profile_pic} )` } : {}}
                         >
-                            {/* <img src={map} alt="profile picture" className="profile-p" /> */}
                         </div>
                         <br />
                         <span>{member[0].displayName ? member[0].displayName : ''}</span>

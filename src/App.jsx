@@ -7,6 +7,7 @@ import {
   firestore,
   createUserProfileDocument,
 } from './firebase/firebase.utils';
+// import Pusher from 'pusher-js';
 import { setCurrentUser } from './redux/user/user.actions';
 import { setForumPreviewData } from './redux/forum/forum.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
@@ -59,6 +60,17 @@ class App extends React.Component {
       });
       this.props.setForumPreviewData(forums)
     });
+    //    const pusher = new Pusher('bfa794d9a749bee1f67d', {
+    //       authEndpoint: 'https://hairdresser-app.herokuapp.com/pusher/auth',
+    //       cluster: 'eu',
+    //       encrypted: true
+    //     });
+    //   const presenceChannel = pusher.subscribe('presence-user');
+    // presenceChannel.bind('pusher:subscription_succeeded', function() {
+    //   const me = presenceChannel.members.me;
+    //   const userId = me.id;
+    //   const userInfo = me.info;
+    // });
   }
 
   componentWillUnmount() {

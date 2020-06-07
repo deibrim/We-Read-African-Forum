@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { uploadImage, updateProfile } from '../../firebase/firebase.utils';
+import { ImageUrl } from '../../firebase/imageurl';
 import cancel from '../../assets/cancel.svg';
 import cam from '../../assets/cam.svg';
 import map from '../../assets/africa/map-primary.svg';
@@ -40,36 +41,42 @@ class EditProfile extends React.Component {
         : '',
     });
   }
+
   handleCoverChange = async (e) => {
-    await uploadImage(e.target.files[0], 'cover');
-    await this.fetchImageUrl('cover', 'cover-image');
+    this.setState({ isLoading: true });
+    const selectedFile = e.target.files[0]
+    this.fetchImageUrl(selectedFile, 'cover', 'cover')
   };
+
   handlePpChange = async (e) => {
     this.setState({ isLoading: true });
-    await uploadImage(e.target.files[0], 'profile-pic');
-    await this.fetchImageUrl('profile-pic', 'profile-pic')
-    this.setState({ isLoading: false })
+    const selectedFile = e.target.files[0]
+    this.fetchImageUrl(selectedFile, 'profile-pic', 'pp')
   };
-  fetchImageUrl = async (dest, sta) => {
-    const imagePp = await firebase
-      .storage()
-      .ref()
-      .child(`users/${this.props.currentUser.id}/${dest}`)
-      .listAll();
-    // let url
-    imagePp.items.forEach(async (itemRef) => {
-      const output = document.querySelector(`.${sta}`);
-      // url = await itemRef.getDownloadURL();
-      itemRef.getDownloadURL().then((url) => {
-        if (dest === "cover") {
-          output.src = url
-          this.setState({ cover: url }, () => console.log(this.state))
-        }
-        output.style.backgroundImage = 'url(' + url + ')'
-        this.setState({ pp: url }, () => console.log(this.state))
-      })
 
+  fetchImageUrl = async (selectedFile, dest, sta) => {
+    const storageRef = firebase.storage().ref(`users/${this.props.currentUser.id}/${dest}/${selectedFile}`)
+    const uploadTask = storageRef.put(selectedFile);
+    uploadTask.on('state_changed', snapshot => {
+      switch (snapshot.state) {
+        case firebase.storage.TaskState.PAUSED:
+          console.log('Upload is paused');
+          break;
+        case firebase.storage.TaskState.RUNNING:
+          console.log('Upload is running');
+          break;
+      }
+    }, error => {
+      console.log(error);
+    }, () => {
+      // get the uploaded image url back 
+      uploadTask.snapshot.ref.getDownloadURL().then(
+        downloadURL => {
+          sta === 'pp' ?
+            this.setState({ pp: downloadURL }, () => console.log(this.state)) : this.setState({ cover: downloadURL }, () => console.log(this.state))
+        });
     });
+    this.setState({ isLoading: false })
   }
   handleChange = (e) => {
     const { name, value } = e.target;
@@ -106,8 +113,6 @@ class EditProfile extends React.Component {
       website,
       location,
       signature,
-      pp,
-      cover,
     } = this.state;
     return currentUser ? (
       <div className="profile-edit-page">
@@ -151,7 +156,6 @@ class EditProfile extends React.Component {
                 <input
                   type="file"
                   name="cover"
-                  value={cover}
                   accept="image/gif, image/jpeg, image/png"
                   onChange={this.handleCoverChange}
                 />
@@ -167,7 +171,6 @@ class EditProfile extends React.Component {
                   <input
                     type="file"
                     name="pp"
-                    value={pp}
                     accept="image/gif, image/jpeg, image/png"
                     onChange={this.handlePpChange}
                   />

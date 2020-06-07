@@ -160,7 +160,7 @@ export const uploadImage = async (file, loc) => {
     .put(file)
     .then((snapshot) => {
       return "success"
-    });
+    })
 };
 
 export const sendNewTopicToDatabase = async (topicData) => {
