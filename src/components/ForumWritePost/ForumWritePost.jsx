@@ -9,7 +9,10 @@ import './ForumWritePost.scss';
 import Editor from '../forum-editor/forum-editor';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 
+import avatar from '../../assets/userIco.svg';
+
 const ForumWritePost = ({ currentUser, toggleEditor, toggleEdit }) => {
+  console.log(currentUser);
   const handleShowEditor = () => {
     toggleEditor(true)
   }
@@ -20,7 +23,7 @@ const ForumWritePost = ({ currentUser, toggleEditor, toggleEdit }) => {
     <form id='form'>
       {currentUser ? <><div id='formHeading'>
         <div id='userImg'>
-          <img src='https://avatars0.githubusercontent.com/u/30846348?s=88&u=2b42c8f066c074b3183772888aba9a58ac1d50de&v=4' alt='' />
+          <img src={avatar} alt='' />
         </div>
         <h2>Welcome, {currentUser.displayName}</h2>
       </div>

@@ -1,0 +1,56 @@
+$tablet: 850px;
+$smartphone: 600px;
+$primaryColor: #77323b;
+$fadedPrimary: #FDFAFA;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+
+#sideBarRecentPosts { 
+  h4 { 
+    font-weight: 100;
+    font-size: 1.2em;
+    margin: 2em 0;
+  }
+  .recentpostBox { 
+    cursor: pointer;
+    position: relative;
+    text-align: left;
+    padding-left: 20%;
+    margin-bottom: 2em;
+      a { 
+        color: $primaryColor;
+        margin-bottom: 0.5em;
+        font-weight: bolder;
+        font-size: 1.1em;
+      }
+      p { 
+        font-size: 0.8em;
+      }  
+      .postIcon { 
+        display: block;
+        content: '';
+        width: 40px;
+        height: 40px;
+        background: url('../../assets/postIcons.svg');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    }
+}
