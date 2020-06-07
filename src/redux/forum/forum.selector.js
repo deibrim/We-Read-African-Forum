@@ -10,11 +10,25 @@ export const selectForumPreviewData = createSelector(
   forum => forum.forumPreviewData
 );
 export const selectSubForumRoutes = createSelector(
-  [selectForum],
+  [selectForumPreviewData],
   forum => {
     const routees = []
-    forum.forumPreviewData.forEach(item => routees.push(item.id))
-    return routees.length === forum.forumPreviewData.length ? routees : []
+    forum.forEach(item => routees.push(item.id))
+    return routees.length === forum.length ? routees : []
+  }
+);
+export const selectLatestTopics = createSelector(
+  [selectForumPreviewData],
+  forum => {
+    const routees = []
+    forum.forEach(item => {
+      item.data.forEach(item2 => {
+        if (item2.latest_post.body) {
+          routees.push(item2)
+        }
+      })
+    })
+    return routees
   }
 );
 export const selectSubForumTopicRoutes = createSelector(

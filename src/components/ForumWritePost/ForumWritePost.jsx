@@ -12,7 +12,6 @@ import { selectCurrentUser } from '../../redux/user/user.selectors';
 import avatar from '../../assets/userIco.svg';
 
 const ForumWritePost = ({ currentUser, toggleEditor, toggleEdit }) => {
-  console.log(currentUser);
   const handleShowEditor = () => {
     toggleEditor(true)
   }
