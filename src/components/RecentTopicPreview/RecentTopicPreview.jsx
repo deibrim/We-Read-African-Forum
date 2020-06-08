@@ -2,8 +2,6 @@ import React from 'react';
 import './RecentTopicPreview.scss';
 
 const RecentTopicPreview = ({ data }) => {
-    console.log(data);
-
     const date = new Date(data.posted_at ? data.posted_at : 1591257725 * 1000),
         months = [
             'January',

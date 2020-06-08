@@ -1,51 +1,22 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectLatestTopics } from '../../redux/forum/forum.selector';
+import RecentTopicPreview from '../RecentTopicPreview/RecentTopicPreview'
 import './SideBarRecentPosts.scss';
 
-const SideBarRecentPosts = (props) => { 
-
-  let recentPostData = [ 
-    {
-      postTitle: 'The Gaming Box',
-      postAuthor: 'James',
-      postMonth: 'July',
-      postDate: '14',
-      postYear: 2020,
-    },
-
-    {
-      postTitle: 'The Gaming Box',
-      postAuthor: 'James',
-      postMonth: 'July',
-      postDate: '14',
-      postYear: 2020,
-    },
-
-    {
-      postTitle: 'Buy books in lagos',
-      postAuthor: 'James',
-      postMonth: 'July',
-      postDate: '14',
-      postYear: 2020,
-    }
-  ]
-  return ( 
-    <div id='sideBarRecentPosts'>
+const SideBarRecentPosts = ({ latestTopics }) => {
+  return (
+    <div id='SideBarRecentPosts'>
       <h4>Recent Posts</h4>
-      { 
-        recentPostData.map(item => { 
-          return (
-          <div className="recentpostBox">
-            <a>{item.postTitle}</a>
-            <p className="postDetails">
-              By {item.postAuthor}- {item.postMonth} {item.postDate}, {item.postYear} 
-            </p>
-            <div className="postIcon"></div>
-          </div>
-          )
-        })
-      }
+      {latestTopics.filter((item, index) => index < 4).map((item, index) => <RecentTopicPreview key={index} data={item.latest_post} />)}
     </div>
   )
 }
+const mapStateToProps = createStructuredSelector({
+  latestTopics: selectLatestTopics,
+});
 
-export default SideBarRecentPosts;
+
+export default withRouter(connect(mapStateToProps)(SideBarRecentPosts));

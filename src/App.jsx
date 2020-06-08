@@ -5,6 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import {
   auth,
   firestore,
+  userPresence,
   createUserProfileDocument,
 } from './firebase/firebase.utils';
 // import Pusher from 'pusher-js';
@@ -49,6 +50,7 @@ class App extends React.Component {
             ...snapShot.data(),
           });
         });
+        userPresence();
       }
       this.props.setCurrentUser(userAuth);
     });
@@ -60,6 +62,7 @@ class App extends React.Component {
       });
       this.props.setForumPreviewData(forums)
     });
+
     //    const pusher = new Pusher('bfa794d9a749bee1f67d', {
     //       authEndpoint: 'https://hairdresser-app.herokuapp.com/pusher/auth',
     //       cluster: 'eu',
