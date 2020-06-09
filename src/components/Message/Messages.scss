@@ -1,0 +1,14 @@
+.message-component{
+    height: 63vh;
+    display: flex;
+    flex-direction: column;
+    .main{
+        margin-bottom: auto;
+        .messages{
+            height: 53.6vh;
+            overflow: hidden;
+            overflow-y: scroll;
+
+        }
+    }
+}

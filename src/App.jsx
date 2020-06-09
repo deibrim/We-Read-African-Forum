@@ -8,7 +8,6 @@ import {
   userPresence,
   createUserProfileDocument,
 } from './firebase/firebase.utils';
-// import Pusher from 'pusher-js';
 import { setCurrentUser } from './redux/user/user.actions';
 import { setForumPreviewData } from './redux/forum/forum.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
@@ -28,6 +27,7 @@ import Editprofile from './pages/editprofile/editprofile';
 import './App.scss';
 import Forum from './pages/forum/forum';
 import Members from './pages/members/members';
+import Message from './pages/message/message';
 
 class App extends React.Component {
   state = {
@@ -52,7 +52,7 @@ class App extends React.Component {
         });
         userPresence();
       }
-      this.props.setCurrentUser(userAuth);
+      // this.props.setCurrentUser(userAuth);
     });
     const forumPriviewData = firestore.collection('forum_preview_data');
     forumPriviewData.onSnapshot(async snapshot => {
@@ -62,23 +62,11 @@ class App extends React.Component {
       });
       this.props.setForumPreviewData(forums)
     });
-
-    //    const pusher = new Pusher('bfa794d9a749bee1f67d', {
-    //       authEndpoint: 'https://hairdresser-app.herokuapp.com/pusher/auth',
-    //       cluster: 'eu',
-    //       encrypted: true
-    //     });
-    //   const presenceChannel = pusher.subscribe('presence-user');
-    // presenceChannel.bind('pusher:subscription_succeeded', function() {
-    //   const me = presenceChannel.members.me;
-    //   const userId = me.id;
-    //   const userInfo = me.info;
-    // });
   }
 
-  componentWillUnmount() {
-    this.unSubscribeFromAuth();
-  }
+  // componentWillUnmount() {
+  //   this.unSubscribeFromAuth();
+  // }
   render() {
     const { currentUser, history } = this.props;
     return (
@@ -132,8 +120,10 @@ class App extends React.Component {
                   }
                 />
                 <Route path="/members" component={Members} />
+                <Route exact path="/messages" component={Message} />
                 <Route path="/" component={Forum} />
                 <Route component={NotFound} />
+
               </Switch>
             )}
         </div>

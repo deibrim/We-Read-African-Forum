@@ -28,4 +28,67 @@ export const ImageUrl = async (selectedFile, loc) => {
     //     // get the uploaded image url back 
 
     // });
-}; 
+};
+// export const userPresence = async (userAuth) => {
+//   const uid = auth.currentUser.uid;
+//   const userStatusDatabaseRef = firebase.database().ref('/users/' + uid);
+//   const isOfflineForDatabase = {
+//     state: 'offline',
+//     last_changed: firebase.database.ServerValue.TIMESTAMP,
+//   };
+
+//   const isOnlineForDatabase = {
+//     state: 'online',
+//     last_changed: firebase.database.ServerValue.TIMESTAMP,
+//   };
+
+//   firebase
+//     .database()
+//     .ref('.info/connected')
+//     .on('value', function (snapshot) {
+//       if (snapshot.val() === false) {
+//         return;
+//       }
+//       userStatusDatabaseRef
+//         .onDisconnect()
+//         .set(isOfflineForDatabase)
+//         .then(function () {
+//           userStatusDatabaseRef.set(isOnlineForDatabase);
+//         });
+//     });
+//   const userStatusFirestoreRef = firebase.firestore().doc('/users/' + uid);
+//   const isOfflineForFirestore = {
+//     state: 'offline',
+//     last_changed: firebase.firestore.FieldValue.serverTimestamp(),
+//   };
+
+//   const isOnlineForFirestore = {
+//     state: 'online',
+//     last_changed: firebase.firestore.FieldValue.serverTimestamp(),
+//   };
+
+//   firebase
+//     .database()
+//     .ref('.info/connected')
+//     .on('value', (snapshot) => {
+//       if (snapshot.val() === false) {
+//         userStatusFirestoreRef.update(isOfflineForFirestore);
+//         return;
+//       }
+//       userStatusDatabaseRef
+//         .onDisconnect()
+//         .update(isOfflineForDatabase)
+//         .then(() => {
+//           userStatusDatabaseRef.update(isOnlineForDatabase);
+//           userStatusFirestoreRef.update(isOnlineForFirestore);
+//         });
+//     });
+//   userStatusFirestoreRef.onSnapshot(function (doc) {
+//     const isOnline = doc.data().state ? doc.data().state === 'online' : null;
+//     // ... use isOnline
+//     if (!isOnline) {
+//       userStatusDatabaseRef.update(isOfflineForDatabase);
+//     }
+//     // console.log(isOnline);
+//   });
+// };

@@ -51,6 +51,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 export const userPresence = async (userAuth) => {
   const uid = auth.currentUser.uid;
   const userStatusDatabaseRef = firebase.database().ref('/users/' + uid);
+  const userStatusFirestoreRef = firebase.firestore().doc('/users/' + uid);
   const isOfflineForDatabase = {
     state: 'offline',
     last_changed: firebase.database.ServerValue.TIMESTAMP,
@@ -61,21 +62,6 @@ export const userPresence = async (userAuth) => {
     last_changed: firebase.database.ServerValue.TIMESTAMP,
   };
 
-  firebase
-    .database()
-    .ref('.info/connected')
-    .on('value', function (snapshot) {
-      if (snapshot.val() === false) {
-        return;
-      }
-      userStatusDatabaseRef
-        .onDisconnect()
-        .set(isOfflineForDatabase)
-        .then(function () {
-          userStatusDatabaseRef.set(isOnlineForDatabase);
-        });
-    });
-  const userStatusFirestoreRef = firebase.firestore().doc('/users/' + uid);
   const isOfflineForFirestore = {
     state: 'offline',
     last_changed: firebase.firestore.FieldValue.serverTimestamp(),
@@ -89,27 +75,22 @@ export const userPresence = async (userAuth) => {
   firebase
     .database()
     .ref('.info/connected')
-    .on('value', (snapshot) => {
+    .on('value', function (snapshot) {
       if (snapshot.val() === false) {
-        userStatusFirestoreRef.update(isOfflineForFirestore);
         return;
       }
       userStatusDatabaseRef
-        .onDisconnect()
-        .update(isOfflineForDatabase)
-        .then(() => {
-          userStatusDatabaseRef.update(isOnlineForDatabase);
+        .set(isOnlineForDatabase)
+        .then(function () {
           userStatusFirestoreRef.update(isOnlineForFirestore);
         });
+      userStatusDatabaseRef.onDisconnect().set(isOfflineForDatabase, (err) => {
+        if (err !== null) {
+          console.log(err);
+        }
+        userStatusFirestoreRef.update(isOfflineForFirestore);
+      })
     });
-  userStatusFirestoreRef.onSnapshot(function (doc) {
-    const isOnline = doc.data().state ? doc.data().state === 'online' : null;
-    // ... use isOnline
-    if (!isOnline) {
-      userStatusDatabaseRef.update(isOfflineForDatabase);
-    }
-    // console.log(isOnline);
-  });
 };
 
 export const getMemberProfiles = async () => {

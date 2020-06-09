@@ -1,0 +1,60 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+$shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+
+.direct-message{
+     height: 70vh;
+    overflow: hidden;
+    overflow-y: scroll;
+    padding: 20px;
+    .user-messanger-preview{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      cursor: pointer;
+      img{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 2px solid $primaryColor;
+        margin-bottom: 5px;
+      }
+      .name-text-preview{
+        text-align: left;
+        .name{
+          color: $primaryColor;
+          text-transform: capitalize;
+        }
+      }
+      .time-noty{
+        text-align: center;
+        .noty{
+          background-color: $primaryColor;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          color: $secondaryColor;
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+        }
+      }
+    }
+}

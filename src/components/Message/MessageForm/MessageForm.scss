@@ -1,0 +1,59 @@
+$tablet: 850px;
+$smartphone: 500px;
+$sub-color: grey;
+$main-color: black;
+$primaryColor: #77323b;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+.message_form{
+    position: relative;
+    margin-top: auto;
+    .message-input{
+        background: none;
+    background-color: white;
+    color: $sub-color;
+    font-size: 14px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    border-top: 1px solid $sub-color;
+    border-bottom: 1px solid $sub-color;
+    margin: 20px 0;
+      outline: none;
+    @include smartphone() {
+      margin: 10px 0;
+      font-size: 12px;
+      padding: 5px;
+    }
+    }
+    .buttons{
+        position: absolute;
+        right: 10px;
+        bottom: 15px;
+    }
+    .send-message{
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+            height: 30px;
+        }
+    }
+}

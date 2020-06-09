@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage';
 
 import ForumReducer from './forum/forum.reducer';
 import UserReducer from './user/user.reducer';
+import MessageReducer from './message/message.reducers';
 
 const persistConfig = {
   key: 'root',
@@ -13,7 +14,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   forum: ForumReducer,
-  user: UserReducer
+  user: UserReducer,
+  message: MessageReducer
 });
 
 export default persistReducer(persistConfig, rootReducer);
