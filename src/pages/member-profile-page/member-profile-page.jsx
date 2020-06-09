@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { selectMember } from '../../redux/user/user.selectors';
+import { setCurrentChannel, setPrivateChannel } from '../../redux/message/message.actions';
 import { auth } from '../../firebase/firebase.utils';
 import posts from '../../assets/activities/posts.svg';
 import star from '../../assets/activities/star.svg';
@@ -14,16 +15,30 @@ import Loader from '../../components/loader/loader';
 import StarRating from '../../components/rating/rating';
 import MemberActivityBox from '../../components/member-activity-box/member-activity-box';
 import './member-profile-page.scss';
-const MemberProfilePage = ({ currentUser, history, member }) => {
+const MemberProfilePage = ({ currentUser, history, member, setCurrentChannel,
+    setPrivateChannel }) => {
 
     const [state, setState] = useState({ cover: '', pp: '' });
     useEffect(() => {
 
     }, [currentUser]);
-    const handleSignout = () => {
-        auth.signOut();
-        history.push(`/`);
-    };
+
+    const getChannelId = userId => {
+        const currentUserId = currentUser.id;
+
+        return userId < currentUserId ? `${userId}/${currentUserId}` : `${currentUserId}/${userId}`;
+    }
+
+    const changeChannel = user => {
+        const channelId = getChannelId(user.id);
+        const channelData = {
+            id: channelId,
+            name: user.displayName
+        };
+        setCurrentChannel(channelData);
+        setPrivateChannel(true);
+        history.push('/messages')
+    }
 
     return member[0] ? (
         <div className="member-profile-page">
@@ -54,13 +69,12 @@ const MemberProfilePage = ({ currentUser, history, member }) => {
                         <br />
                         <span>{member[0].displayName ? member[0].displayName : ''}</span>
                     </div>
-                    <div className="buttons">
-                        <Link to="/message">
-                            <span className="message">
-                                Send Message
-                            </span>
-                        </Link>
-                    </div>
+                    {currentUser ? <div className="buttons">
+                        {currentUser.id === member[0].id ? <span className="sendMessage">You</span> : <span className="sendMessage" onClick={() => changeChannel(member[0])}>
+                            Send Message
+                        </span>}
+
+                    </div> : null}
                 </div>
             </div>
             <div className="user-desc_info">
@@ -128,7 +142,5 @@ const mapStateToProps = (state, ownProps) => {
         currentUser: state.user.currentUser
     };
 };
-// const mapDispatchToProps = (dispatch) => ({
-//       setCurrentReading: (reading) => dispatch(setCurrentReading(reading))
-// });
-export default connect(mapStateToProps)(MemberProfilePage);
+
+export default withRouter(connect(mapStateToProps, { setCurrentChannel, setPrivateChannel })(MemberProfilePage));
