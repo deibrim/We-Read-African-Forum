@@ -30,20 +30,39 @@ $secondaryColor: #ffffff;
         img{
             width: 40px;
             height: 40px;
-            margin: 0 5px;
+            margin-right: 20px;
         }
     }
     .post-stat-post-author{
          display: flex;
         align-items: center;
         text-align: left;
+        .post-stat{
+            text-align: right;
+            .replies{
+                font-size: .8em;
+            }
+            .views{
+                font-size: .85em;
+                color: darken($color: $secondaryColor, $amount: 40);
+            }
+        }
         .post-author{
             display: flex;
         align-items: center;
         img{
             width: 40px;
             height: 40px;
-            margin: 0 5px;
+            border-radius: 50%;
+            margin: 0 20px;
+        }
+        .author-name{
+            font-size: .8em;
+            color: darken($color: $secondaryColor, $amount: 70);
+        }
+        .date-day{
+            color: darken($color: $secondaryColor, $amount: 70);
+            font-size: .85em;
         }
         }
     }

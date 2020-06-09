@@ -21,9 +21,9 @@ $secondaryColor: #ffffff;
     width: calc(100vw - 350px);
     padding: 10px 0;
 }
-.avatar{
-    min-width:40px;
-    height: 40px;
+.avattar{
+    min-width:30px;
+    height: 30px;
     border-radius: 50%;
     margin: 0 10px;
 }
@@ -39,7 +39,7 @@ $secondaryColor: #ffffff;
     display: flex;
     align-items: flex-end;
     width: 50%;
-    margin: 10px;
+    margin: 30px 10px;
     margin-right: auto;
     justify-content: flex-start;
     text-align: left;
@@ -47,6 +47,7 @@ $secondaryColor: #ffffff;
     background-color: darken($color: $secondaryColor, $amount: 30);
     padding: 10px;
     border-top-right-radius: 5px;
+    padding: 7px;
     position: relative;
     .time-stamp{
       bottom: -22px;

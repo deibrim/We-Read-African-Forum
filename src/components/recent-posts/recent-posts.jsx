@@ -5,6 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import { selectLatestTopics } from '../../redux/forum/forum.selector';
 import RecentPostPreview from '../RecentPostPreview/RecentPostPreview'
 import './recent-posts.scss';
+import ForumStatistics from '../forum-statistic/forum-statistic';
 
 const RecentPosts = ({ latestTopics }) => {
     return (
@@ -14,6 +15,7 @@ const RecentPosts = ({ latestTopics }) => {
                 <span>Last Message</span>
             </div>
             {latestTopics.filter((item, index) => index < 10).map((item, index) => <RecentPostPreview key={index} data={item.latest_post} />)}
+            <ForumStatistics />
         </div>
     )
 }

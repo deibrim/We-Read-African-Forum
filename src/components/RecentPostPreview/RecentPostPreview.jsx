@@ -34,15 +34,15 @@ const RecentPostPreview = ({ data }) => {
             </div>
             <div className="post-stat-post-author">
                 <div className="post-stat">
-                    <span>Somthing</span>
+                    <span className="replies">354 Replies</span>
                     <br />
-                    <span>Somthing</span>
+                    <span className="views">22,801 Views</span>
                 </div>
                 <div className="post-author">
                     <img src={data.user.profile_pic ? data.user.profile_pic : ''} alt="" />
                     <div>
                         <h4 className="author-name">{data.user.displayName}</h4>
-                        <span className="date-dat">{month} {day}</span>
+                        <span className="date-day">{month} {day}</span>
                     </div>
                 </div>
             </div>

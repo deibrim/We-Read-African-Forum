@@ -26,7 +26,7 @@ const ForumWritePost = ({ currentUser, toggleEditor, toggleEdit }) => {
         </div>
         <h2>Welcome, {currentUser.displayName}</h2>
       </div>
-        <input onClick={handleShowEditor} placeholder='post a new topic' />
+        <input onClick={handleShowEditor} placeholder='New Post' />
         {toggleEdit ? <Editor /> : null}</> : <Link to="/signup">
           <CustomButton acen>Register</CustomButton>
         </Link>}

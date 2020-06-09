@@ -1,0 +1,36 @@
+$tablet: 850px;
+$smartphone: 500px;
+$sub-color: grey;
+$main-color: black;
+$primaryColor: #77323b;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+
+.forum-statistic-box{
+    width: 120px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $primaryColor;
+    border-radius: 5px;
+    .count{
+        font-size: 1em;
+    }
+    .text-val{
+        font-size: .9em;
+    }
+}
