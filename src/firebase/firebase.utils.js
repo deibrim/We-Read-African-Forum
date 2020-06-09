@@ -50,7 +50,11 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
 export const userPresence = async (userAuth) => {
   const uid = auth.currentUser.uid;
+  const connectedRef = firebase
+    .database()
+    .ref('.info/connected')
   const userStatusDatabaseRef = firebase.database().ref('/users/' + uid);
+  const presenceRef = firebase.database().ref('presence')
   const userStatusFirestoreRef = firebase.firestore().doc('/users/' + uid);
   const isOfflineForDatabase = {
     state: 'offline',
@@ -72,25 +76,30 @@ export const userPresence = async (userAuth) => {
     last_changed: firebase.firestore.FieldValue.serverTimestamp(),
   };
 
-  firebase
-    .database()
-    .ref('.info/connected')
-    .on('value', function (snapshot) {
-      if (snapshot.val() === false) {
-        return;
+
+  connectedRef.on('value', function (snapshot) {
+    if (snapshot.val() === false) {
+      return;
+    }
+    const ref = presenceRef.child(uid);
+    ref.set(true);
+    ref.onDisconnect().remove(err => {
+      if (err !== null) {
+        console.log(err);
       }
-      userStatusDatabaseRef
-        .set(isOnlineForDatabase)
-        .then(function () {
-          userStatusFirestoreRef.update(isOnlineForFirestore);
-        });
-      userStatusDatabaseRef.onDisconnect().set(isOfflineForDatabase, (err) => {
-        if (err !== null) {
-          console.log(err);
-        }
-        userStatusFirestoreRef.update(isOfflineForFirestore);
-      })
     });
+    userStatusDatabaseRef
+      .set(isOnlineForDatabase)
+      .then(function () {
+        userStatusFirestoreRef.update(isOnlineForFirestore);
+      });
+    userStatusDatabaseRef.onDisconnect().set(isOfflineForDatabase, (err) => {
+      if (err !== null) {
+        console.log(err);
+      }
+      userStatusFirestoreRef.update(isOfflineForFirestore);
+    })
+  });
 };
 
 export const getMemberProfiles = async () => {

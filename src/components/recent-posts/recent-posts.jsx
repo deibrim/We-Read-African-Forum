@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectLatestTopics } from '../../redux/forum/forum.selector';
+import { selectLatestPosts } from '../../redux/forum/forum.selector';
 import RecentPostPreview from '../RecentPostPreview/RecentPostPreview'
 import './recent-posts.scss';
 import ForumStatistics from '../forum-statistic/forum-statistic';
@@ -20,7 +20,7 @@ const RecentPosts = ({ latestTopics }) => {
     )
 }
 const mapStateToProps = createStructuredSelector({
-    latestTopics: selectLatestTopics,
+    latestTopics: selectLatestPosts,
 });
 
 

@@ -7,17 +7,19 @@ import './ForumMain.scss';
 //Components 
 import ForumWritePost from '../ForumWritePost/ForumWritePost';
 import Categories from '../Categories/Categories';
+import ForumStatistics from '../forum-statistic/forum-statistic';
 
 const ForumMain = ({ forumPreviewData }) => {
   return (
     <div id='forumMain'>
       < ForumWritePost />
       {
-      forumPreviewData.map((item, index) => 
-        <Categories 
-          key={index} 
-          data={item} />
+        forumPreviewData.map((item, index) =>
+          <Categories
+            key={index}
+            data={item} />
         )}
+      <ForumStatistics />
     </div>
   )
 }

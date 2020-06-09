@@ -4,6 +4,7 @@ import MessageHeader from './MessageHeader/MessageHeader'
 import MessageForm from './MessageForm/MessageForm';
 import Message from './Message/Message';
 import './Messages.scss'
+import MessageLoading from '../MessageLoading/MessageLoading';
 class Messages extends Component {
     state = {
         messagesRef: firebase.database().ref('messages'),
@@ -25,7 +26,6 @@ class Messages extends Component {
             this.addListeners(channel.id);
         }
     }
-
     addMessageListener = channelId => {
         let loadedmessages = [];
         const ref = this.getMessagesRef();
@@ -73,6 +73,15 @@ class Messages extends Component {
             this.setState({ progressBar: true })
         }
     }
+
+    displayMessageSkeleton = loading =>
+        loading ? (
+            <React.Fragment>
+                {[...Array(6)].map((_, i) => (
+                    <MessageLoading key={1} />
+                ))}
+            </React.Fragment>
+        ) : null;
     render() {
 
         const {
@@ -84,7 +93,8 @@ class Messages extends Component {
             searchTerm,
             searchResults,
             searchLoading,
-            isPrivateChannel
+            isPrivateChannel,
+            messagesLoading
         } = this.state;
 
         const { isProgressBarVisible, handleSearchChange, getMessagesRef } = this;
@@ -108,6 +118,13 @@ class Messages extends Component {
                     />
                     <div>
                         <div className={progressBar ? 'messages__progress' : 'messages'}>
+                            {messagesLoading ? <div>
+                                <br />
+                                <br />
+                                <br />
+                                {this.displayMessageSkeleton(messagesLoading)}
+                            </div> : null}
+
                             {searchTerm ? displayMessages(searchResults) : displayMessages(messages)}
                         </div>
                     </div>

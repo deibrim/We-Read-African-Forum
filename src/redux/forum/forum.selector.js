@@ -1,10 +1,6 @@
 import { createSelector } from 'reselect';
 
 const selectForum = state => state.forum;
-export const selectAllForumTopics = createSelector(
-  [selectForum],
-  forum => forum.forums
-);
 export const selectForumPreviewData = createSelector(
   [selectForum],
   forum => forum.forumPreviewData
@@ -17,7 +13,7 @@ export const selectSubForumRoutes = createSelector(
     return routees.length === forum.length ? routees : []
   }
 );
-export const selectLatestTopics = createSelector(
+export const selectLatestPosts = createSelector(
   [selectForumPreviewData],
   forum => {
     const routees = []
@@ -48,6 +44,7 @@ export const selectSubForumTopicRoutes = createSelector(
           }
           item2.data.forEach(item3 => {
             routeesObj.subRoutes.push(`${item}/${item3.id.split('_').join(' ').split(',').join(' ').split(' ').join('_').split('/').join('').toLowerCase()}`)
+
           })
           routees.push(routeesObj.subRoutes)
         }
