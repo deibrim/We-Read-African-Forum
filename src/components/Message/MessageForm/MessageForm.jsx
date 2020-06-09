@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import { v4 as uuidv4 } from 'uuid';
-import { Picker, emojiIndex } from 'emoji-mart'
+import { Picker } from 'emoji-mart'
 import 'emoji-mart/css/emoji-mart.css'
 import firebase from '../../../firebase/firebase.utils';
 import emoji from '../../../assets/messaging/emoji.svg'

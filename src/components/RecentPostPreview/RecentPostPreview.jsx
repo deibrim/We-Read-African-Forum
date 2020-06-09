@@ -1,7 +1,9 @@
 import React from 'react';
 import './RecentPostPreview.scss';
-
+import postIcon from '../../assets/postIcons.svg'
 const RecentPostPreview = ({ data }) => {
+    console.log(data);
+
     const date = new Date(data.posted_at ? data.posted_at : 1591257725 * 1000),
         months = [
             'January',
@@ -22,12 +24,28 @@ const RecentPostPreview = ({ data }) => {
         year = date.getFullYear();
 
     return (
-        <div className="recenttopicBox">
-            <a>{data.title}</a>
-            <p className="postDetails">
-                By {data.user.displayName}-{month} {day}, {year}
-            </p>
-            <div className="postIcon"></div>
+        <div className="recent-post-preview">
+            <div className="post-icon-post-name">
+                <img src={postIcon} alt="postIcon" />
+                <div className="post-name">
+                    <h4 className="title">{data.title}</h4>
+                    <span>by {data.user.displayName}-{month} {day}</span>
+                </div>
+            </div>
+            <div className="post-stat-post-author">
+                <div className="post-stat">
+                    <span>Somthing</span>
+                    <br />
+                    <span>Somthing</span>
+                </div>
+                <div className="post-author">
+                    <img src={data.user.profile_pic ? data.user.profile_pic : ''} alt="" />
+                    <div>
+                        <h4 className="author-name">{data.user.displayName}</h4>
+                        <span className="date-dat">{month} {day}</span>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
