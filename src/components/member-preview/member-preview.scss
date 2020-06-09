@@ -25,9 +25,14 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
   margin: 20px 0;
   .avat {
     flex: 1;
+    img{
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+    }
   }
   .member-info {
-    flex: 2;
+    flex: 10;
     text-align: left;
     h5 {
       color: $primaryColor;

@@ -24,7 +24,7 @@ const MemberPreview = ({ data }) => {
   return (
     <div className="member-preview">
       <div className="avat">
-        <h3>Image</h3>
+        {data.profile_pic ? <img src={data.profile_pic} alt="profile pic" /> : <img src='https://img.favpng.com/23/0/3/computer-icons-user-profile-clip-art-portable-network-graphics-png-favpng-YEj6NsJygkt6nFTNgiXg9fg9w.jpg' alt="profile pic" />}
       </div>
       <div className="member-info">
         <Link to={`/members/${id}`}>

@@ -36,6 +36,12 @@ class EditProfile extends React.Component {
       location: this.props.currentUser.location
         ? this.props.currentUser.location
         : '',
+      cover: this.props.currentUser.cover
+        ? this.props.currentUser.cover
+        : '',
+      pp: this.props.currentUser.profile_pic
+        ? this.props.currentUser.profile_pic
+        : '',
       signature: this.props.currentUser.signature
         ? this.props.currentUser.signature
         : '',
@@ -112,6 +118,7 @@ class EditProfile extends React.Component {
       bio,
       website,
       location,
+      pp, cover,
       signature,
     } = this.state;
     return currentUser ? (
@@ -148,7 +155,7 @@ class EditProfile extends React.Component {
           </div>
           <div className="profile-page-header-image">
             <div className="cover-container">
-              <img className="cover-image" alt="cover" />
+              <img className="cover-image" src={cover} alt="cover" />
             </div>
             <div className="ctrls">
               <div className="upload-btn-wrapper">
@@ -164,7 +171,7 @@ class EditProfile extends React.Component {
             </div>
           </div>
           <div className="profile-pic_buttons">
-            <div className="profile-pic">
+            <div className="profile-pic" style={{ backgroundImage: `url(${pp})` }}>
               <div className="pp">
                 <div className="upload-btn-wrapper">
                   <img src={cam} alt="upload icon" />
