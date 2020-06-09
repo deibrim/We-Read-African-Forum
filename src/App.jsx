@@ -28,6 +28,7 @@ import './App.scss';
 import Forum from './pages/forum/forum';
 import Members from './pages/members/members';
 import Message from './pages/message/message';
+import RecentPost from './pages/recent-post/recent-post';
 
 class App extends React.Component {
   state = {
@@ -120,6 +121,8 @@ class App extends React.Component {
                   }
                 />
                 <Route path="/members" component={Members} />
+
+                <Route exact path="/recent-posts" component={RecentPost} />
                 <Route exact path="/messages" component={Message} />
                 <Route path="/" component={Forum} />
                 <Route component={NotFound} />

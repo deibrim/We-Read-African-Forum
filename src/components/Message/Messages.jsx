@@ -67,6 +67,7 @@ class Messages extends Component {
         this.addMessageListener(channelId);
     }
 
+
     isProgressBarVisible = percent => {
         if (percent > 0) {
             this.setState({ progressBar: true })

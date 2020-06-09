@@ -5,13 +5,13 @@ import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
-import { uploadImage, updateProfile } from '../../firebase/firebase.utils';
-import { ImageUrl } from '../../firebase/imageurl';
+import { updateProfile } from '../../firebase/firebase.utils';
 import cancel from '../../assets/cancel.svg';
 import cam from '../../assets/cam.svg';
 import map from '../../assets/africa/map-primary.svg';
 import FormInput from '../../components/form-input/form-input';
 import Loader from '../../components/loader/loader';
+import ForumSideBar from '../../components/ForumSideBar/ForumSideBar';
 import './editprofile.scss';
 class EditProfile extends React.Component {
   state = {
@@ -121,7 +121,7 @@ class EditProfile extends React.Component {
       pp, cover,
       signature,
     } = this.state;
-    return currentUser ? (
+    return (
       <div className="profile-edit-page">
         <Helmet>
           <title>We Read African &mdash; Edit Profile</title>
@@ -141,96 +141,101 @@ class EditProfile extends React.Component {
           <Loader />
         ) : (
             <> */}
-        <div className="profile-edit-page-header">
-          <div className="edit-control">
-            <div className="cancel_title">
-              <Link to="/my-profile">
-                <img src={cancel} alt="cancel icon" />
-              </Link>
-              <span>Edit Profile</span>
-            </div>
-            <span className="save" onClick={this.handleSave}>
-              Save
+        {currentUser ? (
+          <div className="profile-edit">
+            <div className="profile-edit-page-header">
+              <div className="edit-control">
+                <div className="cancel_title">
+                  <Link to="/my-profile">
+                    <img src={cancel} alt="cancel icon" />
+                  </Link>
+                  <span>Edit Profile</span>
+                </div>
+                <span className="save" onClick={this.handleSave}>
+                  Save
                 </span>
-          </div>
-          <div className="profile-page-header-image">
-            <div className="cover-container">
-              <img className="cover-image" src={cover} alt="cover" />
-            </div>
-            <div className="ctrls">
-              <div className="upload-btn-wrapper">
-                <img src={cam} alt="upload icon" />
-                <input
-                  type="file"
-                  name="cover"
-                  accept="image/gif, image/jpeg, image/png"
-                  onChange={this.handleCoverChange}
-                />
               </div>
-              <img src={cancel} alt="cancel icon" />
-            </div>
-          </div>
-          <div className="profile-pic_buttons">
-            <div className="profile-pic" style={{ backgroundImage: `url(${pp})` }}>
-              <div className="pp">
-                <div className="upload-btn-wrapper">
-                  <img src={cam} alt="upload icon" />
-                  <input
-                    type="file"
-                    name="pp"
-                    accept="image/gif, image/jpeg, image/png"
-                    onChange={this.handlePpChange}
-                  />
+              <div className="profile-page-header-image">
+                <div className="cover-container">
+                  <img className="cover-image" src={cover} alt="cover" />
+                </div>
+                <div className="ctrls">
+                  <div className="upload-btn-wrapper">
+                    <img src={cam} alt="upload icon" />
+                    <input
+                      type="file"
+                      name="cover"
+                      accept="image/gif, image/jpeg, image/png"
+                      onChange={this.handleCoverChange}
+                    />
+                  </div>
+                  <img src={cancel} alt="cancel icon" />
                 </div>
               </div>
-              <img src={map} alt="profile pic" className="africamap" />
-              <br />
+              <div className="profile-pic_buttons">
+                <div className="profile-pic" style={{ backgroundImage: `url(${pp})` }}>
+                  <div className="pp">
+                    <div className="upload-btn-wrapper">
+                      <img src={cam} alt="upload icon" />
+                      <input
+                        type="file"
+                        name="pp"
+                        accept="image/gif, image/jpeg, image/png"
+                        onChange={this.handlePpChange}
+                      />
+                    </div>
+                  </div>
+                  <img src={map} alt="profile pic" className="africamap" />
+                  <br />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <form onSubmit={this.handleSave}>
-          <FormInput
-            type="text"
-            name="fullName"
-            value={fullName}
-            label="Fullname"
-            onChange={this.handleChange}
-          />
-          <FormInput
-            type="text"
-            name="bio"
-            value={bio}
-            label="Bio"
-            onChange={this.handleChange}
-          />
-          <FormInput
-            type="text"
-            name="website"
-            value={website}
-            label="Website"
-            onChange={this.handleChange}
-          />
-          <FormInput
-            type="text"
-            name="location"
-            value={location}
-            label="Location"
-            onChange={this.handleChange}
-          />
-          <FormInput
-            type="text"
-            name="signature"
-            value={signature}
-            label="Signature"
-            onChange={this.handleChange}
-          />
-        </form>
-        {/* </>
+            <form onSubmit={this.handleSave}>
+              <FormInput
+                type="text"
+                name="fullName"
+                value={fullName}
+                label="Fullname"
+                onChange={this.handleChange}
+              />
+              <FormInput
+                type="text"
+                name="bio"
+                value={bio}
+                label="Bio"
+                onChange={this.handleChange}
+              />
+              <FormInput
+                type="text"
+                name="website"
+                value={website}
+                label="Website"
+                onChange={this.handleChange}
+              />
+              <FormInput
+                type="text"
+                name="location"
+                value={location}
+                label="Location"
+                onChange={this.handleChange}
+              />
+              <FormInput
+                type="text"
+                name="signature"
+                value={signature}
+                label="Signature"
+                onChange={this.handleChange}
+              />
+            </form>
+            {/* </>
           )} */}
+          </div>
+        ) : (
+            <Loader />
+          )}
+        <ForumSideBar />
       </div>
-    ) : (
-        <Loader />
-      );
+    )
   }
 }
 const mapStateToProps = createStructuredSelector({

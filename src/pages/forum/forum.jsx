@@ -26,12 +26,6 @@ class Forum extends Component {
           path={`/${item2}/:forumPostId`}
           component={TopicPage}
         />))}
-        {/* {this.props.subForumTopicRoutes.subRoutes.map((item, index) => <Route key={index}
-          exact
-          path={`/${item}/:forumPostId`}
-          component={TopicPage}
-        />)} */}
-        {/* <ForumMain /> */}
         <ForumSideBar />
       </div>
     );

@@ -2,6 +2,12 @@
     height: 63vh;
     display: flex;
     flex-direction: column;
+    position: relative;
+    .emo-picker{
+        position: absolute;
+        top: 0;
+        z-index: 1;
+    }
     .main{
         margin-bottom: auto;
         .messages{
@@ -12,3 +18,8 @@
         }
     }
 }
+// .emojipicker{
+//   position: absolute;
+//   top: -500px;
+//   left: 0;
+// }

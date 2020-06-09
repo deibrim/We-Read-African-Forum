@@ -1,0 +1,32 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+$shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+.recent-posts{
+.bar { 
+    background-color: $primaryColor;
+    padding: 0.7em 3em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    span { 
+        color: white;
+        font-size: 1.1em;
+    }
+}
+}
