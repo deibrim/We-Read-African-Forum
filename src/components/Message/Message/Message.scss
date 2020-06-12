@@ -1,0 +1,81 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+
+.message-preview, .message-self{
+    display: flex;
+    width: calc(100vw - 350px);
+    padding: 10px 0;
+}
+.avattar{
+    min-width:30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 0 10px;
+}
+.time-stamp{
+      font-size: 12px;
+      position: absolute;
+      white-space: nowrap;
+      bottom: -22px;
+      color: $primaryColor;
+      right: 0;
+    }
+.group{
+    display: flex;
+    align-items: flex-end;
+    width: 50%;
+    margin: 30px 10px;
+    margin-right: auto;
+    justify-content: flex-start;
+    text-align: left;
+.message-content{
+    background-color: darken($color: $secondaryColor, $amount: 30);
+    padding: 10px;
+    border-top-right-radius: 5px;
+    padding: 7px;
+    position: relative;
+    .time-stamp{
+      bottom: -22px;
+      color: $primaryColor;
+      left:0;
+    }
+    p{
+      font-size: 14px;
+    }
+}
+    }
+    
+.self{
+    display: flex;
+    align-items: flex-end;
+    width: 50%;
+    margin: 10px;
+    justify-content: flex-start;
+    flex-direction: row-reverse;
+    .message-content{
+      position: relative;
+    border-top-left-radius: 5px;
+    background-color: darken($color: $primaryColor, $amount: 30);
+            color: $secondaryColor;
+            padding: 7px;
+        p{
+            text-align: left;
+            font-size: 14px;
+        }
+    }
+}

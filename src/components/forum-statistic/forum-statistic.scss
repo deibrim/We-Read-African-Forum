@@ -1,0 +1,60 @@
+$tablet: 850px;
+$smartphone: 500px;
+$sub-color: grey;
+$main-color: black;
+$primaryColor: #77323b;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+
+.forum-statistics{
+    margin-top: 100px;
+    .bar { 
+        background-color: $primaryColor;
+        padding: 0.3em;
+        padding-left: .6em;
+        display: flex;
+        span { 
+            color: white;
+            font-size: 1.1em;
+        }
+    }
+    .statistics, .statistic-footer{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .statistics{
+        padding:30px 0 20px 0;
+
+    }
+    .statistic-footer{
+        .latest-post, .newest-member, .recnt-post{
+            display: flex;
+            align-items: center;
+            .stat-icon{
+                height: 15px;
+                width: 15px;
+                margin: 0 10px
+            }
+            span{
+                font-size: .8em;
+                span{
+                    color: $primaryColor;
+                    font-size: 1em !important;
+                }
+            }
+        }
+    }
+}

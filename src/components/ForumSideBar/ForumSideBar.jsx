@@ -4,25 +4,25 @@ import './ForumSideBar.scss';
 
 //Components
 import ForumSearch from '../ForumSearch/ForumSearch';
-import SideBarRecentPosts from 
+import SideBarRecentPosts from
   '../SideBarRecentPosts/SideBarRecentPosts';
 import Divider from '../Divider/Divider';
-import SideBarTopics from '../SideBarTopics/SideBarTopics';
+import SideBarRecentTopics from '../SideBarRecentTopics/SideBarRecentTopics';
 
 const ForumSideBar = () => {
 
-  const handleSearchSubmit = (e) => { 
+  const handleSearchSubmit = (e) => {
     e.preventDefault();
   }
   return (
     <div id='forumsidebar'>
-      <ForumSearch 
-        searchSubmit={handleSearchSubmit} 
+      <ForumSearch
+        searchSubmit={handleSearchSubmit}
       />
       <Divider />
       <SideBarRecentPosts />
       <Divider />
-      <SideBarTopics />
+      <SideBarRecentTopics />
       <Divider />
     </div>
   )

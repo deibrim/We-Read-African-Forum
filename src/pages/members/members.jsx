@@ -7,6 +7,7 @@ import MembersView from '../../components/members/members'
 // import Loader from '../../components/loader/loader'
 import MemberProfilePage from '../member-profile-page/member-profile-page';
 import './members.scss';
+import ForumSideBar from '../../components/ForumSideBar/ForumSideBar';
 const Members = ({ setMembers, match }) => {
   useEffect(() => {
     const fetchData = async () => {
@@ -23,9 +24,12 @@ const Members = ({ setMembers, match }) => {
   }, []);
 
   return (
-    <div className="members">
-      <Route exact path={`${match.path}`} component={MembersView} />
-      <Route exact path={`/members/:memberId`} component={MemberProfilePage} />
+    <div className="members-page">
+      <div className="member-routes">
+        <Route exact path={`${match.path}`} component={MembersView} />
+        <Route exact path={`/members/:memberId`} component={MemberProfilePage} />
+      </div>
+      <ForumSideBar />
     </div>
   );
 };

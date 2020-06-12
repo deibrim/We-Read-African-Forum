@@ -5,6 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import {
   auth,
   firestore,
+  userPresence,
   createUserProfileDocument,
 } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
@@ -26,6 +27,8 @@ import Editprofile from './pages/editprofile/editprofile';
 import './App.scss';
 import Forum from './pages/forum/forum';
 import Members from './pages/members/members';
+import Message from './pages/message/message';
+import RecentPost from './pages/recent-post/recent-post';
 
 class App extends React.Component {
   state = {
@@ -48,8 +51,9 @@ class App extends React.Component {
             ...snapShot.data(),
           });
         });
+        userPresence();
       }
-      this.props.setCurrentUser(userAuth);
+      // this.props.setCurrentUser(userAuth);
     });
     const forumPriviewData = firestore.collection('forum_preview_data');
     forumPriviewData.onSnapshot(async snapshot => {
@@ -61,9 +65,9 @@ class App extends React.Component {
     });
   }
 
-  componentWillUnmount() {
-    this.unSubscribeFromAuth();
-  }
+  // componentWillUnmount() {
+  //   this.unSubscribeFromAuth();
+  // }
   render() {
     const { currentUser, history } = this.props;
     return (
@@ -117,8 +121,12 @@ class App extends React.Component {
                   }
                 />
                 <Route path="/members" component={Members} />
+
+                <Route exact path="/recent-posts" component={RecentPost} />
+                <Route exact path="/messages" component={Message} />
                 <Route path="/" component={Forum} />
                 <Route component={NotFound} />
+
               </Switch>
             )}
         </div>

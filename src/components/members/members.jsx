@@ -11,6 +11,7 @@ import Loader from '../../components/loader/loader'
 // import Pagination from "../../components/pagination/Pagination"
 import './members.scss';
 import MemberPreview from '../../components/member-preview/member-preview';
+import ForumStatistics from '../forum-statistic/forum-statistic';
 const MembersView = ({ members, setMembers }) => {
     // const [state, setState] = useState({ currentPage: 1 })
     useEffect(() => {
@@ -48,6 +49,7 @@ const MembersView = ({ members, setMembers }) => {
                 changeCurrentPage={changeCurrentPage}
                 theme="square-fill"
             /> */}
+            <ForumStatistics />
         </div>
     );
 };

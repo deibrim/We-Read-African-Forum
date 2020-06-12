@@ -5,7 +5,7 @@ import './SubCategory.scss';
 
 const SubCategory = ({ data, categoryName,
 }) => {
-  const date = new Date(data.latest_post.posted_at ? data.latest_post.posted_at * 1000 : 1591257725),
+  const date = new Date(data.latest_post.posted_at ? data.latest_post.posted_at * 1000 : 1591257725 * 1000),
     months = [
       'January',
       'Febuary',

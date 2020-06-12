@@ -1,4 +1,5 @@
 import firebase from 'firebase/app';
+import 'firebase/database';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/storage';
@@ -49,7 +50,12 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
 export const userPresence = async (userAuth) => {
   const uid = auth.currentUser.uid;
+  const connectedRef = firebase
+    .database()
+    .ref('.info/connected')
   const userStatusDatabaseRef = firebase.database().ref('/users/' + uid);
+  const presenceRef = firebase.database().ref('presence')
+  const userStatusFirestoreRef = firebase.firestore().doc('/users/' + uid);
   const isOfflineForDatabase = {
     state: 'offline',
     last_changed: firebase.database.ServerValue.TIMESTAMP,
@@ -60,21 +66,6 @@ export const userPresence = async (userAuth) => {
     last_changed: firebase.database.ServerValue.TIMESTAMP,
   };
 
-  firebase
-    .database()
-    .ref('.info/connected')
-    .on('value', function (snapshot) {
-      if (snapshot.val() === false) {
-        return;
-      }
-      userStatusDatabaseRef
-        .onDisconnect()
-        .set(isOfflineForDatabase)
-        .then(function () {
-          userStatusDatabaseRef.set(isOnlineForDatabase);
-        });
-    });
-  const userStatusFirestoreRef = firebase.firestore().doc('/users/' + uid);
   const isOfflineForFirestore = {
     state: 'offline',
     last_changed: firebase.firestore.FieldValue.serverTimestamp(),
@@ -85,29 +76,29 @@ export const userPresence = async (userAuth) => {
     last_changed: firebase.firestore.FieldValue.serverTimestamp(),
   };
 
-  firebase
-    .database()
-    .ref('.info/connected')
-    .on('value', (snapshot) => {
-      if (snapshot.val() === false) {
-        userStatusFirestoreRef.update(isOfflineForFirestore);
-        return;
-      }
-      userStatusDatabaseRef
-        .onDisconnect()
-        .update(isOfflineForDatabase)
-        .then(() => {
-          userStatusDatabaseRef.update(isOnlineForDatabase);
-          userStatusFirestoreRef.update(isOnlineForFirestore);
-        });
-    });
-  userStatusFirestoreRef.onSnapshot(function (doc) {
-    const isOnline = doc.data().state ? doc.data().state === 'online' : null;
-    // ... use isOnline
-    if (!isOnline) {
-      userStatusDatabaseRef.update(isOfflineForDatabase);
+
+  connectedRef.on('value', function (snapshot) {
+    if (snapshot.val() === false) {
+      return;
     }
-    // console.log(isOnline);
+    const ref = presenceRef.child(uid);
+    ref.set(true);
+    ref.onDisconnect().remove(err => {
+      if (err !== null) {
+        console.log(err);
+      }
+    });
+    userStatusDatabaseRef
+      .set(isOnlineForDatabase)
+      .then(function () {
+        userStatusFirestoreRef.update(isOnlineForFirestore);
+      });
+    userStatusDatabaseRef.onDisconnect().set(isOfflineForDatabase, (err) => {
+      if (err !== null) {
+        console.log(err);
+      }
+      userStatusFirestoreRef.update(isOfflineForFirestore);
+    })
   });
 };
 
@@ -160,7 +151,7 @@ export const uploadImage = async (file, loc) => {
     .put(file)
     .then((snapshot) => {
       return "success"
-    });
+    })
 };
 
 export const sendNewTopicToDatabase = async (topicData) => {

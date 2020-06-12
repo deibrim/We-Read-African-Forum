@@ -1,0 +1,30 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+$shadow: 0px 3px 5px -3px rgba(133, 131, 131, 0.75);
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+.Message-Header{
+    box-shadow: $shadow;
+    padding: 10px;
+    header{
+        text-align: left;
+        padding-top: 10px;
+        padding-left: 10px;
+        .user-name{
+            text-transform: capitalize;
+        }
+    }
+}

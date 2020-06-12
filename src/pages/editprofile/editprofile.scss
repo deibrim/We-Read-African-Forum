@@ -18,6 +18,12 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
   }
 }
 .profile-edit-page {
+ display: grid;
+  grid-template-columns: 3fr 1fr;
+  width: 95%;
+  height: auto;
+  margin: 2em auto 0 auto;
+.profile-edit {
   text-align: left;
   margin-top: 0px;
   padding: 0 20px;
@@ -146,4 +152,5 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
     padding: 0px 15%;
     margin-top: 0px;
   }
+}
 }
