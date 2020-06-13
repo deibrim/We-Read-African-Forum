@@ -111,7 +111,7 @@ class Messages extends Component {
         }
         return channel ? (
             <div className='message-component'>
-                <div className="main">
+                <div className="main_">
                     <MessageHeader
                         {...{ handleSearchChange, searchLoading, isPrivateChannel }}
                         channelName={displayChannelName(channel)}

@@ -16,16 +16,13 @@ import StarRating from '../../components/rating/rating';
 import MemberActivityBox from '../../components/member-activity-box/member-activity-box';
 import ForumSideBar from '../../components/ForumSideBar/ForumSideBar';
 import './user-profile-page.scss';
+import Spinner from '../../components/spinner/spinner';
 const UserProfilePage = ({ currentUser, history }) => {
 
   const handleSignout = () => {
     auth.signOut();
     history.push(`/`);
   };
-  const getTimeZonee = () => {
-    const date = new Date();
-    return date.getTimezoneOffset()
-  }
   return (
     <div className="user-profile-page main">
       <Helmet>
@@ -120,7 +117,7 @@ const UserProfilePage = ({ currentUser, history }) => {
           </div>
         </div>
       ) : (
-          <Loader />
+          <Spinner />
         )}
       {currentUser ? <ForumSideBar /> : null}
     </div>)

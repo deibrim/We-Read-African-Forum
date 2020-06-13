@@ -21,14 +21,26 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
 .message{
     display: flex;
     height: 70vh;
+    @include smartphone(){
+      display: block;
+    }
     .sidebar{
         width: 350px;
         border-right: 1px solid #555555;
         @include tablet(){
-        width: 350px;
+        width: 250px;
+        }
+        @include smartphone(){
+          width: 100%;
         }
     }
     .message-panel{
         width: calc(100vw - 350px);
+        @include tablet(){
+        width: calc(100vw - 250px);
+        }
+        @include smartphone(){
+          width: 100%;
+        }
     }
 }

@@ -18,8 +18,9 @@ $secondaryColor: #ffffff;
 
 .message-preview, .message-self{
     display: flex;
-    width: calc(100vw - 350px);
+    // width: calc(100vw - 350px);
     padding: 10px 0;
+    // @include
 }
 .avattar{
     min-width:30px;
