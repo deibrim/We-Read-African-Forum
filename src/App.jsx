@@ -6,7 +6,7 @@ import {
   auth,
   firestore,
   userPresence,
-  updateTopicsAdmin,
+  // updateTopicsAdmin,
   createUserProfileDocument,
 } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
@@ -14,7 +14,7 @@ import { setForumPreviewData } from './redux/forum/forum.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
-import Loader from './components/loader/loader';
+import Spinner from './components/spinner/spinner';
 /*==============================*/
 /*PAGES*/
 /*==============================*/
@@ -30,6 +30,7 @@ import Forum from './pages/forum/forum';
 import Members from './pages/members/members';
 import Message from './pages/message/message';
 import RecentPost from './pages/recent-post/recent-post';
+
 
 class App extends React.Component {
   state = {
@@ -95,9 +96,9 @@ class App extends React.Component {
                 </div>
               </div>
             )}
-        <div className="wrapper">
+        <div className={`${history.location.pathname === '/messages' ? "message-wrapper" : "wrapper"} `}>
           {this.state.isLoading ? (
-            <Loader />
+            <Spinner />
           ) : (
               <Switch>
                 <Route
@@ -135,7 +136,7 @@ class App extends React.Component {
         {history.location.pathname === '/signin' ? null : history.location
           .pathname === '/signup' ? null : history.location.pathname ===
             '/notfound' ? null : history.location.pathname ===
-              '/user-profile' ? null : (
+              '/user-profile' ? null : history.location.pathname === '/messages' ? null : (
                 <Footer />
               )}
       </div>

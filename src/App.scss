@@ -111,6 +111,12 @@ a {
     padding-top: 45px;
   }
 }
+.message-wrapper{
+  padding-top: 80px;
+  @include smartphone(){
+    padding-top: 45px;
+  }
+}
 .main{
    display: grid;
   grid-template-columns: 3fr 1fr;

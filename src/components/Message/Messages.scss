@@ -23,14 +23,15 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
     display: flex;
     flex-direction: column;
     position: relative;
+    @include smartphone(){
+        height: 40vh;
+    }
     .emo-picker{
         position: absolute;
         top: 0;
         z-index: 1;
     }
-    @include smartphone(){
-        height: 40vh;
-    }
+    
     
     .main_{
         margin-bottom: auto;
@@ -39,7 +40,7 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
             overflow: hidden;
             overflow-y: scroll;
             @include smartphone(){
-                height: 30vh;
+                height: calc(100vh - 360px);
             }
         }
     }

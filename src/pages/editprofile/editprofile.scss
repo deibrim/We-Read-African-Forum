@@ -80,6 +80,9 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
         img {
           margin: 10px 30px;
         }
+      @include smartphone(){
+        transform: translateX(50px);
+      }
       }
     }
     .profile-pic_buttons {
@@ -110,6 +113,9 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
           top: 70px;
           right: 70px;
           z-index: 2;
+           @include smartphone(){
+            transform: translate(30px, -30px);
+          }
         }
           .profile-pp {
             // width: 106px;

@@ -55,6 +55,9 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
       margin-top: 15px;
       .group_ {
         padding-left: 30px;
+        span{
+          margin-left: 10px;
+        }
         .profile-pic {
           position: relative;
           margin-top: -120px;
@@ -68,12 +71,19 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
           display: flex;
           flex-direction: column;
           justify-content: flex-end;
+          @include smartphone(){
+          height: 120px;
+          width: 120px;
+          }
           .profile-pp {
             // width: 106px;
             height: 168px;
             position: absolute;
             top: 0;
             right: 0;
+            @include smartphone(){
+              height: 118px;
+            }
           }
           .profile-p {
             // width: 106px;

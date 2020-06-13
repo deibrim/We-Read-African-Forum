@@ -73,14 +73,12 @@ export class MessageForm extends Component {
         } else {
             let errors = this.state.errors.concat({ message: 'Add a message' });
             this.setState({ errors });
-            console.log(errors);
-
         }
     }
 
     render() {
-        const { errors, message, loading, emojiPicker } = this.state;
-        const { handleChange, sendMessage, openModal } = this;
+        const { message, emojiPicker } = this.state;
+        const { handleChange, sendMessage } = this;
 
         return (
             <div className='message_form'>

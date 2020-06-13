@@ -23,6 +23,7 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
     height: 70vh;
     @include smartphone(){
       display: block;
+      height: 0vh;
     }
     .sidebar{
         width: 350px;
