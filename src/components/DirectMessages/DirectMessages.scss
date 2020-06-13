@@ -3,7 +3,7 @@ $smartphone: 500px;
 $primaryColor: #77323b;
 $blackColor: #000000;
 $secondaryColor: #ffffff;
-$shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
+$shadow: 0px 3px 5px -3px rgba(133, 131, 131, 0.75);
 
 // Mixin
 @mixin tablet {
@@ -29,6 +29,7 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
       padding: 20px 20px 0 20px;
       overflow: hidden;
       overflow-x: scroll;
+      box-shadow: $shadow;
     }
     .user-messanger-preview{
       display: flex;
@@ -40,11 +41,11 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
         flex-direction: column;
         justify-content: center;
         margin: 0px 10px;
-        height: 70px;
+        // height: 70px;
       }
       img{
-        width: 50px;
-        height: 50px;
+        width: 50px !important;
+        height: 50px !important;
         border-radius: 50%;
         border: 2px solid $primaryColor;
         margin: 0 15px 5px 0 ;
