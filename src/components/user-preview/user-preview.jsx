@@ -10,7 +10,7 @@ const UserPreview = ({ currentUser, arrowD, welcome }) => {
     >
       <img
         className="user-icon"
-        src={currentUser.photoURL ? currentUser.photoURL : userIco}
+        src={currentUser.profile_pic ? currentUser.profile_pic : userIco}
         alt="user"
         style={
           welcome
