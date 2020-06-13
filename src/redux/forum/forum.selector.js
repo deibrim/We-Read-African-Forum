@@ -27,6 +27,19 @@ export const selectLatestPosts = createSelector(
     return routees
   }
 );
+export const selectPostCount = createSelector(
+  [selectForumPreviewData],
+  forum => {
+    const count = []
+    forum.forEach(item => {
+      item.data.forEach(item2 => {
+        count.push(item2.post_count)
+      })
+    })
+    return count
+  })
+
+
 export const selectSubForumTopicRoutes = createSelector(
   [selectForumPreviewData],
   forum => {

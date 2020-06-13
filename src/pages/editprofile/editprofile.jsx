@@ -79,7 +79,7 @@ class EditProfile extends React.Component {
       uploadTask.snapshot.ref.getDownloadURL().then(
         downloadURL => {
           sta === 'pp' ?
-            this.setState({ pp: downloadURL }, () => console.log(this.state)) : this.setState({ cover: downloadURL }, () => console.log(this.state))
+            this.setState({ pp: downloadURL }) : this.setState({ cover: downloadURL })
         });
     });
     this.setState({ isLoading: false })
@@ -107,7 +107,6 @@ class EditProfile extends React.Component {
       location,
       signature,
     };
-    console.log(incomingData);
     await updateProfile(this.props.currentUser.id, incomingData);
     this.props.history.push('/my-profile');
   };
@@ -122,7 +121,7 @@ class EditProfile extends React.Component {
       signature,
     } = this.state;
     return (
-      <div className="profile-edit-page">
+      <div className="profile-edit-page main">
         <Helmet>
           <title>We Read African &mdash; Edit Profile</title>
           <meta
@@ -173,7 +172,7 @@ class EditProfile extends React.Component {
                 </div>
               </div>
               <div className="profile-pic_buttons">
-                <div className="profile-pic" style={{ backgroundImage: `url(${pp})` }}>
+                <div className="profile-pic" style={{ backgroundImage: `linear-gradient(#0000008e, #000000a1), url(${pp})` }}>
                   <div className="pp">
                     <div className="upload-btn-wrapper">
                       <img src={cam} alt="upload icon" />
@@ -185,7 +184,6 @@ class EditProfile extends React.Component {
                       />
                     </div>
                   </div>
-                  <img src={map} alt="profile pic" className="africamap" />
                   <br />
                 </div>
               </div>
@@ -197,6 +195,7 @@ class EditProfile extends React.Component {
                 value={fullName}
                 label="Fullname"
                 onChange={this.handleChange}
+                edit
               />
               <FormInput
                 type="text"
@@ -204,6 +203,7 @@ class EditProfile extends React.Component {
                 value={bio}
                 label="Bio"
                 onChange={this.handleChange}
+                edit
               />
               <FormInput
                 type="text"
@@ -211,6 +211,7 @@ class EditProfile extends React.Component {
                 value={website}
                 label="Website"
                 onChange={this.handleChange}
+                edit
               />
               <FormInput
                 type="text"
@@ -218,6 +219,7 @@ class EditProfile extends React.Component {
                 value={location}
                 label="Location"
                 onChange={this.handleChange}
+                edit
               />
               <FormInput
                 type="text"
@@ -225,6 +227,7 @@ class EditProfile extends React.Component {
                 value={signature}
                 label="Signature"
                 onChange={this.handleChange}
+                edit
               />
             </form>
             {/* </>

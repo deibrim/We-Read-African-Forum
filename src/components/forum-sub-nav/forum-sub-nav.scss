@@ -1,5 +1,5 @@
 $tablet: 850px;
-$smartphone: 600px;
+$smartphone: 500px;
 $primaryColor: #77323b;
 $blackColor: #000000;
 $secondaryColor: #ffffff;
@@ -18,20 +18,30 @@ $shadow: 0px 3px 5px -3px rgba(133, 131, 131, 0.75);
   }
 }
 .sub-nav {
-  position: -webkit-sticky;
+  // position: -webkit-sticky;
   padding-top: 10px;
   z-index: 2;
   background-color: $secondaryColor;
   display: flex;
+  justify-content: center;
   box-shadow: $shadow;
   margin-top: 10px;
   @include smartphone() {
-    top: 60px;
-  }
+    width: 100%;
+    // margin-top: -40px
+  } 
   .sub-nav-links {
+    width: 100%;
+    margin: auto;
     display: flex;
     margin: auto;
+  justify-content: center;
     text-align: center;
+  @include tablet(){
+    &:hover{
+      overflow-x: scroll;
+    }
+  }
     @include smartphone() {
       overflow-x: scroll;
     }

@@ -24,7 +24,7 @@ const Members = ({ setMembers, match }) => {
   }, []);
 
   return (
-    <div className="members-page">
+    <div className="members-page main">
       <div className="member-routes">
         <Route exact path={`${match.path}`} component={MembersView} />
         <Route exact path={`/members/:memberId`} component={MemberProfilePage} />

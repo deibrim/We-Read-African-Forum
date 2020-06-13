@@ -6,6 +6,7 @@ import {
   auth,
   firestore,
   userPresence,
+  updateTopicsAdmin,
   createUserProfileDocument,
 } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
@@ -53,6 +54,7 @@ class App extends React.Component {
         });
         userPresence();
       }
+      // updateTopicsAdmin({ path: `The Library Shelves`, id: `Horror / Fantasy / Sci-Fi`, description: `Grab a coffee and discuss all topics non book related!` })
       // this.props.setCurrentUser(userAuth);
     });
     const forumPriviewData = firestore.collection('forum_preview_data');

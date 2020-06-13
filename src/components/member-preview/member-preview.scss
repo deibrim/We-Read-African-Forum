@@ -35,6 +35,7 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
     flex: 10;
     text-align: left;
     h5 {
+      text-transform: capitalize;
       color: $primaryColor;
     }
     .sub-member-info {

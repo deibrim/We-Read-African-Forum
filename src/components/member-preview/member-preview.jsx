@@ -28,7 +28,7 @@ const MemberPreview = ({ data }) => {
       </div>
       <div className="member-info">
         <Link to={`/members/${id}`}>
-          <h5>{displayName}</h5>
+          <h5 className="member-info-name">{displayName}</h5>
         </Link>
         <div className="sub-member-info">
           <StarRating rating={rating} />

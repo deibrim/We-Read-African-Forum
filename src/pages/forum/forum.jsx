@@ -14,7 +14,7 @@ class Forum extends Component {
   render() {
     // console.log(this.props.subForumTopicRoutes.forEach(item => item.forEach(item2 => console.log(item2))));
     return (
-      <div className="forum">
+      <div className="forum main">
         <Route exact path={`${this.props.match.path}`} component={ForumMain} />
         {this.props.subForumRoutes.map((item, index) => <Route key={index}
           exact

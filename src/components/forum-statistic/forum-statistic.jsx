@@ -6,18 +6,16 @@ import firebase, { firestore } from '../../firebase/firebase.utils';
 import { updateOnlineUsers } from '../../redux/user/user.actions'
 import { setMembers } from '../../redux/user/user.actions';
 import { selectOnlineUsers, selectMembers } from '../../redux/user/user.selectors'
-import { selectLatestPosts, selectSubForumTopicRoutes } from '../../redux/forum/forum.selector';
+import { selectLatestPosts, selectSubForumTopicRoutes, selectPostCount } from '../../redux/forum/forum.selector';
 import post from '../../assets/statistic/post.svg'
 import newMember from '../../assets/statistic/new-member.svg'
 import recentPost from '../../assets/statistic/recent-post.svg'
 import './forum-statistic.scss'
 import ForumStatisticBox from '../forum-statistic-box/forum-statistic-box'
-const ForumStatistics = ({ updateOnlineUsers, setMembers, onlineUsers, topics, posts, members }) => {
-    const stat = [{ count: 30, textVal: 'forums' }, { count: 575, textVal: 'topics' }, { count: 1175, textVal: 'posts' }, { count: 35, textVal: 'online' }, { count: 1240, textVal: 'members' }]
+const ForumStatistics = ({ updateOnlineUsers, setMembers, onlineUsers, topics, posts, members, postCount }) => {
     useEffect(() => {
         const usersRef = firebase.database().ref('/presence');
-        const membersRef = firestore.collection('users');
-
+        const membersRef = firestore.collection("users").orderBy("createdAt", "desc");
         usersRef.on('value', function (snapshot) {
             snapshot.val() && updateOnlineUsers(Object.keys(snapshot.val()))
         })
@@ -38,21 +36,24 @@ const ForumStatistics = ({ updateOnlineUsers, setMembers, onlineUsers, topics, p
         <div className="forum-statistics">
             <div className="bar"> <span>Forum Statistics</span></div>
             <div className="statistics">
-                {/* {stat.map((item, index) => <ForumStatisticBox key={index} data={item} />)} */}
                 <ForumStatisticBox data={{ count: topics.length, textVal: 'forums' }} />
                 <ForumStatisticBox data={{ count: countTopics(), textVal: 'topics' }} />
-                <ForumStatisticBox data={{ count: posts.length, textVal: 'posts' }} />
+                <ForumStatisticBox data={{
+                    count: postCount.reduce((a, b) => {
+                        return a + b;
+                    }, 0), textVal: 'posts'
+                }} />
                 <ForumStatisticBox data={{ count: onlineUsers.length, textVal: 'online' }} />
                 <ForumStatisticBox data={{ count: members.length, textVal: 'members' }} />
             </div>
             <div className="statistic-footer">
                 <div className="latest-post">
                     <img className="stat-icon" src={post} alt="post" />
-                    <span>Latest Post: <span>{'My top book for the year 2019'}</span> </span>
+                    <span>Latest Post: <span>{posts.length !== 0 ? posts[0].latest_post.title : 'My top book for the year 2019'}</span> </span>
                 </div>
                 <div className="newest-member">
                     <img className="stat-icon" src={newMember} alt="user icon" />
-                    <span>Newest Member: <span>{'Jane Doe'}</span></span>
+                    <span>Newest Member: <span className='newest-member-name'>{members.length !== 0 ? members[0].displayName : 'Jane Doe'}</span></span>
                 </div>
                 <div className="recnt-post">
                     <img className="stat-icon" src={recentPost} alt="recent" />
@@ -68,7 +69,8 @@ const mapStateToProps = createStructuredSelector({
     onlineUsers: selectOnlineUsers,
     posts: selectLatestPosts,
     topics: selectSubForumTopicRoutes,
-    members: selectMembers
+    members: selectMembers,
+    postCount: selectPostCount
 });
 const mapDispatchToProps = (dispatch) => ({
     updateOnlineUsers: (user) => dispatch(updateOnlineUsers(user)),

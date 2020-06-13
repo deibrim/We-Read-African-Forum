@@ -22,9 +22,12 @@ const UserProfilePage = ({ currentUser, history }) => {
     auth.signOut();
     history.push(`/`);
   };
-
+  const getTimeZonee = () => {
+    const date = new Date();
+    return date.getTimezoneOffset()
+  }
   return (
-    <div className="user-profile-page">
+    <div className="user-profile-page main">
       <Helmet>
         <title>We Read African &mdash; Profile</title>
         <meta property="og:title" content="We Read African &mdash; Profile" />
@@ -45,7 +48,7 @@ const UserProfilePage = ({ currentUser, history }) => {
               </div>
             </div>
             <div className="profile-pic_buttons">
-              <div className="group">
+              <div className="group_">
                 <div
                   className="profile-pic"
                   style={currentUser.profile_pic !== '' ? { backgroundImage: `url(${currentUser.profile_pic} )` } : {}}
@@ -90,7 +93,7 @@ const UserProfilePage = ({ currentUser, history }) => {
               <span className="location">
                 {' '}
                 <img src={location} alt="location icon" />
-                {currentUser.location ? currentUser.location : ''}
+                {currentUser.location ? currentUser.location : 'Your Location'}
               </span>
               <span className="timezone">
                 {' '}
@@ -119,7 +122,7 @@ const UserProfilePage = ({ currentUser, history }) => {
       ) : (
           <Loader />
         )}
-      <ForumSideBar />
+      {currentUser ? <ForumSideBar /> : null}
     </div>)
 };
 const mapStateToProps = createStructuredSelector({

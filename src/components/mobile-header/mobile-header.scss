@@ -22,19 +22,23 @@ $secondaryColor: #ffffff;
     @content;
   }
 }
-.mobile-header {
-  position: fixed;
+
+.mobile-header-container {
+   position: fixed;
   top: 100px;
+  right: 0;
+  left: 0;
+  margin-top: -100px;
+  background-color: $secondaryColor;
+  z-index: 10;
+}
+.mobile-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 70px;
-  right: 0;
-  left: 0;
   padding: 0 5%;
-  margin-top: -100px;
-  background-color: $secondaryColor;
-  z-index: 10;
+  
   .menu {
     img {
       cursor: pointer;

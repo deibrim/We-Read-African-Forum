@@ -5,7 +5,9 @@ import { firestore, getSubCategoryPosts } from '../../firebase/firebase.utils'
 // import { selectForumFilteredTopic } from '../../redux/forum/forum.selector';
 import './forum-sub-page.scss';
 
-const ForumSubPage = ({ match }) => {
+const ForumSubPage = ({ match, history }) => {
+  console.log("HISTORY", history);
+
   const [state, setState] = useState({ posts: [] })
   useEffect(() => {
     const fetchData = async () => {

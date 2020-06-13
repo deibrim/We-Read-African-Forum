@@ -1,37 +1,16 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { setMembers } from '../../redux/user/user.actions';
 import {
     selectCurrentUser,
     selectMembers,
 } from '../../redux/user/user.selectors';
-import { firestore } from '../../firebase/firebase.utils';
 import Loader from '../../components/loader/loader'
-// import Pagination from "../../components/pagination/Pagination"
 import './members.scss';
 import MemberPreview from '../../components/member-preview/member-preview';
 import ForumStatistics from '../forum-statistic/forum-statistic';
-const MembersView = ({ members, setMembers }) => {
-    // const [state, setState] = useState({ currentPage: 1 })
-    useEffect(() => {
-        const fetchData = async () => {
-            const membersRef = firestore.collection('users');
-            membersRef.onSnapshot(async (snapshot) => {
-                const membersArr = [];
-                snapshot.docs.forEach((doc) => {
-                    membersArr.push(doc.data());
-                });
-                setMembers(membersArr);
-            });
-        };
-        fetchData();
-    }, []);
-    // const changeCurrentPage = numPage => {
-    //     setState({ currentPage: numPage });
-    //     //fetch a data
-    //     //or update a query to get data
-    // };
+const MembersView = ({ members, currentUser }) => {
+
 
     return (
         <div className="members">
@@ -40,15 +19,13 @@ const MembersView = ({ members, setMembers }) => {
                 <span className="info">Member Info</span>
                 <span className="joined_at">Registered Date</span>
             </div>
-            {members ? members.map((item, index) => (
-                <MemberPreview key={index} data={item} />
-            )) : <Loader />}
-            {/* <Pagination
-                currentPage={state.currentPage}
-                totalPages={10}
-                changeCurrentPage={changeCurrentPage}
-                theme="square-fill"
-            /> */}
+            {currentUser ? (<div className="member-preview-container">
+                {members ? members.filter((item, index) => currentUser.id !== item.id).map((item, index) => (
+                    <MemberPreview key={index} data={item} />
+                )) : <Loader />}
+            </div>) : <Loader />}
+
+
             <ForumStatistics />
         </div>
     );
@@ -57,8 +34,5 @@ const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser,
     members: selectMembers,
 });
-const mapDispatchToProps = (dispatch) => ({
-    setMembers: (members) => dispatch(setMembers(members)),
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(MembersView);
+export default connect(mapStateToProps)(MembersView);

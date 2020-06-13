@@ -9,21 +9,23 @@ const FormInput = ({
   isShowPass,
   forgotPassword,
   handleForgetPass,
+  edit,
   ...otherProps
 }) => {
   return (
     <div
-      className="group"
+      className={`${edit ? "group-edit" : ''} group`}
       style={
         forgotPassword ? { marginBottom: '40px' } : { marginBottom: '30px' }
       }
     >
-      <input onChange={handleChange} className="form-input" {...otherProps} />
+      <input onChange={handleChange} className={`${edit ? "form-input-edit" : ''} form-input`} {...otherProps}
+      />
       {label ? (
         <label
           className={`${
             otherProps.value.length ? 'shrink' : ''
-          } form-input-label`}
+            } form-input-label`}
         >
           {label}
         </label>
