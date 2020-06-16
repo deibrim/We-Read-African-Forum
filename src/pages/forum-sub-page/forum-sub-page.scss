@@ -15,7 +15,9 @@ $grey: #999999;
 
 @mixin smartphone {
   @media (max-width: #{$smartphone}) {
-    @content;
+    body { 
+      background-color: red;
+    }
   }
 }
 
@@ -150,7 +152,6 @@ $grey: #999999;
                         height: 16px;
                         display: block;
                         content: '';
-                        background-color: red;
                         position: absolute;
                         top: 0%;
                         left: 0;
@@ -256,3 +257,152 @@ $grey: #999999;
         }
     }
 }
+
+//Mobile responsive cocde
+@media (min-width: 320px) and (max-width: 480px) { 
+  .tag-page { 
+     
+      #postsContainer { 
+        box-shadow: 0px 10px 10px 0px #8080800e;
+        padding: 0px 2px; 
+          .subHeading { 
+            display: block;
+              #subDetails { 
+                h1 { 
+                  font-size: 22px;
+                  margin-bottom: 0.81em;
+                }
+                p { 
+                  margin-bottom: 2em;
+                  padding: 0 0.3em;
+                  width: 27%;
+                  text-align: center;
+                  border-right: 1px solid black;
+                  font-size: 0.7em;
+                    &::before { 
+                      display: none;
+                    } 
+                }
+              }
+              #subReplyBttn { 
+                width: 50%;
+                font-size: 0.8em;
+              }
+          }
+          #subPosts { 
+            #mainPosts { 
+              display: block;
+              width: 100%;
+                .postData { 
+                  margin-top: 3em;
+                  display: grid;
+                  grid-template-columns: 1fr 4fr;
+                  gap: 1em;
+                  margin-bottom: 2em;
+                    .authorImg { 
+                      margin: 0;
+                    }
+                    div { 
+                      text-align: left;
+                      padding-top: 7%;
+                    }
+                }
+                .postMainText { 
+                  padding-bottom: 5%;
+                    p:nth-child(1) { 
+                      text-align: left;
+                    }
+
+                    #postActions { 
+                      grid-template-columns: repeat(6, 13%);
+                      padding: 0 1em;
+                        div { 
+                          font-size: 12px;
+                          padding-left: 6%;
+                            &::before { 
+                              width: 10px;
+                              height: 10px;
+                              left: -23%;
+                            }
+                        }
+                    }
+                }
+            }
+          }
+      }
+  }
+}
+
+
+//Tabslets responsive cocde
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) { 
+     
+      #postsContainer { 
+        box-shadow: 0px 10px 10px 0px #8080800e;
+        padding: 0px 2px; 
+          .subHeading { 
+            display: block;
+              #subDetails { 
+                h1 { 
+                  font-size: 22px;
+                  margin-bottom: 0.81em;
+                }
+                p { 
+                  margin-bottom: 2em;
+                  padding: 0 0.3em;
+                  width: 27%;
+                  text-align: center;
+                  border-right: 1px solid black;
+                  font-size: 0.7em;
+                    &::before { 
+                      display: none;
+                    } 
+                }
+              }
+              #subReplyBttn { 
+                width: 50%;
+                font-size: 0.8em;
+              }
+          }
+          #subPosts { 
+            #mainPosts { 
+              display: block;
+              width: 100%;
+                .postData { 
+                  margin-top: 3em;
+                  display: grid;
+                  grid-template-columns: 1fr 4fr;
+                  gap: 1em;
+                  margin-bottom: 2em;
+                    .authorImg { 
+                      margin: 0;
+                    }
+                    div { 
+                      text-align: left;
+                      padding-top: 7%;
+                    }
+                }
+                .postMainText { 
+                  padding-bottom: 5%;
+                    p:nth-child(1) { 
+                      text-align: left;
+                    }
+
+                    #postActions { 
+                      grid-template-columns: repeat(6, 13%);
+                      padding: 0 1em;
+                        div { 
+                          font-size: 12px;
+                          padding-left: 0%;
+                            &::before {
+                              width: 10px;
+                              height: 10px;
+                              left: 10%;
+                            }
+                        }
+                    }
+                }
+            }
+          }
+      }
+  }

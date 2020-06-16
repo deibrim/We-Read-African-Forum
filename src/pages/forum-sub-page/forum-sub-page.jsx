@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { firestore, getSubCategoryPosts } from '../../firebase/firebase.utils'
 // import { selectForumFilteredTopic } from '../../redux/forum/forum.selector';
 import './forum-sub-page.scss';
-import sandra from '../../assets/sandra.svg';
 
 const ForumSubPage = ({ match }) => {
   const [state, setState] = useState({ posts: [] })
@@ -17,7 +16,6 @@ const ForumSubPage = ({ match }) => {
         snapshot.docs.forEach((doc) => {
           subCategoryPosts.push(doc.data());
         });
-        console.log(subCategoryPosts);
         setState({ posts: subCategoryPosts })
       })
 
@@ -80,10 +78,13 @@ const ForumSubPage = ({ match }) => {
                 <div id='mainPosts'>
                   <div className="postData">
                     <div className="authorImg" style={{backgroundImage: `url(${item.user.profile_pic}`}}></div>
-                    <h1>{item.user.displayName}</h1>
-                    <p>Joined: {userJoinedMonth[0]} {userJoinedMonth[1]}</p>
-                    <p>Posts: {userpostList}</p>
-                    <h3>{item.user.isAdmin ? 'admin' : ''}</h3>
+                    <div>
+                      <h1>{item.user.displayName}</h1>
+                      <p>Joined: {userJoinedMonth[0]} {userJoinedMonth[1]}</p>
+                      <p>Posts: {userpostList}</p>
+                      <h3>{item.user.isAdmin ? 'admin' : ''}</h3>
+                    </div>
+
                   </div>
                   <div className="postMainText">  
                     <p>
