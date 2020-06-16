@@ -14,37 +14,13 @@ class MyForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.onSubmitted({
+      FNAME: this.state.name.split(' ')[0],
+      LNAME: this.state.name.split(' ')[1] ? this.state.name.split(' ')[1] : '',
       EMAIL: this.state.email,
     });
     this.setState({ email: '', name: '' });
   };
   render() {
-    const newsStyle = {
-      padding: '40px 0',
-      marginTop: '40px',
-      borderTop: '1px solid #77323b',
-    };
-    const headingStyle = {
-      fontSize: '17px',
-      fontWeight: 500,
-      fontColor: '#77323b',
-    };
-    const pStyle = {
-      fontSize: '13px',
-      margin: '10px 0',
-    };
-    const inputStyle = {
-      fontSize: '15px',
-      width: '100%',
-    };
-    const labelStyle = {
-      fontSize: '14px',
-      marginBottom: '15px',
-    };
-    const buttonStyle = {
-      fontSize: '14px',
-      width: '100%',
-    };
     return (
       <div className="newsletter">
         <form

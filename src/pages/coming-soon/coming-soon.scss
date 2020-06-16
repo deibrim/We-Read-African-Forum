@@ -28,7 +28,7 @@ $secondaryColor: #ffffff;
     background-size: cover;
     display: flex;
     .coming-soon-container{
-        width: 450px;
+        width: 500px;
         background-color: $primaryColor;
         padding: 10px;
         margin: auto;
@@ -49,7 +49,6 @@ $secondaryColor: #ffffff;
             .desc{
                 font-size: .8em;
                 line-height: 1px !important;
-                margin-bottom: px;
             }
             .is-coming{
                 font-size: 1.2em;
@@ -72,6 +71,17 @@ $secondaryColor: #ffffff;
                     text-align: center;
                     small{
                         font-size: .7em;
+                    }
+                }
+            }
+            .socials{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .social {
+                    margin: 0 10px;
+                    img{
+                        height: 30px;
                     }
                 }
             }

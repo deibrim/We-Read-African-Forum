@@ -43,7 +43,7 @@ const ForumStatistics = ({ updateOnlineUsers, setMembers, onlineUsers, topics, p
                         return a + b;
                     }, 0), textVal: 'posts'
                 }} />
-                <ForumStatisticBox data={{ count: onlineUsers.length, textVal: 'online' }} />
+                <ForumStatisticBox data={{ count: onlineUsers ? onlineUsers.length : 0, textVal: 'online' }} />
                 <ForumStatisticBox data={{ count: members.length, textVal: 'members' }} />
             </div>
             <div className="statistic-footer">

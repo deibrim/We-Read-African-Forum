@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import renderHTML from 'react-render-html';
 import { firestore, getSubCategoryPosts } from '../../firebase/firebase.utils'
 // import { selectForumFilteredTopic } from '../../redux/forum/forum.selector';
 import './forum-sub-page.scss';
@@ -27,13 +28,11 @@ const ForumSubPage = ({ match, history }) => {
     fetchData()
   }, [])
 
-  let [ showEditBttns, setshowEditBttns ] = useState(false);
-   return (
+  let [showEditBttns, setshowEditBttns] = useState(false);
+  return (
     <div className="tag-page">
-      { 
-        state.posts.map(item => { 
-
-          console.log(item)
+      {
+        state.posts.map((item, index) => {
           let months = [
             'jan',
             'feb',
@@ -53,19 +52,19 @@ const ForumSubPage = ({ match, history }) => {
 
           let postDayLight = (new Date(item.user.createdAt.seconds * 1000).getHours() >= 12) ? 'AM' : 'PM';
 
-          let postHour = (new Date(item.user.createdAt.seconds * 1000).getHours() >= 12) ? new Date(item.user.createdAt.seconds * 1000).getHours() - 12  : new Date(item.user.createdAt.seconds * 1000).getHours();
-          
+          let postHour = (new Date(item.user.createdAt.seconds * 1000).getHours() >= 12) ? new Date(item.user.createdAt.seconds * 1000).getHours() - 12 : new Date(item.user.createdAt.seconds * 1000).getHours();
+
           let postMins = (new Date(item.user.createdAt.seconds * 1000).getMinutes() < 10) ? `0${new Date(item.user.createdAt.seconds * 1000).getMinutes()}` : new Date(item.user.createdAt.seconds * 1000).getMinutes();
 
-          let userJoinedMonth =  [ 
+          let userJoinedMonth = [
             months[
-              new Date(item.user.last_changed.seconds * 1000).getMonth()
+            new Date(item.user.last_changed.seconds * 1000).getMonth()
             ],
             new Date(item.user.last_changed.seconds * 1000).getFullYear(),
           ]
-          let userpostList  = item.user.posts.length;
-          return ( 
-            <div id='postsContainer' style={{marginBottom: '3em'}}>
+          let userpostList = item.user.posts.length;
+          return (
+            <div key={index} id='postsContainer' style={{ marginBottom: '3em' }}>
               <div className="subHeading">
                 <div id='subDetails'>
                   <h1>{item.title}</h1>
@@ -81,21 +80,19 @@ const ForumSubPage = ({ match, history }) => {
               <div id='subPosts'>
                 <div id='mainPosts'>
                   <div className="postData">
-                    <div className="authorImg" style={{backgroundImage: `url(${item.user.profile_pic}`}}></div>
+                    <div className="authorImg" style={{ backgroundImage: `url(${item.user.profile_pic}` }}></div>
                     <h1>{item.user.displayName}</h1>
                     <p>Joined: {userJoinedMonth[0]} {userJoinedMonth[1]}</p>
                     <p>Posts: {userpostList}</p>
                     <h3>{item.user.isAdmin ? 'admin' : ''}</h3>
                   </div>
-                  <div className="postMainText">  
+                  <div className="postMainText">
                     <p>
                       {
-                      `${months[new Date(item.user.createdAt.seconds * 1000).getMonth()]} ${new Date(item.user.createdAt.seconds * 1000).getDate()}, ${new Date(item.user.createdAt.seconds * 1000).getFullYear()}. ${postHour}:${postMins} ${postDayLight}`}
+                        `${months[new Date(item.user.createdAt.seconds * 1000).getMonth()]} ${new Date(item.user.createdAt.seconds * 1000).getDate()}, ${new Date(item.user.createdAt.seconds * 1000).getFullYear()}. ${postHour}:${postMins} ${postDayLight}`}
                     </p>
                     <p>
-                      {
-                        item.body
-                      }
+                      {renderHTML(`${item.body}`)}
                     </p>
                     <div id='postActions'>
                       <div>reply</div>
@@ -103,9 +100,9 @@ const ForumSubPage = ({ match, history }) => {
                       <div>Save</div>
                       <div onClick={() => (
                         (showEditBttns) ? setshowEditBttns(false) : setshowEditBttns(true)
-                        )}>More
+                      )}>More
                       </div>
-                      <div id="more" 
+                      <div id="more"
                         style=
                         {
                           {
@@ -115,7 +112,7 @@ const ForumSubPage = ({ match, history }) => {
                       >
                         Edit
                       </div>
-                      <div id="more" 
+                      <div id="more"
                         style=
                         {
                           {
