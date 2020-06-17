@@ -5,7 +5,6 @@ import renderHTML from 'react-render-html';
 import { firestore, getSubCategoryPosts } from '../../firebase/firebase.utils'
 // import { selectForumFilteredTopic } from '../../redux/forum/forum.selector';
 import './forum-sub-page.scss';
-import sandra from '../../assets/sandra.svg';
 
 const ForumSubPage = ({ match, history }) => {
   console.log("HISTORY", history);
@@ -20,7 +19,6 @@ const ForumSubPage = ({ match, history }) => {
         snapshot.docs.forEach((doc) => {
           subCategoryPosts.push(doc.data());
         });
-        console.log(subCategoryPosts);
         setState({ posts: subCategoryPosts })
       })
 
@@ -80,11 +78,22 @@ const ForumSubPage = ({ match, history }) => {
               <div id='subPosts'>
                 <div id='mainPosts'>
                   <div className="postData">
+
+                    <div className="authorImg" style={{backgroundImage: `url(${item.user.profile_pic}`}}></div>
+                    <div>
+                      <h1>{item.user.displayName}</h1>
+                      <p>Joined: {userJoinedMonth[0]} {userJoinedMonth[1]}</p>
+                      <p>Posts: {userpostList}</p>
+                      <h3>{item.user.isAdmin ? 'admin' : ''}</h3>
+                    </div>
+
+
                     <div className="authorImg" style={{ backgroundImage: `url(${item.user.profile_pic}` }}></div>
                     <h1>{item.user.displayName}</h1>
                     <p>Joined: {userJoinedMonth[0]} {userJoinedMonth[1]}</p>
                     <p>Posts: {userpostList}</p>
                     <h3>{item.user.isAdmin ? 'admin' : ''}</h3>
+
                   </div>
                   <div className="postMainText">
                     <p>
@@ -92,7 +101,7 @@ const ForumSubPage = ({ match, history }) => {
                         `${months[new Date(item.user.createdAt.seconds * 1000).getMonth()]} ${new Date(item.user.createdAt.seconds * 1000).getDate()}, ${new Date(item.user.createdAt.seconds * 1000).getFullYear()}. ${postHour}:${postMins} ${postDayLight}`}
                     </p>
                     <p>
-                      {renderHTML(`${item.body}`)}
+                      {rrenderHTM`${item.body}`)}
                     </p>
                     <div id='postActions'>
                       <div>reply</div>

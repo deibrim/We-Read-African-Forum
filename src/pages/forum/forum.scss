@@ -1,2 +1,29 @@
+
+.forum { 
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  width: 95%;
+  height: auto;
+  margin: 2em auto 0 auto;
+}
+
+
+//Mobile responsive cocde
+@media (min-width: 320px) and (max-width: 480px) { 
+  .forum{ 
+    display: block;
+    width: 100%;
+  }
+}
+
+//Tabslets responsive cocde
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) { 
+  .forum{ 
+    display: block;
+    width: 100%;
+  }
+}
+
 // .forum { 
 // }
+
