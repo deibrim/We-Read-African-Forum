@@ -3,7 +3,7 @@ $smartphone: 500px;
 $primaryColor: #77323b;
 $blackColor: #000000;
 $secondaryColor: #ffffff;
-$shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
+$shadow: 0px 3px 5px -3px rgba(133, 131, 131, 0.75);
 
 // Mixin
 @mixin tablet {
@@ -23,24 +23,46 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
     overflow: hidden;
     overflow-y: scroll;
     padding: 20px;
+    @include smartphone(){
+      display: flex;
+      height: auto;
+      padding: 20px 20px 0 20px;
+      overflow: hidden;
+      overflow-x: scroll;
+      box-shadow: $shadow;
+    }
     .user-messanger-preview{
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
       margin-bottom: 30px;
       cursor: pointer;
+      @include smartphone(){
+        flex-direction: column;
+        justify-content: center;
+        margin: 0px 10px;
+        // height: 70px;
+      }
       img{
-        width: 50px;
-        height: 50px;
+        width: 50px !important;
+        height: 50px !important;
         border-radius: 50%;
         border: 2px solid $primaryColor;
-        margin-bottom: 5px;
+        margin: 0 15px 5px 0 ;
+        @include smartphone(){
+        margin: 0 0 5px 0 ;
+        }
       }
       .name-text-preview{
         text-align: left;
+        @include smartphone(){
+        }
         .name{
           color: $primaryColor;
           text-transform: capitalize;
+           @include smartphone(){
+             font-size: .6em;
+        }
         }
       }
       .time-noty{

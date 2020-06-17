@@ -88,12 +88,12 @@ class DirectMessages extends Component {
                         <div className="name-text-preview">
                             <span className="name"><strong>{user.displayName}</strong></span>
                             <br />
-                            <span className="text-preview"><small>Hey bro</small></span>
+                            {/* <span className="text-preview"><small>Hey bro</small></span> */}
                         </div>
                         <div className="time-noty">
-                            <span className="time"><small>12:03am</small></span>
+                            {/* <span className="time"><small>12:03am</small></span> */}
                             <br />
-                            <span className="noty">1</span>
+                            {/* <span className="noty">1</span> */}
                         </div>
                     </div>
                 ))}

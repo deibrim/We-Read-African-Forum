@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom'
+import { Route } from 'react-router-dom';
 import { setMembers } from '../../redux/user/user.actions';
 import { firestore } from '../../firebase/firebase.utils';
-import MembersView from '../../components/members/members'
-// import Loader from '../../components/loader/loader'
+import MembersView from '../../components/members/members';
 import MemberProfilePage from '../member-profile-page/member-profile-page';
-import './members.scss';
 import ForumSideBar from '../../components/ForumSideBar/ForumSideBar';
+import './members.scss';
 const Members = ({ setMembers, match }) => {
   useEffect(() => {
     const fetchData = async () => {
@@ -24,7 +23,7 @@ const Members = ({ setMembers, match }) => {
   }, []);
 
   return (
-    <div className="members-page">
+    <div className="members-page main">
       <div className="member-routes">
         <Route exact path={`${match.path}`} component={MembersView} />
         <Route exact path={`/members/:memberId`} component={MemberProfilePage} />

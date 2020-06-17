@@ -34,24 +34,53 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
   .member-info {
     flex: 10;
     text-align: left;
-    h5 {
-      color: $primaryColor;
+    @include smartphone(){
+      margin-left: 20px;
     }
+    h5 {
+      text-transform: capitalize;
+      color: $primaryColor;
+      @include smartphone(){
+        font-size: .9em;
+      }
+    } 
+
     .sub-member-info {
       display: flex;
       //   font-size: 10px;
       justify-content: flex-start;
       align-items: center;
+      @include smartphone(){
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
       span {
         font-size: 1em;
         line-height: 2em;
+        @include smartphone(){
+          line-height: 1.5em;
+          font-size: .9em;
+        }
       }
       .seprator {
         margin: 0 5px;
+        @include smartphone(){
+          display: none;
+        }
       }
     }
   }
   .regi {
     flex: 1;
+    span{
+      white-space: nowrap;
+      @include smartphone(){
+        font-size: .9em;
+      }
+    }
+    @include smartphone(){
+      margin-right: 10px;
+    }
   }
 }

@@ -20,7 +20,7 @@ $main-color: black;
   @include smartphone() {
     margin: 20px 0;
   }
-
+  
   .form-input {
     background: none;
     background-color: white;
@@ -45,6 +45,12 @@ $main-color: black;
 
     &:focus ~ .form-input-label {
       @include shrinkLabel();
+    }
+  }
+  .form-input-edit{
+    width: 100% !important;
+    @include smartphone(){
+      width: auto;
     }
   }
   .showpass {
@@ -91,4 +97,7 @@ $main-color: black;
       @include shrinkLabel();
     }
   }
+}
+.group-edit{
+    width: 100% !important;
 }

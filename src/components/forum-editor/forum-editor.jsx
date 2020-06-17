@@ -61,10 +61,14 @@ class Editor extends React.Component {
       id: GenerateId(),
       user: this.props.currentUser,
       posted_at: Date.now(),
+      likes: 0,
+      likers: []
     };
+    // console.log(newTopic);
+
     await sendNewTopicToDatabase(newTopic);
     this.setState({ isLoading: !this.setState.isLoading });
-    this.props.toggleEditor();
+    // this.props.toggleEditor();
   };
   componentDidMount() {
     const forumNamesRef = firestore

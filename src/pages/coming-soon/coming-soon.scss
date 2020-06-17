@@ -1,0 +1,93 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+$big-smartphone: 400px;
+$smartphone: 350px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin big-smartphone {
+  @media (max-width: #{$big-smartphone}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+.coming-soon-page{
+    height: 100vh;
+    width: 100vw;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    .coming-soon-container{
+        width: 500px;
+        background-color: $primaryColor;
+        padding: 10px;
+        margin: auto;
+        @include smartphone(){
+            width: 350px;
+        }
+        .coming-soon{
+            border: 1px solid $secondaryColor;
+            text-align: center;
+            color: $secondaryColor;
+            // width: 60%;
+            padding: 20px 10%;
+            margin: auto;
+            img{
+                width: 60%;
+                margin: 0 0 10px 0;
+            }
+            .desc{
+                font-size: .8em;
+                line-height: 1px !important;
+            }
+            .is-coming{
+                font-size: 1.2em;
+                letter-spacing: 10px;
+                @include big-smartphone(){
+                    font-size: 1em;
+                    letter-spacing: 5px;
+                }
+            }
+            .coming-soon-newsletter{
+                border: 1px solid $secondaryColor;
+                padding: 20px;
+                text-align: left;
+                margin-bottom: 10px;
+                p{
+                    font-size: 1em;
+                    margin-bottom: 10px;
+                }
+                .check-junk{
+                    text-align: center;
+                    small{
+                        font-size: .7em;
+                    }
+                }
+            }
+            .socials{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .social {
+                    margin: 0 10px;
+                    img{
+                        height: 30px;
+                    }
+                }
+            }
+            .copyright{
+                font-size: .9em;
+            }
+        }
+    }
+}

@@ -22,7 +22,7 @@ const ForumWritePost = ({ currentUser, toggleEditor, toggleEdit }) => {
     <form id='form'>
       {currentUser ? <><div id='formHeading'>
         <div id='userImg'>
-          <img src={avatar} alt='' />
+          <img src={currentUser.profile_pic} alt='' />
         </div>
         <h2>Welcome, {currentUser.displayName}</h2>
       </div>

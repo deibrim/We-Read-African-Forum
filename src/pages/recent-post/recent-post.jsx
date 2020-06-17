@@ -8,7 +8,7 @@ import ForumSideBar from '../../components/ForumSideBar/ForumSideBar';
 
 const RecentPost = () => {
     return (
-        <div className='RecentPost'>
+        <div className='RecentPost main'>
             <RecentPosts />
             <ForumSideBar />
         </div>

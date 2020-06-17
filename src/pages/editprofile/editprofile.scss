@@ -18,12 +18,8 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
   }
 }
 .profile-edit-page {
- display: grid;
-  grid-template-columns: 3fr 1fr;
-  width: 95%;
-  height: auto;
-  margin: 2em auto 0 auto;
 .profile-edit {
+  width: 100%;
   text-align: left;
   margin-top: 0px;
   padding: 0 20px;
@@ -84,6 +80,9 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
         img {
           margin: 10px 30px;
         }
+      @include smartphone(){
+        transform: translateX(50px);
+      }
       }
     }
     .profile-pic_buttons {
@@ -94,27 +93,44 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
       padding-left: 30px;
       .profile-pic {
         position: relative;
-        margin-top: -80px;
-        // max-width: 190px;
-        // width: 100%;
-        max-height: 229.001px;
-        height: 100%;
-        background-position: 10px center;
-        background-size: contain;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        .pp {
+          margin-top: -120px;
+          height: 170px;
+          width: 170px;
+          border-radius: 30px;
+          box-shadow: $shadow;
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          @include smartphone(){
+          height: 120px;
+          width: 120px;
+          }
+          .pp {
           position: absolute;
-          top: 50px;
-          right: 30px;
+          top: 70px;
+          right: 70px;
           z-index: 2;
+           @include smartphone(){
+            transform: translate(30px, -30px);
+          }
         }
-        .africamap {
-          // width: 117px;
-          height: 168px;
-          // margin-right: -50px;
-        }
+          .profile-pp {
+            // width: 106px;
+            height: 168px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            @include smartphone(){
+              height: 118px;
+            }
+          }
+          .profile-p {
+            // width: 106px;
+            height: 168px;
+          }
       }
     }
   }
@@ -131,26 +147,10 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
       opacity: 0;
     }
   }
-
-  //   .btn {
-  //     border: 2px solid gray;
-  //     color: gray;
-  //     background-color: white;
-  //     padding: 8px 20px;
-  //     border-radius: 8px;
-  //     font-size: 20px;
-  //     font-weight: bold;
-  //   }
-
-  //   .cover .pp {
-  //     position: relative;
-  //     input[type='file'] {
-  //       position: absolute;
-  //     }
-  //   }
   form {
     padding: 0px 15%;
     margin-top: 0px;
+    // width: 600px;
   }
 }
 }

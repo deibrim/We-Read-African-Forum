@@ -37,6 +37,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         createdAt,
         rating: 1,
         posts: [],
+        isAdmin: false,
         emailVerified,
         ...additionalData,
       });
@@ -153,25 +154,61 @@ export const uploadImage = async (file, loc) => {
       return "success"
     })
 };
+export const updateTopicsAdmin = async (topicData) => {
+  const forumPreviewDataRef = await firestore
+    .collection('forum_preview_data').doc(`${topicData.path.split('/').join('').split(' ').join('_').toLowerCase()}`)
+  const datObj = {
+    id: topicData.id.split('/').join('').split(' ').join('_').toLowerCase(),
+    description: topicData.description,
+    latest_post: {},
+    post_count: 0
+  }
+  const snapShot = await forumPreviewDataRef.get()
+  if (snapShot.exists) {
+    const initialObj = { id: snapShot.data().id }
+    const initialData = [...snapShot.data().data]
+    if (snapShot.data().data.length === 0) {
+      initialData.push(datObj)
+      initialObj['data'] = initialData
+      forumPreviewDataRef.set(initialObj)
+      console.log("New Sub Forum 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥");
+      return
+    } else {
+      const filterToCompare = snapShot.data().data.filter((item, index) => item.id !== topicData.id.split('/').join('').split(' ').join('_').toLowerCase())
+      let dataNotEqZero = []
+      if (filterToCompare.length !== snapShot.data().data.length) {
+        return
+      }
+      dataNotEqZero = snapShot.data().data
+      dataNotEqZero.push(datObj)
+      initialObj['data'] = dataNotEqZero
+      // console.log("When Lenght is Not Zero🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥", initialObj);
+      forumPreviewDataRef.set(initialObj)
+    }
+  } else {
+    forumPreviewDataRef.set({ id: topicData.path.split('/').join('').split(' ').join('_').toLowerCase(), data: [datObj] })
+  }
+}
+// REGEX .replace(/[^\w\s]/gi, '')
+
 
 export const sendNewTopicToDatabase = async (topicData) => {
   const forumSubRef = await firestore
-    .collection('forums').doc(`${topicData.forum.split(' ').join('_')}`).collection(`${topicData.subForum.split(' ').join('_')}`)
+    .collection('forums').doc(`${topicData.forum.split('/').join('').split(' ').join('_')}`).collection(`${topicData.subForum.split('/').join('').split(' ').join('_')}`)
   await forumSubRef.doc().set(topicData)
-
   const forumPreviewRef = await firestore
-    .collection('forum_preview_data').doc(`${topicData.forum.split(' ').join('_')}`)
+    .collection('forum_preview_data').doc(`${topicData.forum.split('/').join('').split(' ').join('_')}`)
   forumPreviewRef.get()
     .then(async doc => {
       const updatedArr = []
       doc.data().data.forEach(item => {
-        if (item.id.split(' ').join('_').toLowerCase() === topicData.subForum.split(' ').join('_').toLowerCase()) {
+        console.log(item.id.split('/').join('').split(' ').join('_').toLowerCase(), topicData.subForum.split('/').join('').split(' ').join('_').toLowerCase())
+        if (item.id.split('/').join('').split(' ').join('_').toLowerCase() === topicData.subForum.split('/').join('').split(' ').join('_').toLowerCase()) {
           item.latest_post = topicData
           item.post_count = item.post_count + 1
         }
         updatedArr.push(item)
       })
-
       try {
         await forumPreviewRef.update({ data: updatedArr });
         return;

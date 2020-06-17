@@ -60,7 +60,7 @@ const MemberProfilePage = ({ currentUser, history, member, setCurrentChannel,
                     </div>
                 </div>
                 <div className="profile-pic_buttons">
-                    <div className="group">
+                    <div className="group_">
                         <div
                             className="profile-pic"
                             style={member[0].profile_pic !== '' ? { backgroundImage: `url(${member[0].profile_pic} )` } : {}}

@@ -26,6 +26,14 @@ class Messages extends Component {
             this.addListeners(channel.id);
         }
     }
+    componentDidUpdate(prevProps, prevState) {
+        if (this.messagesEnd) {
+            this.scrollToBottom();
+        }
+    }
+    scrollToBottom = () => {
+        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    };
     addMessageListener = channelId => {
         let loadedmessages = [];
         const ref = this.getMessagesRef();
@@ -78,7 +86,7 @@ class Messages extends Component {
         loading ? (
             <React.Fragment>
                 {[...Array(6)].map((_, i) => (
-                    <MessageLoading key={1} />
+                    <MessageLoading key={i} />
                 ))}
             </React.Fragment>
         ) : null;
@@ -101,7 +109,7 @@ class Messages extends Component {
 
         const displayMessages = messages => {
             if (messages.length > 0) {
-                return messages.map(message => <Message key={message.timestamp} message={message} user={user} />);
+                return messages.map((message, index) => <Message key={index} message={message} user={user} />);
             }
 
             return null;
@@ -111,7 +119,7 @@ class Messages extends Component {
         }
         return channel ? (
             <div className='message-component'>
-                <div className="main">
+                <div className="main_">
                     <MessageHeader
                         {...{ handleSearchChange, searchLoading, isPrivateChannel }}
                         channelName={displayChannelName(channel)}
@@ -126,6 +134,7 @@ class Messages extends Component {
                             </div> : null}
 
                             {searchTerm ? displayMessages(searchResults) : displayMessages(messages)}
+                            <div ref={node => (this.messagesEnd = node)} />
                         </div>
                     </div>
                 </div>

@@ -1,20 +1,47 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+$shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+
 .message-component{
     height: 63vh;
     display: flex;
     flex-direction: column;
     position: relative;
+    @include smartphone(){
+        height: 40vh;
+    }
     .emo-picker{
         position: absolute;
         top: 0;
         z-index: 1;
     }
-    .main{
+    
+    
+    .main_{
         margin-bottom: auto;
         .messages{
             height: 53.6vh;
             overflow: hidden;
             overflow-y: scroll;
-
+            @include smartphone(){
+                height: calc(100vh - 385px);
+            }
         }
     }
 }

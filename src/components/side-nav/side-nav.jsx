@@ -24,17 +24,17 @@ const SideNav = ({ currentUser, handleToggleSideNav, history, match }) => {
           <div className="user">
             <img
               className="user-icon"
-              src={currentUser.photoURL ? currentUser.photoURL : userIco}
+              src={currentUser.profile_pic ? currentUser.profile_pic : userIco}
               alt="user"
             />
             <span>{currentUser.displayName}</span>
           </div>
         </Link>
       ) : (
-        <Link to="/signin" onClick={handleToggleSideNav}>
-          <CustomButton acen>Log In / Register</CustomButton>
-        </Link>
-      )}
+          <Link to="/signin" onClick={handleToggleSideNav}>
+            <CustomButton acen>Log In / Register</CustomButton>
+          </Link>
+        )}
       <nav>
         <ul className="nav-links">
           <li>

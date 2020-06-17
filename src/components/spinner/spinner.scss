@@ -1,0 +1,48 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+$shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+
+.SpinnerOverlay{
+    height: 60vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .SpinnerContainer{
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        border: 3px solid lighten($color: $primaryColor, $amount: 30);
+        border-radius: 50%;
+        border-top-color: $primaryColor;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+
+        @keyframes spin {
+            to {
+            -webkit-transform: rotate(360deg);
+            }
+        }
+        @-webkit-keyframes spin {
+            to {
+            -webkit-transform: rotate(360deg);
+            }
+        }
+    }
+}
