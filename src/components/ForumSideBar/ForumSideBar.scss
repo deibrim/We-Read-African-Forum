@@ -18,18 +18,15 @@ $shadow: 0px 3px 5px rgba(124, 124, 124, 0.747);
   }
 }
 
-#forumsidebar { 
+#forumsidebar {
   width: 100%;
   margin-left: 20px;
-
 }
 
-
-@media (min-width: 320px) and (max-width: 480px) { 
-  #forumsidebar { 
-
-  @include tablet(){
-
-    display: none;
+@media (min-width: 320px) and (max-width: 480px) {
+  #forumsidebar {
+    @include tablet() {
+      display: none;
+    }
   }
 }

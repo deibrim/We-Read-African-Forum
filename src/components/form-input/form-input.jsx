@@ -14,18 +14,21 @@ const FormInput = ({
 }) => {
   return (
     <div
-      className={`${edit ? "group-edit" : ''} group`}
+      className={`${edit ? 'group-edit' : ''} group-input`}
       style={
         forgotPassword ? { marginBottom: '40px' } : { marginBottom: '30px' }
       }
     >
-      <input onChange={handleChange} className={`${edit ? "form-input-edit" : ''} form-input`} {...otherProps}
+      <input
+        onChange={handleChange}
+        className={`${edit ? 'form-input-edit' : ''} form-input`}
+        {...otherProps}
       />
       {label ? (
         <label
           className={`${
             otherProps.value.length ? 'shrink' : ''
-            } form-input-label`}
+          } form-input-label`}
         >
           {label}
         </label>

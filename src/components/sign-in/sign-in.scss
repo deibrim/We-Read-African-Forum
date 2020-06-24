@@ -32,6 +32,9 @@ $secondaryColor: #ffffff;
     line-height: 29px;
     color: $primaryColor;
   }
+  form {
+    width: 100% !important;
+  }
 
   .buttons {
     display: flex;
