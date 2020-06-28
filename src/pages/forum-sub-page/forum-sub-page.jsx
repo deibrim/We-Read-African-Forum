@@ -2,16 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import renderHTML from 'react-render-html';
-import {
-  firestore,
-  // getSubCategoryPosts
-} from '../../firebase/firebase.utils';
-// import { selectForumFilteredTopic } from '../../redux/forum/forum.selector';
+import { firestore } from '../../firebase/firebase.utils';
 import './forum-sub-page.scss';
 
 const ForumSubPage = ({ match, history }) => {
-  console.log('HISTORY', history);
-
   const [state, setState] = useState({ posts: [] });
   useEffect(() => {
     const fetchData = async () => {
@@ -103,19 +97,6 @@ const ForumSubPage = ({ match, history }) => {
                     className="authorImg"
                     style={{ backgroundImage: `url(${item.user.profile_pic}` }}
                   ></div>
-                  <div>
-                    <h1>{item.user.displayName}</h1>
-                    <p>
-                      Joined: {userJoinedMonth[0]} {userJoinedMonth[1]}
-                    </p>
-                    <p>Posts: {userpostList}</p>
-                    <h3>{item.user.isAdmin ? 'admin' : ''}</h3>
-                  </div>
-
-                  <div
-                    className="authorImg"
-                    style={{ backgroundImage: `url(${item.user.profile_pic}` }}
-                  ></div>
                   <h1>{item.user.displayName}</h1>
                   <p>
                     Joined: {userJoinedMonth[0]} {userJoinedMonth[1]}
@@ -124,7 +105,7 @@ const ForumSubPage = ({ match, history }) => {
                   <h3>{item.user.isAdmin ? 'admin' : ''}</h3>
                 </div>
                 <div className="postMainText">
-                  <p>
+                  <p className="post-date-time">
                     {`${
                       months[
                         new Date(item.user.createdAt.seconds * 1000).getMonth()
@@ -135,7 +116,7 @@ const ForumSubPage = ({ match, history }) => {
                       item.user.createdAt.seconds * 1000
                     ).getFullYear()}. ${postHour}:${postMins} ${postDayLight}`}
                   </p>
-                  <p>{renderHTML(`${item.body}`)}</p>
+                  <div className="post-body">{renderHTML(`${item.body}`)}</div>
                   <div id="postActions">
                     <div>reply</div>
                     <div>like</div>
