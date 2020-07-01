@@ -107,23 +107,23 @@ a {
 .wrapper {
   min-height: 100vh;
   padding-top: 80px;
-  @include smartphone(){
+  @include smartphone() {
     padding-top: 45px;
   }
 }
-.message-wrapper{
+.message-wrapper {
   padding-top: 80px;
-  @include smartphone(){
+  @include smartphone() {
     padding-top: 45px;
   }
 }
-.main{
-   display: grid;
+.main {
+  display: grid;
   grid-template-columns: 3fr 1fr;
   width: 95%;
   height: auto;
   margin: 2em auto 0 auto;
-  @include tablet(){
+  @include tablet() {
     display: flex;
   }
   @include smartphone() {

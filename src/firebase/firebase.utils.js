@@ -5,14 +5,14 @@ import 'firebase/auth';
 import 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBdn1cJs_5oYF8doE4vPO0CbirHoT-TER4",
-  authDomain: "we-read-african-forum.firebaseapp.com",
-  databaseURL: "https://we-read-african-forum.firebaseio.com",
-  projectId: "we-read-african-forum",
-  storageBucket: "we-read-african-forum.appspot.com",
-  messagingSenderId: "841746569390",
-  appId: "1:841746569390:web:7309e1dcf690104c29353f",
-  measurementId: "G-CQQ8G7CLFH"
+  apiKey: 'AIzaSyBdn1cJs_5oYF8doE4vPO0CbirHoT-TER4',
+  authDomain: 'we-read-african-forum.firebaseapp.com',
+  databaseURL: 'https://we-read-african-forum.firebaseio.com',
+  projectId: 'we-read-african-forum',
+  storageBucket: 'we-read-african-forum.appspot.com',
+  messagingSenderId: '841746569390',
+  appId: '1:841746569390:web:7309e1dcf690104c29353f',
+  measurementId: 'G-CQQ8G7CLFH',
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -51,11 +51,9 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
 export const userPresence = async (userAuth) => {
   const uid = auth.currentUser.uid;
-  const connectedRef = firebase
-    .database()
-    .ref('.info/connected')
+  const connectedRef = firebase.database().ref('.info/connected');
   const userStatusDatabaseRef = firebase.database().ref('/users/' + uid);
-  const presenceRef = firebase.database().ref('presence')
+  const presenceRef = firebase.database().ref('presence');
   const userStatusFirestoreRef = firebase.firestore().doc('/users/' + uid);
   const isOfflineForDatabase = {
     state: 'offline',
@@ -77,29 +75,26 @@ export const userPresence = async (userAuth) => {
     last_changed: firebase.firestore.FieldValue.serverTimestamp(),
   };
 
-
   connectedRef.on('value', function (snapshot) {
     if (snapshot.val() === false) {
       return;
     }
     const ref = presenceRef.child(uid);
     ref.set(true);
-    ref.onDisconnect().remove(err => {
+    ref.onDisconnect().remove((err) => {
       if (err !== null) {
         console.log(err);
       }
     });
-    userStatusDatabaseRef
-      .set(isOnlineForDatabase)
-      .then(function () {
-        userStatusFirestoreRef.update(isOnlineForFirestore);
-      });
+    userStatusDatabaseRef.set(isOnlineForDatabase).then(function () {
+      userStatusFirestoreRef.update(isOnlineForFirestore);
+    });
     userStatusDatabaseRef.onDisconnect().set(isOfflineForDatabase, (err) => {
       if (err !== null) {
         console.log(err);
       }
       userStatusFirestoreRef.update(isOfflineForFirestore);
-    })
+    });
   });
 };
 
@@ -117,13 +112,15 @@ export const getMemberProfiles = async () => {
 };
 
 export const updateProfile = async (userId, incomingData) => {
-  const { fullName,
+  const {
+    fullName,
     bio,
     website,
     cover,
     profile_pic,
     location,
-    signature, } = incomingData;
+    signature,
+  } = incomingData;
   const userRef = firestore.doc(`users/${userId}`);
   const snapShot = await userRef.get();
   if (snapShot.exists) {
@@ -144,6 +141,36 @@ export const updateProfile = async (userId, incomingData) => {
   }
 };
 
+export const addAComment = async ({ collection, d_ata }) => {
+  // console.log(collection, d_ata);
+  const addCommentRef = firestore.doc(`${collection}/${d_ata.post}`);
+  const newComment = [];
+  newComment.push(d_ata);
+  const snapShot = await addCommentRef.get();
+  if (!snapShot.exists) {
+    try {
+      await addCommentRef.set({
+        comments: newComment,
+      });
+      return addCommentRef;
+    } catch (error) {
+      console.log('error adding comment to database', error.message);
+    }
+  } else {
+    let oldComment = [];
+    oldComment = snapShot.data().comments;
+    oldComment.push(d_ata);
+    try {
+      await addCommentRef.update({
+        comments: oldComment,
+      });
+      return addCommentRef;
+    } catch (error) {
+      console.log('error adding comment to database', error.message);
+    }
+  }
+};
+
 const storageRef = firebase.storage().ref();
 
 export const uploadImage = async (file, loc) => {
@@ -151,73 +178,104 @@ export const uploadImage = async (file, loc) => {
     .child(`users/${auth.currentUser.uid}/${loc}/${file.name}`)
     .put(file)
     .then((snapshot) => {
-      return "success"
-    })
+      return 'success';
+    });
 };
 export const updateTopicsAdmin = async (topicData) => {
   const forumPreviewDataRef = await firestore
-    .collection('forum_preview_data').doc(`${topicData.path.split('/').join('').split(' ').join('_').toLowerCase()}`)
+    .collection('forum_preview_data')
+    .doc(
+      `${topicData.path.split('/').join('').split(' ').join('_').toLowerCase()}`
+    );
   const datObj = {
     id: topicData.id.split('/').join('').split(' ').join('_').toLowerCase(),
     description: topicData.description,
     latest_post: {},
-    post_count: 0
-  }
-  const snapShot = await forumPreviewDataRef.get()
+    post_count: 0,
+  };
+  const snapShot = await forumPreviewDataRef.get();
   if (snapShot.exists) {
-    const initialObj = { id: snapShot.data().id }
-    const initialData = [...snapShot.data().data]
+    const initialObj = { id: snapShot.data().id };
+    const initialData = [...snapShot.data().data];
     if (snapShot.data().data.length === 0) {
-      initialData.push(datObj)
-      initialObj['data'] = initialData
-      forumPreviewDataRef.set(initialObj)
-      console.log("New Sub Forum 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥");
-      return
+      initialData.push(datObj);
+      initialObj['data'] = initialData;
+      forumPreviewDataRef.set(initialObj);
+      console.log('New Sub Forum 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥');
+      return;
     } else {
-      const filterToCompare = snapShot.data().data.filter((item, index) => item.id !== topicData.id.split('/').join('').split(' ').join('_').toLowerCase())
-      let dataNotEqZero = []
+      const filterToCompare = snapShot
+        .data()
+        .data.filter(
+          (item, index) =>
+            item.id !==
+            topicData.id.split('/').join('').split(' ').join('_').toLowerCase()
+        );
+      let dataNotEqZero = [];
       if (filterToCompare.length !== snapShot.data().data.length) {
-        return
+        return;
       }
-      dataNotEqZero = snapShot.data().data
-      dataNotEqZero.push(datObj)
-      initialObj['data'] = dataNotEqZero
+      dataNotEqZero = snapShot.data().data;
+      dataNotEqZero.push(datObj);
+      initialObj['data'] = dataNotEqZero;
       // console.log("When Lenght is Not Zero🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥", initialObj);
-      forumPreviewDataRef.set(initialObj)
+      forumPreviewDataRef.set(initialObj);
     }
   } else {
-    forumPreviewDataRef.set({ id: topicData.path.split('/').join('').split(' ').join('_').toLowerCase(), data: [datObj] })
+    forumPreviewDataRef.set({
+      id: topicData.path.split('/').join('').split(' ').join('_').toLowerCase(),
+      data: [datObj],
+    });
   }
-}
+};
 // REGEX .replace(/[^\w\s]/gi, '')
-
 
 export const sendNewTopicToDatabase = async (topicData) => {
   const forumSubRef = await firestore
-    .collection('forums').doc(`${topicData.forum.split('/').join('').split(' ').join('_')}`).collection(`${topicData.subForum.split('/').join('').split(' ').join('_')}`)
-  await forumSubRef.doc().set(topicData)
+    .collection('forums')
+    .doc(`${topicData.forum.split('/').join('').split(' ').join('_')}`)
+    .collection(
+      `${topicData.subForum.split('/').join('').split(' ').join('_')}`
+    );
+  await forumSubRef.doc().set(topicData);
   const forumPreviewRef = await firestore
-    .collection('forum_preview_data').doc(`${topicData.forum.split('/').join('').split(' ').join('_')}`)
-  forumPreviewRef.get()
-    .then(async doc => {
-      const updatedArr = []
-      doc.data().data.forEach(item => {
-        console.log(item.id.split('/').join('').split(' ').join('_').toLowerCase(), topicData.subForum.split('/').join('').split(' ').join('_').toLowerCase())
-        if (item.id.split('/').join('').split(' ').join('_').toLowerCase() === topicData.subForum.split('/').join('').split(' ').join('_').toLowerCase()) {
-          item.latest_post = topicData
-          item.post_count = item.post_count + 1
-        }
-        updatedArr.push(item)
-      })
-      try {
-        await forumPreviewRef.update({ data: updatedArr });
-        return;
-      } catch (error) {
-        console.log('error updating profile', error.message);
+    .collection('forum_preview_data')
+    .doc(`${topicData.forum.split('/').join('').split(' ').join('_')}`);
+  forumPreviewRef.get().then(async (doc) => {
+    const updatedArr = [];
+    doc.data().data.forEach((item) => {
+      console.log(
+        item.id.split('/').join('').split(' ').join('_').toLowerCase(),
+        topicData.subForum
+          .split('/')
+          .join('')
+          .split(' ')
+          .join('_')
+          .toLowerCase()
+      );
+      if (
+        item.id.split('/').join('').split(' ').join('_').toLowerCase() ===
+        topicData.subForum
+          .split('/')
+          .join('')
+          .split(' ')
+          .join('_')
+          .toLowerCase()
+      ) {
+        item.latest_post = topicData;
+        item.post_count = item.post_count + 1;
       }
-    })
+      updatedArr.push(item);
+    });
+    try {
+      await forumPreviewRef.update({ data: updatedArr });
+      return;
+    } catch (error) {
+      console.log('error updating profile', error.message);
+    }
+  });
 
-  const userRef = await firestore.doc(`users/${topicData.user.id}`)
+  const userRef = await firestore.doc(`users/${topicData.user.id}`);
   const snapShot = await userRef.get();
   if (snapShot.exists) {
     let posts = [];
@@ -227,7 +285,7 @@ export const sendNewTopicToDatabase = async (topicData) => {
       await userRef.update({
         posts,
       });
-      console.log("Success");
+      console.log('Success');
 
       return;
     } catch (error) {

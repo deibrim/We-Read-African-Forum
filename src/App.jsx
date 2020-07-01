@@ -31,7 +31,6 @@ import Members from './pages/members/members';
 import Message from './pages/message/message';
 import RecentPost from './pages/recent-post/recent-post';
 
-
 class App extends React.Component {
   state = {
     isLoading: false,
@@ -59,12 +58,12 @@ class App extends React.Component {
       // this.props.setCurrentUser(userAuth);
     });
     const forumPriviewData = firestore.collection('forum_preview_data');
-    forumPriviewData.onSnapshot(async snapshot => {
-      const forums = []
-      snapshot.docs.forEach(doc => {
+    forumPriviewData.onSnapshot(async (snapshot) => {
+      const forums = [];
+      snapshot.docs.forEach((doc) => {
         forums.push(doc.data());
       });
-      this.props.setForumPreviewData(forums)
+      this.props.setForumPreviewData(forums);
     });
   }
 
@@ -80,65 +79,71 @@ class App extends React.Component {
           currentUser
             ? { paddingTop: '110px' }
             : history.location.pathname === '/notfound'
-              ? { paddingTop: 0 }
-              : { paddingTop: '160px' }
+            ? { paddingTop: 0 }
+            : { paddingTop: '160px' }
         }
       >
         {history.location.pathname === '/signin' ? null : history.location
-          .pathname === '/notfound' ? null : history.location.pathname ===
-            '/signup' ? null : (
-              <div className="showing">
-                <div className="desktop">
-                  <Header showSearch={this.handleSearchShow} />
-                </div>
-                <div className="mobile">
-                  <MobileHeader showSearch={this.handleSearchShow} />
-                </div>
-              </div>
-            )}
-        <div className={`${history.location.pathname === '/messages' ? "message-wrapper" : "wrapper"} `}>
+            .pathname === '/notfound' ? null : history.location.pathname ===
+          '/signup' ? null : (
+          <div className="showing">
+            <div className="desktop">
+              <Header showSearch={this.handleSearchShow} />
+            </div>
+            <div className="mobile">
+              <MobileHeader showSearch={this.handleSearchShow} />
+            </div>
+          </div>
+        )}
+        <div
+          className={`${
+            history.location.pathname === '/messages'
+              ? 'message-wrapper'
+              : 'wrapper'
+          } `}
+        >
           {this.state.isLoading ? (
             <Spinner />
           ) : (
-              <Switch>
-                <Route
-                  exact
-                  path="/signin"
-                  render={() =>
-                    currentUser ? <Redirect to="/" /> : <SignInPage />
-                  }
-                />
-                <Route
-                  exact
-                  path="/signup"
-                  render={() =>
-                    currentUser ? <Redirect to="/" /> : <SignUpPage />
-                  }
-                />
-                <Route exact path="/my-profile" component={UserProfilePage} />
-                <Route
-                  exact
-                  path="/edit-profile"
-                  render={() =>
-                    currentUser ? <Editprofile /> : <Redirect to="/my-profile" />
-                  }
-                />
-                <Route path="/members" component={Members} />
+            <Switch>
+              <Route
+                exact
+                path="/signin"
+                render={() =>
+                  currentUser ? <Redirect to="/" /> : <SignInPage />
+                }
+              />
+              <Route
+                exact
+                path="/signup"
+                render={() =>
+                  currentUser ? <Redirect to="/" /> : <SignUpPage />
+                }
+              />
+              <Route exact path="/my-profile" component={UserProfilePage} />
+              <Route
+                exact
+                path="/edit-profile"
+                render={() =>
+                  currentUser ? <Editprofile /> : <Redirect to="/my-profile" />
+                }
+              />
+              <Route path="/members" component={Members} />
 
-                <Route exact path="/recent-posts" component={RecentPost} />
-                <Route exact path="/messages" component={Message} />
-                <Route path="/" component={Forum} />
-                <Route component={NotFound} />
-
-              </Switch>
-            )}
+              <Route exact path="/recent-posts" component={RecentPost} />
+              <Route exact path="/messages" component={Message} />
+              <Route path="/" component={Forum} />
+              <Route component={NotFound} />
+            </Switch>
+          )}
         </div>
         {history.location.pathname === '/signin' ? null : history.location
-          .pathname === '/signup' ? null : history.location.pathname ===
-            '/notfound' ? null : history.location.pathname ===
-              '/user-profile' ? null : history.location.pathname === '/messages' ? null : (
-                <Footer />
-              )}
+            .pathname === '/signup' ? null : history.location.pathname ===
+          '/notfound' ? null : history.location.pathname ===
+          '/user-profile' ? null : history.location.pathname ===
+          '/messages' ? null : (
+          <Footer />
+        )}
       </div>
     );
   }
@@ -149,7 +154,8 @@ const mapStateToProps = createStructuredSelector({
 });
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-  setForumPreviewData: (forumPreviewData) => dispatch(setForumPreviewData(forumPreviewData))
+  setForumPreviewData: (forumPreviewData) =>
+    dispatch(setForumPreviewData(forumPreviewData)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

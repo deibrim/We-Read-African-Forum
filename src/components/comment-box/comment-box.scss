@@ -11,92 +11,48 @@ $secondaryColor: #ffffff;
 
 .comment-box {
   margin-top: 20px;
-  max-width: 500px;
-  // color: $secondaryColor;
-
-  .head {
-    cursor: pointer;
+  width: 100%;
+  form {
+    width: 100%;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 40px;
-    border: 1px solid $secondaryColor;
-    padding: 10px;
-    margin-top: 15px;
-
-    h5 {
+    textarea {
+      background: none;
+      background-color: transparent;
+      font-size: 0.9em;
+      padding: 10px 10px 10px 5px;
+      display: block;
+      width: 100%;
+      height: 40px;
+      border-radius: 0;
+      border: 1px solid #efd7d7;
+      margin: 10px 0 25px 0;
+      transition: all 0.5s;
+    }
+    .post-comment {
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 30px;
+      white-space: nowrap;
+      color: #77323b;
+      img {
+        width: 18px;
+        height: 18px;
+        margin-left: 5px;
+        margin-top: 10px;
+        &:first-child {
+          width: 40px;
+          height: 40px;
+        }
+      }
       @include smartphone() {
-        font-size: 14px;
+        width: 90%;
+        float: none;
+      }
+      &:hover {
+        transform: translateY(-2px);
       }
     }
-  }
-  .form-input {
-    background: none;
-    background-color: transparent;
-    font-size: 18px;
-    padding: 10px;
-    display: block;
-    width: 100%;
-    border: 1px solid #efd7d7;
-    margin: 10px 0 25px 0;
-  }
-
-  textarea {
-    background: none;
-    background-color: transparent;
-    font-size: 18px;
-    padding: 10px 10px 10px 5px;
-    display: block;
-    width: 100%;
-    height: 200px;
-    border-radius: 0;
-    border: 1px solid #efd7d7;
-    margin: 10px 0 25px 0;
-    transition: all 0.5s;
-  }
-  .post-comment {
-    cursor: pointer;
-    float: right;
-    margin-bottom: 20px;
-    height: 30px;
-    width: 281px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0px 45px;
-    border: 1px solid #77323b;
-    border-radius: 30px;
-    white-space: nowrap;
-    font-size: 14px;
-    color: #77323b;
-    img {
-      width: 18px;
-      height: 18px;
-      margin-left: 5px;
-    }
-    @include smartphone() {
-      width: 90%;
-      float: none;
-    }
-    &:hover {
-      transform: translateY(-2px);
-    }
-  }
-}
-.login {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 50px 0;
-  border-top: 1px solid #eab88c;
-  border-bottom: 1px solid #eab88c;
-  padding: 10px;
-  a {
-    color: $primaryColor;
-    font-size: 12px;
-    margin: 0 5px;
-    text-transform: uppercase;
-    font-weight: 500;
   }
 }
