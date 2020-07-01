@@ -40,10 +40,10 @@ const Header = ({ currentUser, showSearch, history }) => {
           <img className="icon" src={facebook} alt="Facebook Icon" />
         </div>
         <div className="brand">
-          <Link to="/">
+          <a href="https://wereadafrican.com">
             {' '}
             <img src={logo} alt="Logo" />
-          </Link>
+          </a>
         </div>
         <div className="controls">
           <span className="search">
@@ -67,8 +67,8 @@ const Header = ({ currentUser, showSearch, history }) => {
       <nav>
         <ul className="nav-links">
           <li>
-            <Link
-              to="/"
+            <a
+              href="https://wereadafrican.com"
               className="nav-link"
               style={
                 history.location.pathname === '/home'
@@ -77,11 +77,11 @@ const Header = ({ currentUser, showSearch, history }) => {
               }
             >
               Home
-            </Link>
+            </a>
           </li>
           <li>
-            <Link
-              to="/about"
+            <a
+              href="https://wereadafrican.com/#/about"
               className="nav-link"
               style={
                 history.location.pathname === '/about'
@@ -90,11 +90,11 @@ const Header = ({ currentUser, showSearch, history }) => {
               }
             >
               About
-            </Link>
+            </a>
           </li>
           <li>
-            <Link
-              to="/blog"
+            <a
+              href="https://wereadafrican.com/#/blog"
               className="nav-link"
               style={
                 history.location.pathname.includes('/blog')
@@ -103,11 +103,11 @@ const Header = ({ currentUser, showSearch, history }) => {
               }
             >
               Blog
-            </Link>
+            </a>
           </li>
           <li>
             <Link
-              to="/forum"
+              to="/"
               className="nav-link"
               style={
                 history.location.pathname.includes('/')
@@ -119,8 +119,8 @@ const Header = ({ currentUser, showSearch, history }) => {
             </Link>
           </li>
           <li>
-            <Link
-              to="/podcast"
+            <a
+              href="https://wereadafrican.com/#/podcast"
               className="nav-link"
               style={
                 history.location.pathname === '/podcast'
@@ -129,11 +129,11 @@ const Header = ({ currentUser, showSearch, history }) => {
               }
             >
               Podcast
-            </Link>
+            </a>
           </li>
           <li>
-            <Link
-              to="/contact"
+            <a
+              href="https://wereadafrican.com/#/contact"
               className="nav-link"
               style={
                 history.location.pathname === '/contact'
@@ -142,7 +142,7 @@ const Header = ({ currentUser, showSearch, history }) => {
               }
             >
               Contact
-            </Link>
+            </a>
           </li>
         </ul>
       </nav>

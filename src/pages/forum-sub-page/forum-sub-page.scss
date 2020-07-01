@@ -1,7 +1,7 @@
 $tablet: 850px;
 $smartphone: 600px;
 $primaryColor: #77323b;
-$fadedPrimary: #FDFAFA;
+$fadedPrimary: #fdfafa;
 $blackColor: #000000;
 $secondaryColor: #ffffff;
 $grey: #999999;
@@ -15,394 +15,391 @@ $grey: #999999;
 
 @mixin smartphone {
   @media (max-width: #{$smartphone}) {
-    body { 
+    body {
       background-color: red;
     }
   }
 }
 
-.tag-page { 
+.tag-page {
   width: 90%;
   margin: 1em auto;
-    #postsContainer { 
-      box-shadow: 0px 10px 10px 0px #8080800e;
-      padding: 10px 6px; 
+  #postsContainer {
+    box-shadow: 0px 10px 10px 0px #8080800e;
+    padding: 10px 6px;
+  }
+  .subHeading {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    #subDetails {
+      text-align: left;
+      h1 {
+        color: $primaryColor;
+        font-size: 2em;
+        letter-spacing: 0.01em;
+        text-transform: capitalize;
+        font-weight: 100;
+      }
+      p {
+        display: inline-block;
+        padding: 0px 0.32em;
+        text-transform: capitalize;
+        font-size: 0.6em;
+        position: relative;
+        margin-right: 2%;
+        &::before {
+          display: block;
+          content: '';
+          width: 6px;
+          height: 6px;
+          background-color: black;
+          position: absolute;
+          top: 22%;
+          right: -20%;
+          border-radius: 200px;
+        }
+      }
+      p:nth-child(4) {
+        &::before {
+          display: none;
+        }
+      }
     }
-    .subHeading {
+    #subReplyBttn {
+      cursor: pointer;
+      button {
+        width: 100%;
+        padding: 0.7em;
+        font-size: 1em;
+        text-transform: capitalize;
+        background-color: $primaryColor;
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0);
+        border-radius: 100px;
+        box-shadow: 0px 20px 30px 2px #8080805d;
+        cursor: pointer;
+        &:hover {
+          box-shadow: none;
+        }
+      }
+    }
+  }
+  #subPosts {
+    letter-spacing: 0.02em;
+    margin-top: 1em;
+    #mainPosts {
       display: grid;
-      grid-template-columns: 2fr 1fr;
-        #subDetails { 
-          text-align: left;
-            h1 { 
-              color: $primaryColor;
-              font-size: 2em;
-              letter-spacing: 0.01em;
-              text-transform: capitalize;
-              font-weight: 100;;
-            }
-            p { 
-              display: inline-block;
-              padding: 0px 0.32em;
-              text-transform: capitalize;
-              font-size: 0.6em;
-              position: relative;
-              margin-right: 2%;
-                &::before { 
-                  display: block;
-                  content: '';
-                  width: 6px;
-                  height: 6px;
-                  background-color: black;
-                  position: absolute;
-                  top: 22%;
-                  right: -20%;
-                  border-radius: 200px;
-                }
-            }
-            p:nth-child(4) { 
-              &::before { 
-                display: none;
-              }
-            }
+      grid-template-columns: 1fr 4fr;
+      gap: 2em;
+      .postData {
+        margin-top: 50%;
+        .authorImg {
+          width: 60px;
+          height: 60px;
+          display: block;
+          margin-bottom: 3em;
+          background-position: center;
+          background-size: contain;
+          background-repeat: no-repeat;
+          margin: 0 auto 0.5em auto;
+          border: 2px solid black;
+          border-radius: 200px;
         }
-        #subReplyBttn {
-          cursor: pointer;
-            button { 
-              width: 100%;
-              padding: 0.7em;
-              font-size: 1em;
-              text-transform: capitalize;
-              background-color: $primaryColor;
-              color: white;
-              border: 1px solid rgba(255, 255, 255, 0);
-              border-radius: 100px;
-              box-shadow: 0px 20px 30px 2px #8080805d;
-              cursor: pointer;
-               &:hover { 
-                 box-shadow: none;
-               }
-            }
+        h1 {
+          letter-spacing: 0;
+          color: $primaryColor;
+          font-size: 1.1em;
+          text-transform: capitalize;
         }
-    }
-    #subPosts { 
-      letter-spacing: 0.02em;
-      margin-top: 1em;
-        #mainPosts { 
+        p {
+          text-transform: capitalize;
+          font-size: 0.7em;
+        }
+        h3 {
+          font-size: 0.9em;
+          text-transform: capitalize;
+        }
+      }
+      .postMainText {
+        user-select: none;
+        position: relative;
+        .post-date-time {
+          text-align: right;
+          margin-bottom: 1em;
+          text-transform: capitalize;
+        }
+        .post-body {
+          text-align: left !important;
+          border-top: 1px solid grey;
+          border-bottom: 1px solid grey;
+          padding: 2em 0 2em 0;
+          // line-height: 2.5em;
+          text-transform: capitalize;
+          margin-bottom: 2em;
+        }
+        #postActions {
           display: grid;
-          grid-template-columns: 1fr 4fr;
-          gap: 2em;
-            .postData {
-              margin-top: 50%;
-                .authorImg { 
-                  width: 100px;
-                  height: 100px;
-                  display: block;
-                  margin-bottom: 3em;
-                  background-position: center;
-                  background-size: contain;
-                  background-repeat: no-repeat;
-                  margin: 0 auto 1em auto;
-                  border: 2px solid black;
-                  border-radius: 200px;
-                }
-                h1 { 
-                  font-size: 0.9em;
-                  letter-spacing: 0;
-                  color: $primaryColor;
-                  font-size: 1.3em;
-                  text-transform: capitalize;
-                }
-                p { 
-                  text-transform: capitalize;
-                }
-                h3 { 
-                  text-transform: capitalize;
-                  font-size: 1em;
-                }
+          grid-template-columns: repeat(6, 13%);
+          margin-bottom: 3em;
+          gap: 1em;
+          div {
+            cursor: pointer;
+            text-transform: capitalize;
+            position: relative;
+            color: $grey;
+            &::before {
+              width: 16px;
+              height: 16px;
+              display: block;
+              content: '';
+              position: absolute;
+              top: 0%;
+              left: 0;
             }
-            .postMainText { 
-              user-select: none;
-              position: relative;
-              p:nth-child(1) { 
-                text-align: right;
-                margin-bottom: 1em;
-                text-transform: capitalize;
-              }
-              p:nth-child(2) { 
-                text-align: left;
-                border-top: 1px solid grey;
-                border-bottom: 1px solid grey;
-                padding: 2em 0 2em 0;
-                line-height: 2.5em;
-                text-transform: capitalize;
-                margin-bottom: 2em;
-              }
-              #postActions { 
-                display: grid;
-                grid-template-columns: repeat(6, 13%);
-                margin-bottom: 3em;
-                gap: 1em;
-                  div { 
-                    cursor: pointer;
-                    text-transform: capitalize;
-                    position: relative;
-                    color: $grey;
-                      &::before { 
-                        width: 16px;
-                        height: 16px;
-                        display: block;
-                        content: '';
-                        position: absolute;
-                        top: 0%;
-                        left: 0;
-                      }
-                  }
-                  div:nth-child(1) { 
-                    &::before { 
-                      background: url('../../assets/iconsWeird/reply.svg');
-                      background-position: center;
-                      background-size: contain;
-                      background-repeat: no-repeat;
-                    }
-                  }
-                  div:nth-child(2) { 
-                    &::before { 
-                      background: url('../../assets/iconsWeird/like.svg');
-                      background-position: center;
-                      background-size: contain;
-                      background-repeat: no-repeat;
-                    }
-                  }
-                  div:nth-child(3) { 
-                    &::before { 
-                      background: url('../../assets/iconsWeird/save.svg');
-                      background-position: center;
-                      background-size: contain;
-                      background-repeat: no-repeat;
-                    }
-                  }
-                  div:nth-child(4) { 
-                    &::before { 
-                      background: url('../../assets/iconsWeird/more.svg');
-                      background-position: center;
-                      background-size: contain;
-                      background-repeat: no-repeat;
-                    }
-                  }
-                  div:nth-child(5) { 
-                    &::before { 
-                      background: url('../../assets/iconsWeird/edit.svg');
-                      background-position: center;
-                      background-size: contain;
-                      background-repeat: no-repeat;
-                    }
-                  }
-                  div:nth-child(6) { 
-                    &::before { 
-                      background: url('../../assets/iconsWeird/report.svg');
-                      background-position: center;
-                      background-size: contain;
-                      background-repeat: no-repeat;
-                    }
-                  }
-              }
-              .editDelBttns { 
-                transition: all 2s;
-                background-color: whitesmoke;
-                padding: 1em 1em;
-                width: 60%;
-                display: flex;
-                gap: 3em;
-                width: max-content;
-                padding-right: 80px;
-                color: $grey;
-                position: absolute;
-                bottom: 20%;
-                left: 50%;
-                border: 1px solid black;
-                  div { 
-                    cursor: pointer;
-                    position: relative;
-                    padding-left: 20%;
-                      &::before { 
-                        width: 16px;
-                        height: 16px;
-                        display: block;
-                        content: '';
-                        background-color: red;
-                        position: absolute;
-                        top: 0%;
-                        left: 0;
-                        cursor: pointer;
-                      }
-                  }
-                  div:nth-child(1) { 
-                      &::before { 
-                        background: url('../../assets/iconsWeird/edit.svg');
-                        background-position: center;
-                        background-size: contain;
-                        background-repeat: no-repeat;
-                      }
-                  }
-                  div:nth-child(2) { 
-                    &::before { 
-                      background: url('../../assets/iconsWeird/report.svg');
-                      background-position: center;
-                      background-size: contain;
-                      background-repeat: no-repeat;
-                    }
-                }
-              }
+          }
+          div:nth-child(1) {
+            &::before {
+              background: url('../../assets/iconsWeird/reply.svg');
+              background-position: center;
+              background-size: contain;
+              background-repeat: no-repeat;
             }
+          }
+          div:nth-child(2) {
+            &::before {
+              background: url('../../assets/iconsWeird/like.svg');
+              background-position: center;
+              background-size: contain;
+              background-repeat: no-repeat;
+            }
+          }
+          div:nth-child(3) {
+            &::before {
+              background: url('../../assets/iconsWeird/save.svg');
+              background-position: center;
+              background-size: contain;
+              background-repeat: no-repeat;
+            }
+          }
+          div:nth-child(4) {
+            &::before {
+              background: url('../../assets/iconsWeird/more.svg');
+              background-position: center;
+              background-size: contain;
+              background-repeat: no-repeat;
+            }
+          }
+          div:nth-child(5) {
+            &::before {
+              background: url('../../assets/iconsWeird/edit.svg');
+              background-position: center;
+              background-size: contain;
+              background-repeat: no-repeat;
+            }
+          }
+          div:nth-child(6) {
+            &::before {
+              background: url('../../assets/iconsWeird/report.svg');
+              background-position: center;
+              background-size: contain;
+              background-repeat: no-repeat;
+            }
+          }
         }
+        .editDelBttns {
+          transition: all 2s;
+          background-color: whitesmoke;
+          padding: 1em 1em;
+          width: 60%;
+          display: flex;
+          gap: 3em;
+          width: max-content;
+          padding-right: 80px;
+          color: $grey;
+          position: absolute;
+          bottom: 20%;
+          left: 50%;
+          border: 1px solid black;
+          div {
+            cursor: pointer;
+            position: relative;
+            padding-left: 20%;
+            &::before {
+              width: 16px;
+              height: 16px;
+              display: block;
+              content: '';
+              background-color: red;
+              position: absolute;
+              top: 0%;
+              left: 0;
+              cursor: pointer;
+            }
+          }
+          div:nth-child(1) {
+            &::before {
+              background: url('../../assets/iconsWeird/edit.svg');
+              background-position: center;
+              background-size: contain;
+              background-repeat: no-repeat;
+            }
+          }
+          div:nth-child(2) {
+            &::before {
+              background: url('../../assets/iconsWeird/report.svg');
+              background-position: center;
+              background-size: contain;
+              background-repeat: no-repeat;
+            }
+          }
+        }
+      }
     }
+  }
 }
 
 //Mobile responsive cocde
-@media (min-width: 320px) and (max-width: 480px) { 
-  .tag-page { 
-     
-      #postsContainer { 
-        box-shadow: 0px 10px 10px 0px #8080800e;
-        padding: 0px 2px; 
-          .subHeading { 
-            display: block;
-              #subDetails { 
-                h1 { 
-                  font-size: 22px;
-                  margin-bottom: 0.81em;
-                }
-                p { 
-                  margin-bottom: 2em;
-                  padding: 0 0.3em;
-                  width: 27%;
-                  text-align: center;
-                  border-right: 1px solid black;
-                  font-size: 0.7em;
-                    &::before { 
-                      display: none;
-                    } 
-                }
-              }
-              #subReplyBttn { 
-                width: 50%;
-                font-size: 0.8em;
-              }
+@media (min-width: 320px) and (max-width: 480px) {
+  .tag-page {
+    #postsContainer {
+      box-shadow: 0px 10px 10px 0px #8080800e;
+      padding: 0px 2px;
+      .subHeading {
+        display: block;
+        #subDetails {
+          h1 {
+            font-size: 22px;
+            margin-bottom: 0.81em;
           }
-          #subPosts { 
-            #mainPosts { 
-              display: block;
-              width: 100%;
-                .postData { 
-                  margin-top: 3em;
-                  display: grid;
-                  grid-template-columns: 1fr 4fr;
-                  gap: 1em;
-                  margin-bottom: 2em;
-                    .authorImg { 
-                      margin: 0;
-                    }
-                    div { 
-                      text-align: left;
-                      padding-top: 7%;
-                    }
-                }
-                .postMainText { 
-                  padding-bottom: 5%;
-                    p:nth-child(1) { 
-                      text-align: left;
-                    }
-
-                    #postActions { 
-                      grid-template-columns: repeat(6, 13%);
-                      padding: 0 1em;
-                        div { 
-                          font-size: 12px;
-                          padding-left: 6%;
-                            &::before { 
-                              width: 10px;
-                              height: 10px;
-                              left: -23%;
-                            }
-                        }
-                    }
-                }
+          p {
+            margin-bottom: 2em;
+            padding: 0 0.3em;
+            width: 27%;
+            text-align: center;
+            border-right: 1px solid black;
+            font-size: 0.7em;
+            &::before {
+              display: none;
             }
           }
+        }
+        #subReplyBttn {
+          width: 50%;
+          font-size: 0.8em;
+        }
       }
+      #subPosts {
+        #mainPosts {
+          display: block;
+          width: 100%;
+          .postData {
+            margin-top: 3em;
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+            gap: 1em;
+            margin-bottom: 2em;
+            .authorImg {
+              margin: 0;
+            }
+            div {
+              text-align: left;
+              padding-top: 7%;
+            }
+          }
+          .postMainText {
+            padding-bottom: 5%;
+            p:nth-child(1) {
+              text-align: left;
+            }
+
+            #postActions {
+              grid-template-columns: repeat(6, 13%);
+              padding: 0 1em;
+              div {
+                font-size: 12px;
+                padding-left: 6%;
+                &::before {
+                  width: 10px;
+                  height: 10px;
+                  left: -23%;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
 
-
 //Tabslets responsive cocde
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) { 
-     
-      #postsContainer { 
-        box-shadow: 0px 10px 10px 0px #8080800e;
-        padding: 0px 2px; 
-          .subHeading { 
-            display: block;
-              #subDetails { 
-                h1 { 
-                  font-size: 22px;
-                  margin-bottom: 0.81em;
-                }
-                p { 
-                  margin-bottom: 2em;
-                  padding: 0 0.3em;
-                  width: 27%;
-                  text-align: center;
-                  border-right: 1px solid black;
-                  font-size: 0.7em;
-                    &::before { 
-                      display: none;
-                    } 
-                }
-              }
-              #subReplyBttn { 
-                width: 50%;
-                font-size: 0.8em;
-              }
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  #postsContainer {
+    box-shadow: 0px 10px 10px 0px #8080800e;
+    padding: 0px 2px;
+    .subHeading {
+      display: block;
+      #subDetails {
+        h1 {
+          font-size: 22px;
+          margin-bottom: 0.81em;
+        }
+        p {
+          margin-bottom: 2em;
+          padding: 0 0.3em;
+          width: 27%;
+          text-align: center;
+          border-right: 1px solid black;
+          font-size: 0.7em;
+          &::before {
+            display: none;
           }
-          #subPosts { 
-            #mainPosts { 
-              display: block;
-              width: 100%;
-                .postData { 
-                  margin-top: 3em;
-                  display: grid;
-                  grid-template-columns: 1fr 4fr;
-                  gap: 1em;
-                  margin-bottom: 2em;
-                    .authorImg { 
-                      margin: 0;
-                    }
-                    div { 
-                      text-align: left;
-                      padding-top: 7%;
-                    }
-                }
-                .postMainText { 
-                  padding-bottom: 5%;
-                    p:nth-child(1) { 
-                      text-align: left;
-                    }
+        }
+      }
+      #subReplyBttn {
+        width: 50%;
+        font-size: 0.8em;
+      }
+    }
+    #subPosts {
+      #mainPosts {
+        display: block;
+        width: 100%;
+        .postData {
+          margin-top: 3em;
+          display: grid;
+          grid-template-columns: 1fr 4fr;
+          gap: 1em;
+          margin-bottom: 2em;
+          .authorImg {
+            margin: 0;
+          }
+          div {
+            text-align: left;
+            padding-top: 7%;
+          }
+        }
+        .postMainText {
+          padding-bottom: 5%;
+          p:nth-child(1) {
+            text-align: left;
+          }
 
-                    #postActions { 
-                      grid-template-columns: repeat(6, 13%);
-                      padding: 0 1em;
-                        div { 
-                          font-size: 12px;
-                          padding-left: 0%;
-                            &::before {
-                              width: 10px;
-                              height: 10px;
-                              left: 10%;
-                            }
-                        }
-                    }
-                }
+          #postActions {
+            grid-template-columns: repeat(6, 13%);
+            padding: 0 1em;
+            div {
+              font-size: 12px;
+              padding-left: 0%;
+              &::before {
+                width: 10px;
+                height: 10px;
+                left: 10%;
+              }
             }
           }
+        }
       }
+    }
   }
+}

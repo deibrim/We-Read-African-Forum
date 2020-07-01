@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-import ForgotPassword from '../../components/forgot-password/forgot-password';
 import SignIn from '../../components/sign-in/sign-in';
 import instagram from '../../assets/socials/instagram.svg';
 import twitter from '../../assets/socials/twitter.svg';
@@ -9,8 +8,8 @@ import facebook from '../../assets/socials/facebook.svg';
 import backArrow from '../../assets/backArrow.svg';
 import weR from '../../assets/weR.svg';
 import pattern from '../../assets/pattern.svg';
-
 import './sign-in-page.scss';
+import ForgotPassword from '../../components/forgot-password/forgot-password';
 
 const SignInPage = () => {
   const [isShow, setisShow] = useState(false);

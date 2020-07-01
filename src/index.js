@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import App from './App';
-import ComingSoon from './pages/coming-soon/coming-soon';
+import App from './App';
 // import * as serviceWorker from './serviceWorker';
 import { HashRouter as Router } from 'react-router-dom';
 import ScrollMemory from 'react-router-scroll-memory';
@@ -10,7 +9,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './redux/store';
 import './index.css';
 
-
 ReactDOM.render(
   <Provider store={store}>
     <Router>
@@ -18,7 +16,7 @@ ReactDOM.render(
         <ScrollMemory />
         <PersistGate persistor={persistor}>
           {/* <React.StrictMode> */}
-          <ComingSoon />
+          <App />
           {/* </React.StrictMode> */}
         </PersistGate>
       </div>
