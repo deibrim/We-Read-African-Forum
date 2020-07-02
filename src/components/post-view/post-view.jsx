@@ -150,9 +150,6 @@ const PostView = ({ item, currentUser, history, match }) => {
                   Report
                 </div>
               </div>
-              {showCommentBox ? (
-                <CommentBox url={match.url} postId={item.id} />
-              ) : null}
               {comments.length !== 0 && (
                 <Comments
                   comments={comments.comments}
@@ -160,6 +157,9 @@ const PostView = ({ item, currentUser, history, match }) => {
                   postId={item.id}
                 />
               )}
+              {showCommentBox ? (
+                <CommentBox url={match.url} postId={item.id} />
+              ) : null}
             </div>
           </div>
         </div>

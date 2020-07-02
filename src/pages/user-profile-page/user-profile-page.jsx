@@ -79,6 +79,9 @@ const UserProfilePage = ({ currentUser, history, setCurrentUser }) => {
               <span className="demacator">|</span>
               <StarRating rating={2} />
             </div>
+            <div className="role">
+              {currentUser.isAdmin && <span>Admin</span>}
+            </div>
             <div className="desc">
               <span className="bio">
                 {currentUser.bio ? currentUser.bio : ''}

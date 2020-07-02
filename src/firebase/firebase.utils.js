@@ -38,6 +38,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         rating: 1,
         posts: [],
         isAdmin: false,
+        isGrandAdmin: false,
         emailVerified,
         ...additionalData,
       });

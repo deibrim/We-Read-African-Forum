@@ -10,7 +10,8 @@ $secondaryColor: #ffffff;
 }
 
 .comment-box {
-  margin-top: 20px;
+  margin-top: 10px;
+  max-width: 40vw;
   width: 100%;
   form {
     width: 100%;
@@ -21,12 +22,16 @@ $secondaryColor: #ffffff;
       font-size: 0.9em;
       padding: 10px 10px 10px 5px;
       display: block;
-      width: 100%;
+      width: 40vw;
       height: 40px;
       border-radius: 0;
-      border: 1px solid #efd7d7;
+      border: none;
+      border-bottom: 2px solid #efd7d7;
       margin: 10px 0 25px 0;
       transition: all 0.5s;
+      &:focus {
+        outline: none;
+      }
     }
     .post-comment {
       cursor: pointer;
@@ -37,14 +42,10 @@ $secondaryColor: #ffffff;
       white-space: nowrap;
       color: #77323b;
       img {
-        width: 18px;
-        height: 18px;
         margin-left: 5px;
-        margin-top: 10px;
-        &:first-child {
-          width: 40px;
-          height: 40px;
-        }
+        margin-top: 15px;
+        width: 30px;
+        height: 30px;
       }
       @include smartphone() {
         width: 90%;

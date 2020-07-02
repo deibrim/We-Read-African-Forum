@@ -19,7 +19,7 @@ $secondaryColor: #ffffff;
 
 .comments {
   // max-width: 500px;
-  margin-top: 20px;
+  // padding: 0 10px;
   // color: #ffffff;
 
   .head {
@@ -37,8 +37,9 @@ $secondaryColor: #ffffff;
     }
 
     h5 {
+      font-size: 0.9em;
       @include smartphone() {
-        font-size: 14px;
+        font-size: 0.8em;
       }
     }
     .post-comment {

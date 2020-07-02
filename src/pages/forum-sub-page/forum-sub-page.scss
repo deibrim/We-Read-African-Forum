@@ -140,7 +140,7 @@ $grey: #999999;
         #postActions {
           display: grid;
           grid-template-columns: repeat(6, 13%);
-          margin-bottom: 3em;
+          // margin-bottom: 3em;
           gap: 1em;
           div {
             cursor: pointer;
