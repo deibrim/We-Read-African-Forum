@@ -1,0 +1,33 @@
+$smartphone-width: 600px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone-width}) {
+    @content;
+  }
+}
+
+.reply-comment-box {
+  margin-top: 20px;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  .form-input {
+    background: none;
+    background-color: transparent;
+    font-size: 15px;
+    padding: 10px;
+    display: block;
+    width: 100%;
+    border: 1px solid #efd7d7;
+    border-radius: 5px;
+  }
+}

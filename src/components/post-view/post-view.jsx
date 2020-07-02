@@ -1,16 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import renderHTML from 'react-render-html';
-import { firestore } from '../../firebase/firebase.utils';
+import { firestore, getComment } from '../../firebase/firebase.utils';
 import CommentBox from '../../components/comment-box/comment-box';
-const PostView = ({ item, currentUser, history }) => {
+import Comments from '../../components/comments/comments';
+const PostView = ({ item, currentUser, history, match }) => {
   let [showEditBttns, setshowEditBttns] = useState(false);
   let [showCommentBox, toggleCommentBox] = useState(false);
   let [user, setUser] = useState({ user: null });
+  let [comments, setComments] = useState({ comments: [] });
   useEffect(() => {
     const getUserProfile = async () => {
       const userRef = firestore.doc(`users/${item.user.id}`);
       const snapShot = await userRef.get();
       setUser({ user: snapShot.data() });
+      const commentRef = await firestore
+        .collection('forums')
+        .doc(`${match.url.split('/')[1]}`)
+        .collection(`${match.url.split('/')[2]}`)
+        .doc(`${item.id}`)
+        .collection('comments');
+      const comments = [];
+      commentRef.onSnapshot((snapShot) => {
+        snapShot.docs.forEach((item) => {
+          comments.push(item.data());
+          setComments({ comments: comments });
+        });
+      });
     };
     getUserProfile();
   }, []);
@@ -106,7 +121,7 @@ const PostView = ({ item, currentUser, history }) => {
               </p>
               <div className="post-body">{renderHTML(`${item.body}`)}</div>
               <div id="postActions">
-                <div>reply</div>
+                <div onClick={handleToggleCommentBox}>reply</div>
                 <div>like</div>
                 <div>Save</div>
                 <div
@@ -135,7 +150,16 @@ const PostView = ({ item, currentUser, history }) => {
                   Report
                 </div>
               </div>
-              {showCommentBox ? <CommentBox /> : null}
+              {showCommentBox ? (
+                <CommentBox url={match.url} postId={item.id} />
+              ) : null}
+              {comments.length !== 0 && (
+                <Comments
+                  comments={comments.comments}
+                  url={match.url}
+                  postId={item.id}
+                />
+              )}
             </div>
           </div>
         </div>

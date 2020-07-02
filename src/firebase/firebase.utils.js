@@ -141,32 +141,63 @@ export const updateProfile = async (userId, incomingData) => {
   }
 };
 
-export const addAComment = async ({ collection, d_ata }) => {
-  // console.log(collection, d_ata);
-  const addCommentRef = firestore.doc(`${collection}/${d_ata.post}`);
-  const newComment = [];
-  newComment.push(d_ata);
-  const snapShot = await addCommentRef.get();
-  if (!snapShot.exists) {
+export const addAComment = async ({ collection, d_ata, postId }) => {
+  const commentRef = await firestore
+    .collection('forums')
+    .doc(`${collection.split('/')[1]}`)
+    .collection(`${collection.split('/')[2]}`)
+    .doc(`${postId}`)
+    .collection('comments')
+    .doc(`${d_ata.id}`);
+  commentRef.set(d_ata);
+};
+export const getComment = async ({ collection, postId }) => {
+  // const forumSubRef = await firestore
+  //   .collection('forums')
+  //   .doc(`${collection.split('/')[1]}`)
+  //   .collection(`${collection.split('/')[2]}`)
+  //   .where('id', '==', `${postId}`);
+  // return forumSubRef.get().then((snapshot) => {
+  //   snapshot.forEach(async (doc) => {
+
+  //   });
+  // });
+  const commentRef = await firestore
+    .collection('forums')
+    .doc(`${collection.split('/')[1]}`)
+    .collection(`${collection.split('/')[2]}`)
+    .doc(`${postId}`)
+    .collection('comments');
+  const comments = [];
+  commentRef.onSnapshot((snapShot) => {
+    snapShot.docs.forEach((item) => {
+      comments.push(item.data());
+      return comments;
+    });
+  });
+};
+export const addAReply = async ({ collection, d_ata, commentId, postId }) => {
+  const commentRef = await firestore
+    .collection('forums')
+    .doc(`${collection.split('/')[1]}`)
+    .collection(`${collection.split('/')[2]}`)
+    .doc(`${postId}`)
+    .collection('comments')
+    .doc(`${commentId}`);
+  const snapShot = await commentRef.get();
+  if (snapShot.exists) {
+    let replies = [];
+    replies = snapShot.data().replies;
+    replies.push(d_ata);
     try {
-      await addCommentRef.set({
-        comments: newComment,
+      await commentRef.update({
+        replies,
       });
-      return addCommentRef;
+      console.log('Success');
+
+      return;
     } catch (error) {
-      console.log('error adding comment to database', error.message);
-    }
-  } else {
-    let oldComment = [];
-    oldComment = snapShot.data().comments;
-    oldComment.push(d_ata);
-    try {
-      await addCommentRef.update({
-        comments: oldComment,
-      });
-      return addCommentRef;
-    } catch (error) {
-      console.log('error adding comment to database', error.message);
+      console.log('error updating profile', error.message);
     }
   }
 };
@@ -237,7 +268,7 @@ export const sendNewTopicToDatabase = async (topicData) => {
     .collection(
       `${topicData.subForum.split('/').join('').split(' ').join('_')}`
     );
-  await forumSubRef.doc().set(topicData);
+  await forumSubRef.doc(topicData.id).set(topicData);
   const forumPreviewRef = await firestore
     .collection('forum_preview_data')
     .doc(`${topicData.forum.split('/').join('').split(' ').join('_')}`);
@@ -280,7 +311,11 @@ export const sendNewTopicToDatabase = async (topicData) => {
   if (snapShot.exists) {
     let posts = [];
     posts = snapShot.data().posts;
-    posts.push(topicData);
+    posts.push({
+      id: topicData.id,
+      forum: topicData.forum.split('/').join('').split(' ').join('_'),
+      sub_forum: topicData.subForum.split('/').join('').split(' ').join('_'),
+    });
     try {
       await userRef.update({
         posts,

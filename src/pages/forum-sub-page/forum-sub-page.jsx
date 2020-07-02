@@ -7,7 +7,6 @@ import PostView from '../../components/post-view/post-view';
 
 const ForumSubPage = ({ match, history, currentUser }) => {
   const [state, setState] = useState({ posts: [] });
-
   useEffect(() => {
     const fetchData = async () => {
       const subCategoryPostsRef = await firestore
@@ -40,6 +39,7 @@ const ForumSubPage = ({ match, history, currentUser }) => {
         <PostView
           key={index}
           item={item}
+          match={match}
           currentUser={currentUser}
           history={history}
         />

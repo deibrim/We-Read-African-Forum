@@ -18,19 +18,15 @@ const MembersView = ({ members, currentUser }) => {
         <span className="info">Member Info</span>
         <span className="joined_at">Registered Date</span>
       </div>
-      {currentUser ? (
-        <div className="member-preview-container">
-          {members ? (
-            members
-              .filter((item, index) => currentUser.id !== item.id)
-              .map((item, index) => <MemberPreview key={index} data={item} />)
-          ) : (
-            <Spinner />
-          )}
-        </div>
-      ) : (
-        <Spinner />
-      )}
+      <div className="member-preview-container">
+        {members ? (
+          members.map((item, index) => (
+            <MemberPreview key={index} data={item} />
+          ))
+        ) : (
+          <Spinner />
+        )}
+      </div>
 
       <ForumStatistics />
     </div>
