@@ -3,9 +3,11 @@ import renderHTML from 'react-render-html';
 import { firestore, getComment } from '../../firebase/firebase.utils';
 import CommentBox from '../../components/comment-box/comment-box';
 import Comments from '../../components/comments/comments';
+import EditPost from '../edit-post/edit-post';
 const PostView = ({ item, currentUser, history, match }) => {
   let [showEditBttns, setshowEditBttns] = useState(false);
   let [showCommentBox, toggleCommentBox] = useState(false);
+  let [showEditPostBox, toggleEditPostBox] = useState(false);
   let [user, setUser] = useState({ user: null });
   let [comments, setComments] = useState({ comments: [] });
   useEffect(() => {
@@ -29,6 +31,7 @@ const PostView = ({ item, currentUser, history, match }) => {
     };
     getUserProfile();
   }, []);
+
   let months = [
     'jan',
     'feb',
@@ -74,6 +77,14 @@ const PostView = ({ item, currentUser, history, match }) => {
   };
   return (
     <div>
+      {showEditPostBox && (
+        <EditPost
+          url={match.url}
+          postId={item.id}
+          toggleEditPostBox={toggleEditPostBox}
+          body={item.body}
+        />
+      )}
       <div id="postsContainer" style={{ marginBottom: '3em' }}>
         <div className="subHeading">
           <div id="subDetails">
@@ -137,6 +148,9 @@ const PostView = ({ item, currentUser, history, match }) => {
                   id="more"
                   style={{
                     display: showEditBttns ? 'block' : 'none',
+                  }}
+                  onClick={() => {
+                    toggleEditPostBox(true);
                   }}
                 >
                   Edit
