@@ -121,34 +121,11 @@ const PostView = ({ item, currentUser, history, match }) => {
               </p>
               <div className="post-body">{renderHTML(`${item.body}`)}</div>
               <div id="postActions">
-                <div onClick={handleToggleCommentBox}>reply</div>
-                <div>like</div>
-                <div>Save</div>
-                <div
-                  onClick={() =>
-                    showEditBttns
-                      ? setshowEditBttns(false)
-                      : setshowEditBttns(true)
-                  }
-                >
-                  More
-                </div>
-                <div
-                  id="more"
-                  style={{
-                    display: showEditBttns ? 'block' : 'none',
-                  }}
-                >
-                  Edit
-                </div>
-                <div
-                  id="more"
-                  style={{
-                    display: showEditBttns ? 'block' : 'none',
-                  }}
-                >
-                  Report
-                </div>
+                <p>reply</p>
+                <p>like</p>
+                <p>move</p>
+                <p>edit</p>
+                <p>report</p>
               </div>
               {comments.length !== 0 && (
                 <Comments
