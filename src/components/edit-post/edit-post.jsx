@@ -12,15 +12,11 @@ import 'suneditor/dist/css/suneditor.min.css';
 import './edit-post.scss';
 class EditPost extends React.Component {
   state = {
-    body: this.props.body ? this.props.body : '',
+    body: '',
     isLoading: false,
     errorMessage: '',
   };
-  componentDidMount() {
-    console.log(renderHTML(this.props.body));
 
-    this.handleChange(renderHTML(this.props.body));
-  }
   handleChange = (content) => {
     this.setState({ body: content });
   };
@@ -32,15 +28,14 @@ class EditPost extends React.Component {
       .collection(`${this.props.url.split('/')[2]}`)
       .doc(`${this.props.postId}`);
     const snapShot = await postRef.get();
-    console.log(snapShot.exists);
-    // if (snapShot.exists) {
-    //   try {
-    //     await postRef.update({ body: this.state.body });
-    //   } catch (error) {
-    //     console.log('An error occure while editing post', error.message);
-    //   }
-    // }
-    // this.setState({ isLoading: !this.setState.isLoading });
+    if (snapShot.exists) {
+      try {
+        await postRef.update({ body: this.state.body });
+      } catch (error) {
+        console.log('An error occure while editing post', error.message);
+      }
+    }
+    this.setState({ isLoading: !this.setState.isLoading });
     this.props.toggleEditPostBox(false);
   };
 
@@ -54,6 +49,7 @@ class EditPost extends React.Component {
         <div className="post-editor">
           <h4>Edit Post</h4>
           <SunEditor
+            setContents={this.props.body}
             onChange={this.handleChange}
             enableToolbar={true}
             showToolbar={true}

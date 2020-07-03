@@ -152,30 +152,37 @@ export const addAComment = async ({ collection, d_ata, postId }) => {
     .doc(`${d_ata.id}`);
   commentRef.set(d_ata);
 };
-export const getComment = async ({ collection, postId }) => {
-  // const forumSubRef = await firestore
-  //   .collection('forums')
-  //   .doc(`${collection.split('/')[1]}`)
-  //   .collection(`${collection.split('/')[2]}`)
-  //   .where('id', '==', `${postId}`);
-  // return forumSubRef.get().then((snapshot) => {
-  //   snapshot.forEach(async (doc) => {
-
-  //   });
-  // });
-  const commentRef = await firestore
-    .collection('forums')
-    .doc(`${collection.split('/')[1]}`)
-    .collection(`${collection.split('/')[2]}`)
-    .doc(`${postId}`)
-    .collection('comments');
-  const comments = [];
-  commentRef.onSnapshot((snapShot) => {
-    snapShot.docs.forEach((item) => {
-      comments.push(item.data());
-      return comments;
-    });
-  });
+export const reportPost = async (post, user) => {
+  const reportData = {
+    author: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      profile_pic: user.profile_pic,
+    },
+    id: post.id,
+    name: post.name,
+    report_count: 1,
+    route: post.route,
+  };
+  const reportRef = await firestore
+    .collection('reported-posts')
+    .doc(`${post.id}`);
+  const snapShot = await reportRef.get();
+  if (snapShot.exists) {
+    const previousReportCount = snapShot.data().report_count;
+    try {
+      reportRef.update({ report_count: previousReportCount + 1 });
+    } catch (error) {
+      console.log('', error);
+    }
+  } else {
+    try {
+      reportRef.set(reportData);
+    } catch (error) {
+      console.log('', error);
+    }
+  }
 };
 export const addAReply = async ({ collection, d_ata, commentId, postId }) => {
   const commentRef = await firestore

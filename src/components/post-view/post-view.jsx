@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import renderHTML from 'react-render-html';
-import { firestore, getComment } from '../../firebase/firebase.utils';
+import { firestore, reportPost } from '../../firebase/firebase.utils';
 import CommentBox from '../../components/comment-box/comment-box';
 import Comments from '../../components/comments/comments';
 import EditPost from '../edit-post/edit-post';
@@ -75,6 +75,18 @@ const PostView = ({ item, currentUser, history, match }) => {
     }
     toggleCommentBox(!showCommentBox);
   };
+  const handleReportPost = () => {
+    reportPost(
+      { name: item.title, id: item.id, route: match.url },
+      {
+        id: user.user.id,
+        email: user.user.email,
+        name: user.user.displayName,
+        profile_pic: user.user.profile_pic,
+      }
+    );
+  };
+
   return (
     <div>
       {showEditPostBox && (
@@ -132,37 +144,25 @@ const PostView = ({ item, currentUser, history, match }) => {
               </p>
               <div className="post-body">{renderHTML(`${item.body}`)}</div>
               <div id="postActions">
-                <div onClick={handleToggleCommentBox}>reply</div>
-                <div>like</div>
-                <div>Save</div>
-                <div
+                <p>reply</p>
+                <p>like</p>
+                <p
                   onClick={() =>
                     showEditBttns
                       ? setshowEditBttns(false)
                       : setshowEditBttns(true)
                   }
                 >
-                  More
-                </div>
-                <div
-                  id="more"
-                  style={{
-                    display: showEditBttns ? 'block' : 'none',
-                  }}
+                  move
+                </p>
+                <p
                   onClick={() => {
                     toggleEditPostBox(true);
                   }}
                 >
-                  Edit
-                </div>
-                <div
-                  id="more"
-                  style={{
-                    display: showEditBttns ? 'block' : 'none',
-                  }}
-                >
-                  Report
-                </div>
+                  edit
+                </p>
+                <p onClick={handleReportPost}>report</p>
               </div>
               {comments.length !== 0 && (
                 <Comments
