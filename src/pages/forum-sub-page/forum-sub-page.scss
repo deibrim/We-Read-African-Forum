@@ -25,7 +25,7 @@ $grey: #999999;
   width: 90%;
   margin: 1em auto;
   #postsContainer {
-    box-shadow: 0px 10px 10px 0px #8080800e;
+    box-shadow: 0px 0px 10px 0px #8080802d;
     padding: 10px 6px;
   }
   .subHeading {
@@ -138,11 +138,12 @@ $grey: #999999;
           margin-bottom: 2em;
         }
         #postActions {
+          width: 60%;
           display: grid;
-          grid-template-columns: repeat(6, 13%);
+          grid-template-columns: repeat(5, 20%);
           // margin-bottom: 3em;
           gap: 1em;
-          div {
+          p {
             cursor: pointer;
             text-transform: capitalize;
             position: relative;
@@ -157,7 +158,7 @@ $grey: #999999;
               left: 0;
             }
           }
-          div:nth-child(1) {
+          p:nth-child(1) {
             &::before {
               background: url('../../assets/iconsWeird/reply.svg');
               background-position: center;
@@ -165,7 +166,7 @@ $grey: #999999;
               background-repeat: no-repeat;
             }
           }
-          div:nth-child(2) {
+          p:nth-child(2) {
             &::before {
               background: url('../../assets/iconsWeird/like.svg');
               background-position: center;
@@ -173,23 +174,15 @@ $grey: #999999;
               background-repeat: no-repeat;
             }
           }
-          div:nth-child(3) {
+          p:nth-child(3) {
             &::before {
-              background: url('../../assets/iconsWeird/save.svg');
+              background: url('../../assets/iconsWeird/move.svg');
               background-position: center;
               background-size: contain;
               background-repeat: no-repeat;
             }
           }
-          div:nth-child(4) {
-            &::before {
-              background: url('../../assets/iconsWeird/more.svg');
-              background-position: center;
-              background-size: contain;
-              background-repeat: no-repeat;
-            }
-          }
-          div:nth-child(5) {
+          p:nth-child(4) {
             &::before {
               background: url('../../assets/iconsWeird/edit.svg');
               background-position: center;
@@ -197,7 +190,7 @@ $grey: #999999;
               background-repeat: no-repeat;
             }
           }
-          div:nth-child(6) {
+          p:nth-child(5) {
             &::before {
               background: url('../../assets/iconsWeird/report.svg');
               background-position: center;
@@ -313,15 +306,18 @@ $grey: #999999;
             }
 
             #postActions {
-              grid-template-columns: repeat(6, 13%);
+              grid-template-columns: repeat(6, 17%);
               padding: 0 1em;
-              div {
-                font-size: 12px;
+              width: 100%;
+              p {
+                font-size: 17px;
                 padding-left: 6%;
+                color: transparent;
                 &::before {
-                  width: 10px;
-                  height: 10px;
+                  width: 17px;
+                  height: 17px;
                   left: -23%;
+                  top: 20%;
                 }
               }
             }
@@ -333,7 +329,7 @@ $grey: #999999;
 }
 
 //Tabslets responsive cocde
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+@media only screen and (min-device-width: 768px) and (max-device-width: 1424px) {
   #postsContainer {
     box-shadow: 0px 10px 10px 0px #8080800e;
     padding: 0px 2px;
@@ -357,7 +353,7 @@ $grey: #999999;
         }
       }
       #subReplyBttn {
-        width: 50%;
+        width: 90%;
         font-size: 0.8em;
       }
     }
@@ -388,13 +384,16 @@ $grey: #999999;
           #postActions {
             grid-template-columns: repeat(6, 13%);
             padding: 0 1em;
-            div {
-              font-size: 12px;
-              padding-left: 0%;
+            width: 100%;
+            p {
+              font-size: 16px;
+              padding-left: 20%;
+              width: fit-content;
               &::before {
-                width: 10px;
-                height: 10px;
-                left: 10%;
+                width: 14px;
+                height: 14px;
+                left: 0%;
+                top: 15%;
               }
             }
           }
