@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { setCurrentUser } from '../../redux/user/user.actions';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { auth } from '../../firebase/firebase.utils';
 import posts from '../../assets/activities/posts.svg';
@@ -16,9 +17,10 @@ import MemberActivityBox from '../../components/member-activity-box/member-activ
 import ForumSideBar from '../../components/ForumSideBar/ForumSideBar';
 import './user-profile-page.scss';
 import Spinner from '../../components/spinner/spinner';
-const UserProfilePage = ({ currentUser, history }) => {
+const UserProfilePage = ({ currentUser, history, setCurrentUser }) => {
   const handleSignout = () => {
     auth.signOut();
+    setCurrentUser(null);
     history.push(`/`);
   };
   return (
@@ -76,6 +78,9 @@ const UserProfilePage = ({ currentUser, history }) => {
               <span>Member</span>
               <span className="demacator">|</span>
               <StarRating rating={2} />
+            </div>
+            <div className="role">
+              {currentUser.isAdmin && <span>Admin</span>}
             </div>
             <div className="desc">
               <span className="bio">
@@ -147,4 +152,9 @@ const UserProfilePage = ({ currentUser, history }) => {
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
 });
-export default withRouter(connect(mapStateToProps)(UserProfilePage));
+const mapDispatchToProps = (disaptch) => ({
+  setCurrentUser: (user) => disaptch(setCurrentUser(user)),
+});
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(UserProfilePage)
+);

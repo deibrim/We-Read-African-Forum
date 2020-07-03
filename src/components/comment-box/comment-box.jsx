@@ -24,19 +24,22 @@ class CommentBox extends Component {
   addComment = async (event) => {
     this.setState({ isLoading: true });
     event.preventDefault();
-    const { title, category, currentUser } = this.props;
+    const { currentUser } = this.props;
     const { newComment } = this.state;
     if (newComment.trim() === '') return;
     const d_ata = {
       id: GenerateId(),
       name: currentUser.displayName,
       text: newComment,
-      photo: currentUser.photoURL ? currentUser.photoURL : null,
-      post: title.toLowerCase(),
+      photo: currentUser.profile_pic ? currentUser.profile_pic : '',
       date: Date.now(),
       replies: [],
     };
-    await addAComment({ collection: category, d_ata });
+    await addAComment({
+      collection: this.props.url,
+      d_ata,
+      postId: this.props.postId,
+    });
     this.setState({
       newComment: '',
       isLoading: false,
