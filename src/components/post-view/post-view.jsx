@@ -75,6 +75,39 @@ const PostView = ({ item, currentUser, history, match }) => {
     }
     toggleCommentBox(!showCommentBox);
   };
+  const handleLikePost = async () => { 
+     const likepost = await firestore
+      .collection('forums')
+      .doc(`${match.url.split('/')[1]}`)
+      .collection(`${match.url.split('/')[2]}`)
+      .doc(`${item.id}`)
+
+     const likeSnapShot = await likepost.get();
+     if(likeSnapShot.exists) { 
+       console.log(likeSnapShot.data().likers);
+       let likers = likeSnapShot.data().likers.length === 0 ? [] : likeSnapShot.data().likers;
+       let likes = likeSnapShot.data().likes;
+       
+       likers.forEach(async item => { 
+         if(item !== currentUser.id) { 
+          likers.push(currentUser.id);
+          likes += 1;
+          console.log('works')
+         }
+         else { 
+           console.log('failed')
+         }
+        console.log(likers, likes);
+        // try { 
+        //   await likepost.update({likers: likers, likes: likes })
+        // }
+        // catch { 
+        //   return;
+        // }
+       });
+     }
+  };
+
   const handleReportPost = () => {
     reportPost(
       { name: item.title, id: item.id, route: match.url },
@@ -145,7 +178,10 @@ const PostView = ({ item, currentUser, history, match }) => {
               <div className="post-body">{renderHTML(`${item.body}`)}</div>
               <div id="postActions">
                 <p>reply</p>
-                <p>like</p>
+                <p 
+                  onClick={handleLikePost}
+                >like
+                </p>
                 <p
                   onClick={() =>
                     showEditBttns
