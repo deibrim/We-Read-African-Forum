@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import renderHTML from 'react-render-html';
-import { firestore, getComment } from '../../firebase/firebase.utils';
+import { firestore, reportPost } from '../../firebase/firebase.utils';
 import CommentBox from '../../components/comment-box/comment-box';
 import Comments from '../../components/comments/comments';
+import EditPost from '../edit-post/edit-post';
 const PostView = ({ item, currentUser, history, match }) => {
   let [showEditBttns, setshowEditBttns] = useState(false);
   let [showCommentBox, toggleCommentBox] = useState(false);
+  let [showEditPostBox, toggleEditPostBox] = useState(false);
   let [user, setUser] = useState({ user: null });
   let [comments, setComments] = useState({ comments: [] });
   useEffect(() => {
@@ -29,6 +31,7 @@ const PostView = ({ item, currentUser, history, match }) => {
     };
     getUserProfile();
   }, []);
+
   let months = [
     'jan',
     'feb',
@@ -72,8 +75,28 @@ const PostView = ({ item, currentUser, history, match }) => {
     }
     toggleCommentBox(!showCommentBox);
   };
+  const handleReportPost = () => {
+    reportPost(
+      { name: item.title, id: item.id, route: match.url },
+      {
+        id: user.user.id,
+        email: user.user.email,
+        name: user.user.displayName,
+        profile_pic: user.user.profile_pic,
+      }
+    );
+  };
+
   return (
     <div>
+      {showEditPostBox && (
+        <EditPost
+          url={match.url}
+          postId={item.id}
+          toggleEditPostBox={toggleEditPostBox}
+          body={item.body}
+        />
+      )}
       <div id="postsContainer" style={{ marginBottom: '3em' }}>
         <div className="subHeading">
           <div id="subDetails">
@@ -123,9 +146,23 @@ const PostView = ({ item, currentUser, history, match }) => {
               <div id="postActions">
                 <p>reply</p>
                 <p>like</p>
-                <p>move</p>
-                <p>edit</p>
-                <p>report</p>
+                <p
+                  onClick={() =>
+                    showEditBttns
+                      ? setshowEditBttns(false)
+                      : setshowEditBttns(true)
+                  }
+                >
+                  move
+                </p>
+                <p
+                  onClick={() => {
+                    toggleEditPostBox(true);
+                  }}
+                >
+                  edit
+                </p>
+                <p onClick={handleReportPost}>report</p>
               </div>
               {comments.length !== 0 && (
                 <Comments
