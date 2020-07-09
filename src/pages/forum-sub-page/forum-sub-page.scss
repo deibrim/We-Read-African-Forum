@@ -143,6 +143,14 @@ $grey: #999999;
           grid-template-columns: repeat(5, 20%);
           // margin-bottom: 3em;
           gap: 1em;
+          #liketrue { 
+              &::before { 
+                background: url('../../assets/iconsWeird/postlike.svg');
+                background-position: center;
+                background-size: contain;
+                background-repeat: no-repeat;
+              }
+          }
           p {
             cursor: pointer;
             text-transform: capitalize;

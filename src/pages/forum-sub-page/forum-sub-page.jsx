@@ -33,17 +33,41 @@ const ForumSubPage = ({ match, history, currentUser }) => {
     fetchData();
   }, []);
 
+  const checkLikedState = (likers) => { 
+    let likestate;
+    if(currentUser) { 
+      likers.forEach(item => { 
+        if(item === currentUser.id) { 
+          likestate = true
+        }
+        else { 
+          likestate = false
+        }
+      })
+    }
+
+    return likestate;
+  } 
+
+  let [userlikescurrentpost, setuserlikescurrentpost] = useState(false);
   return (
     <div className="tag-page">
-      {state.posts.map((item, index) => (
-        <PostView
-          key={index}
-          item={item}
-          match={match}
-          currentUser={currentUser}
-          history={history}
-        />
-      ))}
+      {state.posts.map((item, index) => { 
+        let userLiked = checkLikedState(item.likers);
+        console.log(userLiked);
+        return ( 
+          <PostView
+            key={index}
+            item={item}
+            match={match}
+            currentUser={currentUser}
+            history={history}
+            likers={item.likers}
+            id={(userLiked) ? 'true' : 'false'}
+            likenum={item.likes}
+         />
+        )
+      })}
     </div>
   );
 };

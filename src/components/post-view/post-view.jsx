@@ -4,7 +4,9 @@ import { firestore, reportPost } from '../../firebase/firebase.utils';
 import CommentBox from '../../components/comment-box/comment-box';
 import Comments from '../../components/comments/comments';
 import EditPost from '../edit-post/edit-post';
-const PostView = ({ item, currentUser, history, match }) => {
+import firebase from '../../firebase/firebase.utils';
+
+const PostView = ({likenum, item, currentUser, history, match, id }) => {
   let [showEditBttns, setshowEditBttns] = useState(false);
   let [showCommentBox, toggleCommentBox] = useState(false);
   let [showEditPostBox, toggleEditPostBox] = useState(false);
@@ -76,6 +78,12 @@ const PostView = ({ item, currentUser, history, match }) => {
     toggleCommentBox(!showCommentBox);
   };
   const handleLikePost = async () => { 
+     let likerpoststate = true;
+     item.likers.forEach(item => { 
+       if(item === currentUser.id) { 
+         likerpoststate = false;
+       }
+     });
      const likepost = await firestore
       .collection('forums')
       .doc(`${match.url.split('/')[1]}`)
@@ -84,27 +92,26 @@ const PostView = ({ item, currentUser, history, match }) => {
 
      const likeSnapShot = await likepost.get();
      if(likeSnapShot.exists) { 
-       console.log(likeSnapShot.data().likers);
+      //  console.log(likeSnapShot.data());
        let likers = likeSnapShot.data().likers.length === 0 ? [] : likeSnapShot.data().likers;
        let likes = likeSnapShot.data().likes;
-       
-       likers.forEach(async item => { 
-         if(item !== currentUser.id) { 
-          likers.push(currentUser.id);
-          likes += 1;
-          console.log('works')
+       if(likerpoststate) { 
+         if(likeSnapShot.data().likers.length === 0) { 
+            likepost.update({likers: [currentUser.id], likes: likes+1});
          }
          else { 
-           console.log('failed')
+          likers.forEach(item => { 
+            if(item !== currentUser.id) { 
+              likepost.update({likers: [...likeSnapShot.data().likers, currentUser.id], likes: likes+1});
+            }
+          })
          }
-        console.log(likers, likes);
-        // try { 
-        //   await likepost.update({likers: likers, likes: likes })
-        // }
-        // catch { 
-        //   return;
-        // }
-       });
+       }
+       else { 
+         let newLikersArr = likers.filter(item => item !== currentUser.id);
+         console.log(newLikersArr);
+        likepost.update({likers: newLikersArr, likes: likes-1});
+       }
      }
   };
 
@@ -130,7 +137,7 @@ const PostView = ({ item, currentUser, history, match }) => {
           body={item.body}
         />
       )}
-      <div id="postsContainer" style={{ marginBottom: '3em' }}>
+      <div id="postsContainer" style={{ marginBottom: '3em' }} className={id}>
         <div className="subHeading">
           <div id="subDetails">
             <h1>{item.title}</h1>
@@ -180,7 +187,9 @@ const PostView = ({ item, currentUser, history, match }) => {
                 <p>reply</p>
                 <p 
                   onClick={handleLikePost}
-                >like
+                  id={`like${id}`}
+                >
+                  {likenum}
                 </p>
                 <p
                   onClick={() =>
