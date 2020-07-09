@@ -184,6 +184,7 @@ export const reportPost = async (post, user) => {
     }
   }
 };
+
 export const addAReply = async ({ collection, d_ata, commentId, postId }) => {
   const commentRef = await firestore
     .collection('forums')

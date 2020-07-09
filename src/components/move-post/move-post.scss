@@ -1,0 +1,86 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+.move-post-container {
+  background-color: #00000080;
+  min-height: calc(100vh);
+  display: flex;
+  justify-content: center;
+  //   align-items: center;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 10;
+
+  .move-post {
+    background-color: $secondaryColor;
+    padding: 20px;
+    text-align: left;
+    h1 {
+      font-size: 1.5em;
+      text-align: center;
+      margin-bottom: 0.5em;
+    }
+    .bar {
+      background-color: $primaryColor;
+      color: $secondaryColor;
+      padding: 0.2em 0.5em;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-width: 300px;
+      margin: 10px 0;
+      h3 {
+        font-size: 1.1em;
+      }
+      svg {
+        width: 20px;
+        height: 100%;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+    }
+    ul {
+      li {
+        padding: 0.3em 0;
+        padding-left: 0.6em;
+        margin: 0.3em;
+        font-size: 0.9em;
+        border: 1px solid $secondaryColor;
+        cursor: pointer;
+        &:hover {
+          border-color: $primaryColor;
+        }
+      }
+    }
+  }
+}
+.error {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: #ff00008a;
+  color: #ff0000;
+  padding: 3px 10px;
+  border-radius: 3px;
+  font-weight: 600;
+  z-index: 99;
+}

@@ -4,10 +4,12 @@ import { firestore, reportPost } from '../../firebase/firebase.utils';
 import CommentBox from '../../components/comment-box/comment-box';
 import Comments from '../../components/comments/comments';
 import EditPost from '../edit-post/edit-post';
+import MovePost from '../move-post/move-post';
 const PostView = ({ item, currentUser, history, match }) => {
-  let [showEditBttns, setshowEditBttns] = useState(false);
+  // let [showEditBttns, setshowEditBttns] = useState(false);
   let [showCommentBox, toggleCommentBox] = useState(false);
   let [showEditPostBox, toggleEditPostBox] = useState(false);
+  let [showMovePostBox, toggleMovePostBox] = useState(false);
   let [user, setUser] = useState({ user: null });
   let [comments, setComments] = useState({ comments: [] });
   useEffect(() => {
@@ -97,6 +99,13 @@ const PostView = ({ item, currentUser, history, match }) => {
           body={item.body}
         />
       )}
+      {showMovePostBox && (
+        <MovePost
+          url={match.url}
+          post={item}
+          toggleMovePostBox={toggleMovePostBox}
+        />
+      )}
       <div id="postsContainer" style={{ marginBottom: '3em' }}>
         <div className="subHeading">
           <div id="subDetails">
@@ -146,15 +155,7 @@ const PostView = ({ item, currentUser, history, match }) => {
               <div id="postActions">
                 <p>reply</p>
                 <p>like</p>
-                <p
-                  onClick={() =>
-                    showEditBttns
-                      ? setshowEditBttns(false)
-                      : setshowEditBttns(true)
-                  }
-                >
-                  move
-                </p>
+                <p onClick={() => toggleMovePostBox(true)}>move</p>
                 <p
                   onClick={() => {
                     toggleEditPostBox(true);
