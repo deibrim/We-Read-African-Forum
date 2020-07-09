@@ -129,7 +129,6 @@ class App extends React.Component {
                 }
               />
               <Route path="/members" component={Members} />
-
               <Route exact path="/recent-posts" component={RecentPost} />
               <Route exact path="/messages" component={Message} />
               <Route path="/" component={Forum} />
