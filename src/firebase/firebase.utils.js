@@ -221,6 +221,20 @@ export const uploadImage = async (file, loc) => {
       return 'success';
     });
 };
+export const updateForumNamesAdmin = async (topicData) => {
+  const forumPreviewDataRef = await firestore
+    .collection('forum_names')
+    .doc(`reader's_hub`);
+  forumPreviewDataRef.set({
+    name: `Reader's Hub`,
+    sub_forum: [
+      'Book Blogs - Discuss your reading',
+      'Reading Challenges',
+      'General Book Discussions',
+      'Competitions & Giveaways',
+    ],
+  });
+};
 export const updateTopicsAdmin = async (topicData) => {
   const forumPreviewDataRef = await firestore
     .collection('forum_preview_data')

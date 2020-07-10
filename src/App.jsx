@@ -30,6 +30,7 @@ import Forum from './pages/forum/forum';
 import Members from './pages/members/members';
 import Message from './pages/message/message';
 import RecentPost from './pages/recent-post/recent-post';
+import Admin from './pages/admin/admin';
 
 class App extends React.Component {
   state = {
@@ -54,8 +55,6 @@ class App extends React.Component {
         });
         userPresence();
       }
-      // updateTopicsAdmin({ path: `The Library Shelves`, id: `Horror / Fantasy / Sci-Fi`, description: `Grab a coffee and discuss all topics non book related!` })
-      // this.props.setCurrentUser(userAuth);
     });
     const forumPriviewData = firestore.collection('forum_preview_data');
     forumPriviewData.onSnapshot(async (snapshot) => {
@@ -67,9 +66,9 @@ class App extends React.Component {
     });
   }
 
-  // componentWillUnmount() {
-  //   this.unSubscribeFromAuth();
-  // }
+  componentWillUnmount() {
+    this.unSubscribeFromAuth();
+  }
   render() {
     const { currentUser, history } = this.props;
     return (
@@ -128,8 +127,13 @@ class App extends React.Component {
                   currentUser ? <Editprofile /> : <Redirect to="/my-profile" />
                 }
               />
-              <Route path="/members" component={Members} />
 
+              {!currentUser
+                ? null
+                : currentUser.isAdmin && (
+                    <Route path="/admin" component={Admin} />
+                  )}
+              <Route path="/members" component={Members} />
               <Route exact path="/recent-posts" component={RecentPost} />
               <Route exact path="/messages" component={Message} />
               <Route path="/" component={Forum} />

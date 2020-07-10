@@ -1,12 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { Link, withRouter } from 'react-router-dom';
 import './forum-sub-nav.scss';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
 class ForumSubNav extends React.Component {
   state = {
     isLoading: true,
   };
   render() {
-    const { history } = this.props;
+    const { history, currentUser } = this.props;
     return (
       <div className="sub-nav">
         <ul className="sub-nav-links">
@@ -75,10 +78,31 @@ class ForumSubNav extends React.Component {
               Messages
             </Link>
           </li>
+          {!currentUser
+            ? null
+            : currentUser.isAdmin && (
+                <li>
+                  <Link
+                    to="/admin"
+                    className="sub-nav-link"
+                    style={
+                      history.location.pathname === '/admin'
+                        ? { borderBottom: '3px solid #77323b' }
+                        : { border: 'none' }
+                    }
+                  >
+                    Admin
+                  </Link>
+                </li>
+              )}
         </ul>
       </div>
     );
   }
 }
 
-export default withRouter(ForumSubNav);
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+});
+
+export default withRouter(connect(mapStateToProps)(ForumSubNav));
